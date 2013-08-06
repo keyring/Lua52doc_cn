@@ -10,19 +10,19 @@ HTML {
 	BACKGROUND-COLOR: #f8f8f8
 }
 BODY {
-	BORDER-BOTTOM: #a0a0a0 1px solid; TEXT-ALIGN: justify; BORDER-LEFT: #a0a0a0 1px solid; PADDING-BOTTOM: 26px; BACKGROUND-COLOR: #ffffff; MARGIN: 16px; PADDING-LEFT: 26px; PADDING-RIGHT: 26px; FONT-FAMILY: Helvetica, Arial, sans-serif; COLOR: #000000; BORDER-TOP: #a0a0a0 1px solid; BORDER-RIGHT: #a0a0a0 1px solid; PADDING-TOP: 26px; border-radius: 20px
+	BORDER-BOTTOM: #a0a0a0 1px solid; TEXT-ALIGN: justify; BORDER-LEFT: #a0a0a0 1px solid; PADDING-BOTTOM: 26px; BACKGROUND-COLOR: #ffffff; MARGIN: 16px; PADDING-LEFT: 26px; PADDING-RIGHT: 26px; FONT-FAMILY: Helvetica, Microsoft YaHei; COLOR: #000000; BORDER-TOP: #a0a0a0 1px solid; BORDER-RIGHT: #a0a0a0 1px solid; PADDING-TOP: 26px; border-radius: 20px
 }
 H1 {
-	FONT-STYLE: normal; FONT-FAMILY: Verdana, Geneva, sans-serif; FONT-WEIGHT: normal
+	FONT-STYLE: normal; FONT-FAMILY: Helvetica, Microsoft YaHei; FONT-WEIGHT: normal
 }
 H2 {
-	FONT-STYLE: normal; FONT-FAMILY: Verdana, Geneva, sans-serif; FONT-WEIGHT: normal
+	FONT-STYLE: normal; FONT-FAMILY:  Helvetica, Microsoft YaHei, sans-serif; FONT-WEIGHT: normal
 }
 H3 {
-	FONT-STYLE: normal; FONT-FAMILY: Verdana, Geneva, sans-serif; FONT-WEIGHT: normal
+	FONT-STYLE: normal; FONT-FAMILY: Helvetica, Microsoft YaHei, sans-serif; FONT-WEIGHT: normal
 }
 H4 {
-	FONT-STYLE: normal; FONT-FAMILY: Verdana, Geneva, sans-serif; FONT-WEIGHT: normal
+	FONT-STYLE: normal; FONT-FAMILY: Helvetica, Microsoft YaHei, sans-serif;  FONT-WEIGHT: normal
 }
 H1 {
 	FONT-STYLE: italic
@@ -152,90 +152,58 @@ Lua是自由软件,
 
 
 <p>
-就像任何参考手册一样，这份文档某些地方有点枯燥。关于Lua背后设计思想的探讨，可以看看Lua网站上的技术论文。而关于Lua编程的细节介绍，参阅Roberto的书，<em>Programming in Lua</em>（当前最新是第三版）。
+就像任何参考手册一样，这份文档某些地方有点枯燥。关于Lua背后设计思想的探讨，可以看看Lua官方网站上的技术论文。至于Lua编程的详细介绍，请参阅Roberto的书，<em>Programming in Lua</em>（当前最新是第三版）。
 
 
 <h1>2 &ndash; <a name="2">基本概念</a></h1>
 
 <p>
-本章节介绍语言里的基本概念。
+本章节介绍Lua语言里的基本概念。
 
 <h2>2.1 &ndash; <a name="2.1">值与类型</a></h2>
 
 <p>
-Lua是一门<em>动态类型语言</em>。这意味着变量没有类型，只有值。Lua没有类型定义。由值来携带自身的类型。
+Lua是一门<em>动态类型语言</em>。这意味着变量没有类型，只有值。Lua没有类型定义。由值本身携带自己的类型信息。
 
 <p>
-All values in Lua are <em>first-class values</em>.
-This means that all values can be stored in variables,
-passed as arguments to other functions, and returned as results.
-
+Lua中的所有值均是<em>第一类值（first-class values）</em>。这意味着所有的值均可存于变量中，也可作为参数传递给其他函数，也可作为结果被返回。
 
 <p>
-There are eight basic types in Lua:
-<em>nil</em>, <em>boolean</em>, <em>number</em>,
-<em>string</em>, <em>function</em>, <em>userdata</em>,
-<em>thread</em>, and <em>table</em>.
-<em>Nil</em> is the type of the value <b>nil</b>,
-whose main property is to be different from any other value;
-it usually represents the absence of a useful value.
-<em>Boolean</em> is the type of the values <b>false</b> and <b>true</b>.
-Both <b>nil</b> and <b>false</b> make a condition false;
-any other value makes it true.
-<em>Number</em> represents real (double-precision floating-point) numbers.
-Operations on numbers follow the same rules of
-the underlying C&nbsp;implementation,
-which, in turn, usually follows the IEEE 754 standard.
-(It is easy to build Lua interpreters that use other
-internal representations for numbers,
-such as single-precision floats or long integers;
-see file <code>luaconf.h</code>.)
-<em>String</em> represents immutable sequences of bytes.
-
-Lua is 8-bit clean:
-strings can contain any 8-bit value,
-including embedded zeros ('<code>\0</code>').
-
+Lua中有八种基本类型：
+<em>nil（空）</em>、<em>boolean（布尔）</em>、 <em>number（数字）</em>
+<em>string（字符串）</em>、 <em>function（函数）</em>、 <em>userdata（用户数据）</em>、
+<em>thread（线程）</em>和<em>table（表）</em>。
 
 <p>
-Lua can call (and manipulate) functions written in Lua and
-functions written in C
-(see <a href="#3.4.9">&sect;3.4.9</a>).
-
+<em>Nil</em> 类型只有值 <b>nil</b>，主要用于标识与其他值的不同；通常代表无意义的值。
 
 <p>
-The type <em>userdata</em> is provided to allow arbitrary C&nbsp;data to
-be stored in Lua variables.
-A userdata value is a pointer to a block of raw memory.
-There are two kinds of userdata:
-full userdata, where the block of memory is managed by Lua,
-and light userdata, where the block of memory is managed by the host.
-Userdata has no predefined operations in Lua,
-except assignment and identity test.
-By using <em>metatables</em>,
-the programmer can define operations for full userdata values
-(see <a href="#2.4">&sect;2.4</a>).
-Userdata values cannot be created or modified in Lua,
-only through the C&nbsp;API.
-This guarantees the integrity of data owned by the host program.
-
+<em>Boolean</em> 类型只有两种值 <b>false</b> 和 <b>true</b>。
+<b>nil</b> 和 <b>false</b> 都表示条件为假；而其他任何值均为真。
 
 <p>
-The type <em>thread</em> represents independent threads of execution
-and it is used to implement coroutines (see <a href="#2.6">&sect;2.6</a>).
-Do not confuse Lua threads with operating-system threads.
-Lua supports coroutines on all systems,
-even those that do not support threads.
-
+<em>Number</em> 表示实数（双精度浮点数）。
+数字间的运算操作与底层C实现遵循相同的规则，一般就是IEEE 754标准。（使用内部其他数字类型如单精度浮点或长整型重新编译一个Lua解释器非常容易；详见<code> luaconf.h </code>文件。）
 
 <p>
-The type <em>table</em> implements associative arrays,
-that is, arrays that can be indexed not only with numbers,
-but with any Lua value except <b>nil</b> and NaN
-(<em>Not a Number</em>, a special numeric value used to represent
-undefined or unrepresentable results, such as <code>0/0</code>).
-Tables can be <em>heterogeneous</em>;
-that is, they can contain values of all types (except <b>nil</b>).
+<em>String</em> 代表字节串。Lua is 8-bit clean：字符串可以包含任意8-bit的值，包括 '<code>\0</code>' 。
+
+<p>
+Lua 可以调用（操作）用&nbsp;Lua&nbsp;和&nbsp;C&nbsp;写的<em> Function </em>（详见 <a href="#3.4.9">&sect;3.4.9</a>）。
+
+<p>
+<em>userdata</em> 类型用来将任意&nbsp;C&nbsp;数据保存在&nbsp;Lua&nbsp;变量中。
+一个&nbsp;userdata&nbsp;类型的值就是一块原生内存的指针。 &nbsp;userdata&nbsp;分两类：full userdata 和 light userdata ，前者的内存块由 Lua 管理；后者的内存块由 host 管理。
+Userdata 在 Lua 中除了赋值与鉴定测试便没有其他预定义操作了。但是通过使用<em> metatables（元表）</em>，程序员可以为 full userdata 类型的值自定义操作（详见 <a href="#2.4">&sect;2.4</a>）。
+Userdata 类型的值不能在 Lua 中创建与修改，只能通过 C&nbsp;API。这样保证了宿主程序能完全掌管其中的数据。
+
+<p>
+<em>thread</em> 代表独立的执行线程，用于实现 coroutines（协同程序）（参见 <a href="#2.6">&sect;2.6</a>）。不要把 Lua 线程与操作系统线程搞混。Lua 在所有系统上均支持 coroutines，即使系统并不支持 threads 。
+
+<p>
+<em>table</em> 类型实现关联数组。也就是说，数组可以用任何 Lua 值（除了<b>nil</b> and NaN
+(<em>Not a Number</em>）作索引，而不仅限于数字。
+Tables 可以包含所有类型的值（除了<b>nil</b>）。
 Any key with value <b>nil</b> is not considered part of the table.
 Conversely, any key that is not part of a table has
 an associated value <b>nil</b>.
