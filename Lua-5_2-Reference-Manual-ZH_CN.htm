@@ -10,7 +10,7 @@ HTML {
 	BACKGROUND-COLOR: #f8f8f8
 }
 BODY {
-	BORDER-BOTTOM: #a0a0a0 1px solid; TEXT-ALIGN: justify; BORDER-LEFT: #a0a0a0 1px solid; PADDING-BOTTOM: 26px; BACKGROUND-COLOR: #ffffff; MARGIN: 16px; PADDING-LEFT: 26px; PADDING-RIGHT: 26px; FONT-FAMILY: Helvetica, Microsoft YaHei; COLOR: #000000; BORDER-TOP: #a0a0a0 1px solid; BORDER-RIGHT: #a0a0a0 1px solid; PADDING-TOP: 26px; border-radius: 20px
+	BORDER-BOTTOM: #a0a0a0 1px solid; TEXT-ALIGN: justify; BORDER-LEFT: #a0a0a0 1px solid; PADDING-BOTTOM: 26px; BACKGROUND-COLOR: #ffffff; MARGIN: 16px; PADDING-LEFT: 26px; PADDING-RIGHT: 26px; FONT-FAMILY: Helvetica, Arial,  Microsoft YaHei; COLOR: #000000; BORDER-TOP: #a0a0a0 1px solid; BORDER-RIGHT: #a0a0a0 1px solid; PADDING-TOP: 26px; border-radius: 20px
 }
 H1 {
 	FONT-STYLE: normal; FONT-FAMILY: Helvetica, Microsoft YaHei; FONT-WEIGHT: normal
@@ -97,7 +97,6 @@ UL + H1 {
 
 </style>
 
-
 </head>
 
 <body>
@@ -119,19 +118,503 @@ Freely available under the terms of the
 </small>
 <hr>
 <p>
-keyring (译) keyrings@163.com
-<!--
-<a href="contents.html#contents">contents</A>
-&middot;
-<a href="contents.html#index">index</A>
-&middot;
-<a href="../">other versions</A>
--->
+keyring (译)   keyrings@163.com
 <!-- ====================================================================== -->
 <p>
 
 <!-- $Id: manual.of,v 1.103 2013/03/14 18:51:56 roberto Exp $ -->
 
+<P>
+<A HREF="#1">开始</A>
+&middot;
+<A HREF="#contents">目录</A>
+&middot;
+<A HREF="#index">Index</A>
+<HR>
+
+<H2><A NAME="contents">目录</A></H2>
+<UL style="padding: 0">
+<LI><A HREF="#1">1 &ndash; 简介</A>
+<P>
+<LI><A HREF="#2">2 &ndash; 基本概念</A>
+<UL>
+<LI><A HREF="#2.1">2.1 &ndash; 值与类型</A>
+<LI><A HREF="#2.2">2.2 &ndash; Environments and the Global Environment</A>
+<LI><A HREF="#2.3">2.3 &ndash; Error Handling</A>
+<LI><A HREF="#2.4">2.4 &ndash; Metatables and Metamethods</A>
+<LI><A HREF="#2.5">2.5 &ndash; Garbage Collection</A>
+<UL>
+<LI><A HREF="#2.5.1">2.5.1 &ndash; Garbage-Collection Metamethods</A>
+<LI><A HREF="#2.5.2">2.5.2 &ndash; Weak Tables</A>
+</UL>
+<LI><A HREF="#2.6">2.6 &ndash; Coroutines</A>
+</UL>
+<P>
+<LI><A HREF="#3">3 &ndash; The Language</A>
+<UL>
+<LI><A HREF="#3.1">3.1 &ndash; Lexical Conventions</A>
+<LI><A HREF="#3.2">3.2 &ndash; Variables</A>
+<LI><A HREF="#3.3">3.3 &ndash; Statements</A>
+<UL>
+<LI><A HREF="#3.3.1">3.3.1 &ndash; Blocks</A>
+<LI><A HREF="#3.3.2">3.3.2 &ndash; Chunks</A>
+<LI><A HREF="#3.3.3">3.3.3 &ndash; Assignment</A>
+<LI><A HREF="#3.3.4">3.3.4 &ndash; Control Structures</A>
+<LI><A HREF="#3.3.5">3.3.5 &ndash; For Statement</A>
+<LI><A HREF="#3.3.6">3.3.6 &ndash; Function Calls as Statements</A>
+<LI><A HREF="#3.3.7">3.3.7 &ndash; Local Declarations</A>
+</UL>
+<LI><A HREF="#3.4">3.4 &ndash; Expressions</A>
+<UL>
+<LI><A HREF="#3.4.1">3.4.1 &ndash; Arithmetic Operators</A>
+<LI><A HREF="#3.4.2">3.4.2 &ndash; Coercion</A>
+<LI><A HREF="#3.4.3">3.4.3 &ndash; Relational Operators</A>
+<LI><A HREF="#3.4.4">3.4.4 &ndash; Logical Operators</A>
+<LI><A HREF="#3.4.5">3.4.5 &ndash; Concatenation</A>
+<LI><A HREF="#3.4.6">3.4.6 &ndash; The Length Operator</A>
+<LI><A HREF="#3.4.7">3.4.7 &ndash; Precedence</A>
+<LI><A HREF="#3.4.8">3.4.8 &ndash; Table Constructors</A>
+<LI><A HREF="#3.4.9">3.4.9 &ndash; Function Calls</A>
+<LI><A HREF="#3.4.10">3.4.10 &ndash; Function Definitions</A>
+</UL>
+<LI><A HREF="#3.5">3.5 &ndash; Visibility Rules</A>
+</UL>
+<P>
+<LI><A HREF="#4">4 &ndash; The Application Program Interface</A>
+<UL>
+<LI><A HREF="#4.1">4.1 &ndash; The Stack</A>
+<LI><A HREF="#4.2">4.2 &ndash; Stack Size</A>
+<LI><A HREF="#4.3">4.3 &ndash; Valid and Acceptable Indices</A>
+<LI><A HREF="#4.4">4.4 &ndash; C Closures</A>
+<LI><A HREF="#4.5">4.5 &ndash; Registry</A>
+<LI><A HREF="#4.6">4.6 &ndash; Error Handling in C</A>
+<LI><A HREF="#4.7">4.7 &ndash; Handling Yields in C</A>
+<LI><A HREF="#4.8">4.8 &ndash; Functions and Types</A>
+<LI><A HREF="#4.9">4.9 &ndash; The Debug Interface</A>
+</UL>
+<P>
+<LI><A HREF="#5">5 &ndash; The Auxiliary Library</A>
+<UL>
+<LI><A HREF="#5.1">5.1 &ndash; Functions and Types</A>
+</UL>
+<P>
+<LI><A HREF="#6">6 &ndash; Standard Libraries</A>
+<UL>
+<LI><A HREF="#6.1">6.1 &ndash; Basic Functions</A>
+<LI><A HREF="#6.2">6.2 &ndash; Coroutine Manipulation</A>
+<LI><A HREF="#6.3">6.3 &ndash; Modules</A>
+<LI><A HREF="#6.4">6.4 &ndash; String Manipulation</A>
+<UL>
+<LI><A HREF="#6.4.1">6.4.1 &ndash; Patterns</A>
+</UL>
+<LI><A HREF="#6.5">6.5 &ndash; Table Manipulation</A>
+<LI><A HREF="#6.6">6.6 &ndash; Mathematical Functions</A>
+<LI><A HREF="#6.7">6.7 &ndash; Bitwise Operations</A>
+<LI><A HREF="#6.8">6.8 &ndash; Input and Output Facilities</A>
+<LI><A HREF="#6.9">6.9 &ndash; Operating System Facilities</A>
+<LI><A HREF="#6.10">6.10 &ndash; The Debug Library</A>
+</UL>
+<P>
+<LI><A HREF="#7">7 &ndash; Lua Standalone</A>
+<P>
+<LI><A HREF="#8">8 &ndash; Incompatibilities with the Previous Version</A>
+<UL>
+<LI><A HREF="#8.1">8.1 &ndash; Changes in the Language</A>
+<LI><A HREF="#8.2">8.2 &ndash; Changes in the Libraries</A>
+<LI><A HREF="#8.3">8.3 &ndash; Changes in the API</A>
+</UL>
+<P>
+<LI><A HREF="#9">9 &ndash; The Complete Syntax of Lua</A>
+</UL>
+
+<H2><A NAME="index">Index</A></H2>
+<TABLE WIDTH="100%">
+<TR VALIGN="top">
+<TD>
+<H3><A NAME="functions">Lua functions</A></H3>
+<P>
+<A HREF="#pdf-_G">_G</A><BR>
+<A HREF="#pdf-_VERSION">_VERSION</A><BR>
+
+<P>
+<A HREF="#pdf-assert">assert</A><BR>
+<A HREF="#pdf-collectgarbage">collectgarbage</A><BR>
+<A HREF="#pdf-dofile">dofile</A><BR>
+<A HREF="#pdf-error">error</A><BR>
+<A HREF="#pdf-getmetatable">getmetatable</A><BR>
+<A HREF="#pdf-ipairs">ipairs</A><BR>
+<A HREF="#pdf-load">load</A><BR>
+<A HREF="#pdf-loadfile">loadfile</A><BR>
+<A HREF="#pdf-next">next</A><BR>
+<A HREF="#pdf-pairs">pairs</A><BR>
+<A HREF="#pdf-pcall">pcall</A><BR>
+<A HREF="#pdf-print">print</A><BR>
+<A HREF="#pdf-rawequal">rawequal</A><BR>
+<A HREF="#pdf-rawget">rawget</A><BR>
+<A HREF="#pdf-rawlen">rawlen</A><BR>
+<A HREF="#pdf-rawset">rawset</A><BR>
+<A HREF="#pdf-require">require</A><BR>
+<A HREF="#pdf-select">select</A><BR>
+<A HREF="#pdf-setmetatable">setmetatable</A><BR>
+<A HREF="#pdf-tonumber">tonumber</A><BR>
+<A HREF="#pdf-tostring">tostring</A><BR>
+<A HREF="#pdf-type">type</A><BR>
+<A HREF="#pdf-xpcall">xpcall</A><BR>
+
+<P>
+<A HREF="#pdf-bit32.arshift">bit32.arshift</A><BR>
+<A HREF="#pdf-bit32.band">bit32.band</A><BR>
+<A HREF="#pdf-bit32.bnot">bit32.bnot</A><BR>
+<A HREF="#pdf-bit32.bor">bit32.bor</A><BR>
+<A HREF="#pdf-bit32.btest">bit32.btest</A><BR>
+<A HREF="#pdf-bit32.bxor">bit32.bxor</A><BR>
+<A HREF="#pdf-bit32.extract">bit32.extract</A><BR>
+<A HREF="#pdf-bit32.lrotate">bit32.lrotate</A><BR>
+<A HREF="#pdf-bit32.lshift">bit32.lshift</A><BR>
+<A HREF="#pdf-bit32.replace">bit32.replace</A><BR>
+<A HREF="#pdf-bit32.rrotate">bit32.rrotate</A><BR>
+<A HREF="#pdf-bit32.rshift">bit32.rshift</A><BR>
+
+<P>
+<A HREF="#pdf-coroutine.create">coroutine.create</A><BR>
+<A HREF="#pdf-coroutine.resume">coroutine.resume</A><BR>
+<A HREF="#pdf-coroutine.running">coroutine.running</A><BR>
+<A HREF="#pdf-coroutine.status">coroutine.status</A><BR>
+<A HREF="#pdf-coroutine.wrap">coroutine.wrap</A><BR>
+<A HREF="#pdf-coroutine.yield">coroutine.yield</A><BR>
+
+<P>
+<A HREF="#pdf-debug.debug">debug.debug</A><BR>
+<A HREF="#pdf-debug.getuservalue">debug.getuservalue</A><BR>
+<A HREF="#pdf-debug.gethook">debug.gethook</A><BR>
+<A HREF="#pdf-debug.getinfo">debug.getinfo</A><BR>
+<A HREF="#pdf-debug.getlocal">debug.getlocal</A><BR>
+<A HREF="#pdf-debug.getmetatable">debug.getmetatable</A><BR>
+<A HREF="#pdf-debug.getregistry">debug.getregistry</A><BR>
+<A HREF="#pdf-debug.getupvalue">debug.getupvalue</A><BR>
+<A HREF="#pdf-debug.setuservalue">debug.setuservalue</A><BR>
+<A HREF="#pdf-debug.sethook">debug.sethook</A><BR>
+<A HREF="#pdf-debug.setlocal">debug.setlocal</A><BR>
+<A HREF="#pdf-debug.setmetatable">debug.setmetatable</A><BR>
+<A HREF="#pdf-debug.setupvalue">debug.setupvalue</A><BR>
+<A HREF="#pdf-debug.traceback">debug.traceback</A><BR>
+<A HREF="#pdf-debug.upvalueid">debug.upvalueid</A><BR>
+<A HREF="#pdf-debug.upvaluejoin">debug.upvaluejoin</A><BR>
+
+<P>
+<A HREF="#pdf-file:close">file:close</A><BR>
+<A HREF="#pdf-file:flush">file:flush</A><BR>
+<A HREF="#pdf-file:lines">file:lines</A><BR>
+<A HREF="#pdf-file:read">file:read</A><BR>
+<A HREF="#pdf-file:seek">file:seek</A><BR>
+<A HREF="#pdf-file:setvbuf">file:setvbuf</A><BR>
+<A HREF="#pdf-file:write">file:write</A><BR>
+
+<P>
+<A HREF="#pdf-io.close">io.close</A><BR>
+<A HREF="#pdf-io.flush">io.flush</A><BR>
+<A HREF="#pdf-io.input">io.input</A><BR>
+<A HREF="#pdf-io.lines">io.lines</A><BR>
+<A HREF="#pdf-io.open">io.open</A><BR>
+<A HREF="#pdf-io.output">io.output</A><BR>
+<A HREF="#pdf-io.popen">io.popen</A><BR>
+<A HREF="#pdf-io.read">io.read</A><BR>
+<A HREF="#pdf-io.stderr">io.stderr</A><BR>
+<A HREF="#pdf-io.stdin">io.stdin</A><BR>
+<A HREF="#pdf-io.stdout">io.stdout</A><BR>
+<A HREF="#pdf-io.tmpfile">io.tmpfile</A><BR>
+<A HREF="#pdf-io.type">io.type</A><BR>
+<A HREF="#pdf-io.write">io.write</A><BR>
+
+</TD>
+<TD>
+<H3>&nbsp;</H3>
+<P>
+<A HREF="#pdf-math.abs">math.abs</A><BR>
+<A HREF="#pdf-math.acos">math.acos</A><BR>
+<A HREF="#pdf-math.asin">math.asin</A><BR>
+<A HREF="#pdf-math.atan">math.atan</A><BR>
+<A HREF="#pdf-math.atan2">math.atan2</A><BR>
+<A HREF="#pdf-math.ceil">math.ceil</A><BR>
+<A HREF="#pdf-math.cos">math.cos</A><BR>
+<A HREF="#pdf-math.cosh">math.cosh</A><BR>
+<A HREF="#pdf-math.deg">math.deg</A><BR>
+<A HREF="#pdf-math.exp">math.exp</A><BR>
+<A HREF="#pdf-math.floor">math.floor</A><BR>
+<A HREF="#pdf-math.fmod">math.fmod</A><BR>
+<A HREF="#pdf-math.frexp">math.frexp</A><BR>
+<A HREF="#pdf-math.huge">math.huge</A><BR>
+<A HREF="#pdf-math.ldexp">math.ldexp</A><BR>
+<A HREF="#pdf-math.log">math.log</A><BR>
+<A HREF="#pdf-math.max">math.max</A><BR>
+<A HREF="#pdf-math.min">math.min</A><BR>
+<A HREF="#pdf-math.modf">math.modf</A><BR>
+<A HREF="#pdf-math.pi">math.pi</A><BR>
+<A HREF="#pdf-math.pow">math.pow</A><BR>
+<A HREF="#pdf-math.rad">math.rad</A><BR>
+<A HREF="#pdf-math.random">math.random</A><BR>
+<A HREF="#pdf-math.randomseed">math.randomseed</A><BR>
+<A HREF="#pdf-math.sin">math.sin</A><BR>
+<A HREF="#pdf-math.sinh">math.sinh</A><BR>
+<A HREF="#pdf-math.sqrt">math.sqrt</A><BR>
+<A HREF="#pdf-math.tan">math.tan</A><BR>
+<A HREF="#pdf-math.tanh">math.tanh</A><BR>
+
+<P>
+<A HREF="#pdf-os.clock">os.clock</A><BR>
+<A HREF="#pdf-os.date">os.date</A><BR>
+<A HREF="#pdf-os.difftime">os.difftime</A><BR>
+<A HREF="#pdf-os.execute">os.execute</A><BR>
+<A HREF="#pdf-os.exit">os.exit</A><BR>
+<A HREF="#pdf-os.getenv">os.getenv</A><BR>
+<A HREF="#pdf-os.remove">os.remove</A><BR>
+<A HREF="#pdf-os.rename">os.rename</A><BR>
+<A HREF="#pdf-os.setlocale">os.setlocale</A><BR>
+<A HREF="#pdf-os.time">os.time</A><BR>
+<A HREF="#pdf-os.tmpname">os.tmpname</A><BR>
+
+<P>
+<A HREF="#pdf-package.config">package.config</A><BR>
+<A HREF="#pdf-package.cpath">package.cpath</A><BR>
+<A HREF="#pdf-package.loaded">package.loaded</A><BR>
+<A HREF="#pdf-package.loadlib">package.loadlib</A><BR>
+<A HREF="#pdf-package.path">package.path</A><BR>
+<A HREF="#pdf-package.preload">package.preload</A><BR>
+<A HREF="#pdf-package.searchers">package.searchers</A><BR>
+<A HREF="#pdf-package.searchpath">package.searchpath</A><BR>
+
+<P>
+<A HREF="#pdf-string.byte">string.byte</A><BR>
+<A HREF="#pdf-string.char">string.char</A><BR>
+<A HREF="#pdf-string.dump">string.dump</A><BR>
+<A HREF="#pdf-string.find">string.find</A><BR>
+<A HREF="#pdf-string.format">string.format</A><BR>
+<A HREF="#pdf-string.gmatch">string.gmatch</A><BR>
+<A HREF="#pdf-string.gsub">string.gsub</A><BR>
+<A HREF="#pdf-string.len">string.len</A><BR>
+<A HREF="#pdf-string.lower">string.lower</A><BR>
+<A HREF="#pdf-string.match">string.match</A><BR>
+<A HREF="#pdf-string.rep">string.rep</A><BR>
+<A HREF="#pdf-string.reverse">string.reverse</A><BR>
+<A HREF="#pdf-string.sub">string.sub</A><BR>
+<A HREF="#pdf-string.upper">string.upper</A><BR>
+
+<P>
+<A HREF="#pdf-table.concat">table.concat</A><BR>
+<A HREF="#pdf-table.insert">table.insert</A><BR>
+<A HREF="#pdf-table.pack">table.pack</A><BR>
+<A HREF="#pdf-table.remove">table.remove</A><BR>
+<A HREF="#pdf-table.sort">table.sort</A><BR>
+<A HREF="#pdf-table.unpack">table.unpack</A><BR>
+
+</TD>
+<TD>
+<H3>C API</H3>
+<P>
+<A HREF="#lua_Alloc">lua_Alloc</A><BR>
+<A HREF="#lua_CFunction">lua_CFunction</A><BR>
+<A HREF="#lua_Debug">lua_Debug</A><BR>
+<A HREF="#lua_Hook">lua_Hook</A><BR>
+<A HREF="#lua_Integer">lua_Integer</A><BR>
+<A HREF="#lua_Number">lua_Number</A><BR>
+<A HREF="#lua_Reader">lua_Reader</A><BR>
+<A HREF="#lua_State">lua_State</A><BR>
+<A HREF="#lua_Unsigned">lua_Unsigned</A><BR>
+<A HREF="#lua_Writer">lua_Writer</A><BR>
+
+<P>
+<A HREF="#lua_absindex">lua_absindex</A><BR>
+<A HREF="#lua_arith">lua_arith</A><BR>
+<A HREF="#lua_atpanic">lua_atpanic</A><BR>
+<A HREF="#lua_call">lua_call</A><BR>
+<A HREF="#lua_callk">lua_callk</A><BR>
+<A HREF="#lua_checkstack">lua_checkstack</A><BR>
+<A HREF="#lua_close">lua_close</A><BR>
+<A HREF="#lua_compare">lua_compare</A><BR>
+<A HREF="#lua_concat">lua_concat</A><BR>
+<A HREF="#lua_copy">lua_copy</A><BR>
+<A HREF="#lua_createtable">lua_createtable</A><BR>
+<A HREF="#lua_dump">lua_dump</A><BR>
+<A HREF="#lua_error">lua_error</A><BR>
+<A HREF="#lua_gc">lua_gc</A><BR>
+<A HREF="#lua_getallocf">lua_getallocf</A><BR>
+<A HREF="#lua_getctx">lua_getctx</A><BR>
+<A HREF="#lua_getfield">lua_getfield</A><BR>
+<A HREF="#lua_getglobal">lua_getglobal</A><BR>
+<A HREF="#lua_gethook">lua_gethook</A><BR>
+<A HREF="#lua_gethookcount">lua_gethookcount</A><BR>
+<A HREF="#lua_gethookmask">lua_gethookmask</A><BR>
+<A HREF="#lua_getinfo">lua_getinfo</A><BR>
+<A HREF="#lua_getlocal">lua_getlocal</A><BR>
+<A HREF="#lua_getmetatable">lua_getmetatable</A><BR>
+<A HREF="#lua_getstack">lua_getstack</A><BR>
+<A HREF="#lua_gettable">lua_gettable</A><BR>
+<A HREF="#lua_gettop">lua_gettop</A><BR>
+<A HREF="#lua_getupvalue">lua_getupvalue</A><BR>
+<A HREF="#lua_getuservalue">lua_getuservalue</A><BR>
+<A HREF="#lua_insert">lua_insert</A><BR>
+<A HREF="#lua_isboolean">lua_isboolean</A><BR>
+<A HREF="#lua_iscfunction">lua_iscfunction</A><BR>
+<A HREF="#lua_isfunction">lua_isfunction</A><BR>
+<A HREF="#lua_islightuserdata">lua_islightuserdata</A><BR>
+<A HREF="#lua_isnil">lua_isnil</A><BR>
+<A HREF="#lua_isnone">lua_isnone</A><BR>
+<A HREF="#lua_isnoneornil">lua_isnoneornil</A><BR>
+<A HREF="#lua_isnumber">lua_isnumber</A><BR>
+<A HREF="#lua_isstring">lua_isstring</A><BR>
+<A HREF="#lua_istable">lua_istable</A><BR>
+<A HREF="#lua_isthread">lua_isthread</A><BR>
+<A HREF="#lua_isuserdata">lua_isuserdata</A><BR>
+<A HREF="#lua_len">lua_len</A><BR>
+<A HREF="#lua_load">lua_load</A><BR>
+<A HREF="#lua_newstate">lua_newstate</A><BR>
+<A HREF="#lua_newtable">lua_newtable</A><BR>
+<A HREF="#lua_newthread">lua_newthread</A><BR>
+<A HREF="#lua_newuserdata">lua_newuserdata</A><BR>
+<A HREF="#lua_next">lua_next</A><BR>
+<A HREF="#lua_pcall">lua_pcall</A><BR>
+<A HREF="#lua_pcallk">lua_pcallk</A><BR>
+<A HREF="#lua_pop">lua_pop</A><BR>
+<A HREF="#lua_pushboolean">lua_pushboolean</A><BR>
+<A HREF="#lua_pushcclosure">lua_pushcclosure</A><BR>
+<A HREF="#lua_pushcfunction">lua_pushcfunction</A><BR>
+<A HREF="#lua_pushfstring">lua_pushfstring</A><BR>
+<A HREF="#lua_pushglobaltable">lua_pushglobaltable</A><BR>
+<A HREF="#lua_pushinteger">lua_pushinteger</A><BR>
+<A HREF="#lua_pushlightuserdata">lua_pushlightuserdata</A><BR>
+<A HREF="#lua_pushliteral">lua_pushliteral</A><BR>
+<A HREF="#lua_pushlstring">lua_pushlstring</A><BR>
+<A HREF="#lua_pushnil">lua_pushnil</A><BR>
+<A HREF="#lua_pushnumber">lua_pushnumber</A><BR>
+<A HREF="#lua_pushstring">lua_pushstring</A><BR>
+<A HREF="#lua_pushthread">lua_pushthread</A><BR>
+<A HREF="#lua_pushunsigned">lua_pushunsigned</A><BR>
+<A HREF="#lua_pushvalue">lua_pushvalue</A><BR>
+<A HREF="#lua_pushvfstring">lua_pushvfstring</A><BR>
+<A HREF="#lua_rawequal">lua_rawequal</A><BR>
+<A HREF="#lua_rawget">lua_rawget</A><BR>
+<A HREF="#lua_rawgeti">lua_rawgeti</A><BR>
+<A HREF="#lua_rawgetp">lua_rawgetp</A><BR>
+<A HREF="#lua_rawlen">lua_rawlen</A><BR>
+<A HREF="#lua_rawset">lua_rawset</A><BR>
+<A HREF="#lua_rawseti">lua_rawseti</A><BR>
+<A HREF="#lua_rawsetp">lua_rawsetp</A><BR>
+<A HREF="#lua_register">lua_register</A><BR>
+<A HREF="#lua_remove">lua_remove</A><BR>
+<A HREF="#lua_replace">lua_replace</A><BR>
+<A HREF="#lua_resume">lua_resume</A><BR>
+<A HREF="#lua_setallocf">lua_setallocf</A><BR>
+<A HREF="#lua_setfield">lua_setfield</A><BR>
+<A HREF="#lua_setglobal">lua_setglobal</A><BR>
+<A HREF="#lua_sethook">lua_sethook</A><BR>
+<A HREF="#lua_setlocal">lua_setlocal</A><BR>
+<A HREF="#lua_setmetatable">lua_setmetatable</A><BR>
+<A HREF="#lua_settable">lua_settable</A><BR>
+<A HREF="#lua_settop">lua_settop</A><BR>
+<A HREF="#lua_setupvalue">lua_setupvalue</A><BR>
+<A HREF="#lua_setuservalue">lua_setuservalue</A><BR>
+<A HREF="#lua_status">lua_status</A><BR>
+<A HREF="#lua_toboolean">lua_toboolean</A><BR>
+<A HREF="#lua_tocfunction">lua_tocfunction</A><BR>
+<A HREF="#lua_tointeger">lua_tointeger</A><BR>
+<A HREF="#lua_tointegerx">lua_tointegerx</A><BR>
+<A HREF="#lua_tolstring">lua_tolstring</A><BR>
+<A HREF="#lua_tonumber">lua_tonumber</A><BR>
+<A HREF="#lua_tonumberx">lua_tonumberx</A><BR>
+<A HREF="#lua_topointer">lua_topointer</A><BR>
+<A HREF="#lua_tostring">lua_tostring</A><BR>
+<A HREF="#lua_tothread">lua_tothread</A><BR>
+<A HREF="#lua_tounsigned">lua_tounsigned</A><BR>
+<A HREF="#lua_tounsignedx">lua_tounsignedx</A><BR>
+<A HREF="#lua_touserdata">lua_touserdata</A><BR>
+<A HREF="#lua_type">lua_type</A><BR>
+<A HREF="#lua_typename">lua_typename</A><BR>
+<A HREF="#lua_upvalueid">lua_upvalueid</A><BR>
+<A HREF="#lua_upvalueindex">lua_upvalueindex</A><BR>
+<A HREF="#lua_upvaluejoin">lua_upvaluejoin</A><BR>
+<A HREF="#lua_version">lua_version</A><BR>
+<A HREF="#lua_xmove">lua_xmove</A><BR>
+<A HREF="#lua_yield">lua_yield</A><BR>
+<A HREF="#lua_yieldk">lua_yieldk</A><BR>
+
+</TD>
+<TD>
+<H3>auxiliary library</H3>
+<P>
+<A HREF="#luaL_Buffer">luaL_Buffer</A><BR>
+<A HREF="#luaL_Reg">luaL_Reg</A><BR>
+
+<P>
+<A HREF="#luaL_addchar">luaL_addchar</A><BR>
+<A HREF="#luaL_addlstring">luaL_addlstring</A><BR>
+<A HREF="#luaL_addsize">luaL_addsize</A><BR>
+<A HREF="#luaL_addstring">luaL_addstring</A><BR>
+<A HREF="#luaL_addvalue">luaL_addvalue</A><BR>
+<A HREF="#luaL_argcheck">luaL_argcheck</A><BR>
+<A HREF="#luaL_argerror">luaL_argerror</A><BR>
+<A HREF="#luaL_buffinit">luaL_buffinit</A><BR>
+<A HREF="#luaL_buffinitsize">luaL_buffinitsize</A><BR>
+<A HREF="#luaL_callmeta">luaL_callmeta</A><BR>
+<A HREF="#luaL_checkany">luaL_checkany</A><BR>
+<A HREF="#luaL_checkint">luaL_checkint</A><BR>
+<A HREF="#luaL_checkinteger">luaL_checkinteger</A><BR>
+<A HREF="#luaL_checklong">luaL_checklong</A><BR>
+<A HREF="#luaL_checklstring">luaL_checklstring</A><BR>
+<A HREF="#luaL_checknumber">luaL_checknumber</A><BR>
+<A HREF="#luaL_checkoption">luaL_checkoption</A><BR>
+<A HREF="#luaL_checkstack">luaL_checkstack</A><BR>
+<A HREF="#luaL_checkstring">luaL_checkstring</A><BR>
+<A HREF="#luaL_checktype">luaL_checktype</A><BR>
+<A HREF="#luaL_checkudata">luaL_checkudata</A><BR>
+<A HREF="#luaL_checkunsigned">luaL_checkunsigned</A><BR>
+<A HREF="#luaL_checkversion">luaL_checkversion</A><BR>
+<A HREF="#luaL_dofile">luaL_dofile</A><BR>
+<A HREF="#luaL_dostring">luaL_dostring</A><BR>
+<A HREF="#luaL_error">luaL_error</A><BR>
+<A HREF="#luaL_execresult">luaL_execresult</A><BR>
+<A HREF="#luaL_fileresult">luaL_fileresult</A><BR>
+<A HREF="#luaL_getmetafield">luaL_getmetafield</A><BR>
+<A HREF="#luaL_getmetatable">luaL_getmetatable</A><BR>
+<A HREF="#luaL_getsubtable">luaL_getsubtable</A><BR>
+<A HREF="#luaL_gsub">luaL_gsub</A><BR>
+<A HREF="#luaL_len">luaL_len</A><BR>
+<A HREF="#luaL_loadbuffer">luaL_loadbuffer</A><BR>
+<A HREF="#luaL_loadbufferx">luaL_loadbufferx</A><BR>
+<A HREF="#luaL_loadfile">luaL_loadfile</A><BR>
+<A HREF="#luaL_loadfilex">luaL_loadfilex</A><BR>
+<A HREF="#luaL_loadstring">luaL_loadstring</A><BR>
+<A HREF="#luaL_newlib">luaL_newlib</A><BR>
+<A HREF="#luaL_newlibtable">luaL_newlibtable</A><BR>
+<A HREF="#luaL_newmetatable">luaL_newmetatable</A><BR>
+<A HREF="#luaL_newstate">luaL_newstate</A><BR>
+<A HREF="#luaL_openlibs">luaL_openlibs</A><BR>
+<A HREF="#luaL_optint">luaL_optint</A><BR>
+<A HREF="#luaL_optinteger">luaL_optinteger</A><BR>
+<A HREF="#luaL_optlong">luaL_optlong</A><BR>
+<A HREF="#luaL_optlstring">luaL_optlstring</A><BR>
+<A HREF="#luaL_optnumber">luaL_optnumber</A><BR>
+<A HREF="#luaL_optstring">luaL_optstring</A><BR>
+<A HREF="#luaL_optunsigned">luaL_optunsigned</A><BR>
+<A HREF="#luaL_prepbuffer">luaL_prepbuffer</A><BR>
+<A HREF="#luaL_prepbuffsize">luaL_prepbuffsize</A><BR>
+<A HREF="#luaL_pushresult">luaL_pushresult</A><BR>
+<A HREF="#luaL_pushresultsize">luaL_pushresultsize</A><BR>
+<A HREF="#luaL_ref">luaL_ref</A><BR>
+<A HREF="#luaL_requiref">luaL_requiref</A><BR>
+<A HREF="#luaL_setfuncs">luaL_setfuncs</A><BR>
+<A HREF="#luaL_setmetatable">luaL_setmetatable</A><BR>
+<A HREF="#luaL_testudata">luaL_testudata</A><BR>
+<A HREF="#luaL_tolstring">luaL_tolstring</A><BR>
+<A HREF="#luaL_traceback">luaL_traceback</A><BR>
+<A HREF="#luaL_typename">luaL_typename</A><BR>
+<A HREF="#luaL_unref">luaL_unref</A><BR>
+<A HREF="#luaL_where">luaL_where</A><BR>
+
+</TD>
+</TR>
+</TABLE>
+
+<HR>
 
 <h1>1 &ndash; <a name="1">简介</a></h1>
 
@@ -182,8 +665,7 @@ Lua中有八种基本类型：
 <b>nil</b> 和 <b>false</b> 都表示条件为假；而其他任何值均为真。
 
 <p>
-<em>Number</em> 表示实数（双精度浮点数）。
-数字间的运算操作与底层C实现遵循相同的规则，一般就是IEEE 754标准。（使用内部其他数字类型如单精度浮点或长整型重新编译一个Lua解释器非常容易；详见<code> luaconf.h </code>文件。）
+<em>Number</em> 表示实数（双精度浮点数）。数字间的运算操作与底层C实现遵循相同的规则，一般就是IEEE 754标准。（使用内部其他数字类型如单精度浮点或长整型重新编译一个Lua解释器非常容易；详见<code> luaconf.h </code>文件。）
 
 <p>
 <em>String</em> 代表字节串。Lua is 8-bit clean：字符串可以包含任意8-bit的值，包括 '<code>\0</code>' 。
