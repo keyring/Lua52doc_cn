@@ -721,63 +721,35 @@ Table¡¢function¡¢thread ºÍ (full) userdata ÀàĞÍµÄÖµ¾ùÊÇ <em>¶ÔÏó</em>£º±äÁ¿Êµ¼ÊÉ
 ¿âº¯Êı<a href="#pdf-type"><code> type </code></a>¿ÉÒÔ·µ»ØÒ»¸ö¸ø¶¨ÖµµÄÀàĞÍ£¨²Î¼û <a href="#6.1">&sect;6.1</a>£©¡£
 
 
-<h2>2.2 &ndash; <a name="2.2">Environments and the Global Environment</a></h2>
+<h2>2.2 &ndash; <a name="2.2">»·¾³ÓëÈ«¾Ö±äÁ¿</a></h2>
 
 <p>
-As will be discussed in <a href="#3.2">&sect;3.2</a> and <a href="#3.3.3">&sect;3.3.3</a>,
-any reference to a global name <code>var</code> is syntactically translated
-to <code>_ENV.var</code>.
-Moreover, every chunk is compiled in the scope of
-an external local variable called <code>_ENV</code> (see <a href="#3.3.2">&sect;3.3.2</a>),
-so <code>_ENV</code> itself is never a global name in a chunk.
+¾ÍÏñÔÚ <a href="#3.2">&sect;3.2</a> ºÍ <a href="#3.3.3">&sect;3.3.3</a> ÌÖÂÛµÄÄÇÑù£¬ÈÎºÎ¶ÔÈ«¾ÖÃû³Æ <code>var</code> µÄÒıÓÃ¾ù»á±»·­Òë³É <code>_ENV.var</code>¡£´ËÍâ£¬ÈÎºÎÔÚ¾Ö²¿±äÁ¿Ö®Íâ±àÒëµÄÓï¾ä¿é¾ù½Ğ×÷
+ <code>_ENV</code>£¨²Î¼û <a href="#3.3.2">&sect;3.3.2</a>£©£¬
+ËùÒÔ <code>_ENV</code> ±¾ÉíÔÚÓï¾ä¿éÖĞ´ÓÀ´¶¼²»ÊÇÈ«¾ÖÃû³Æ¡£
 
 
 <p>
-Despite the existence of this external <code>_ENV</code> variable and
-the translation of global names,
-<code>_ENV</code> is a completely regular name.
-In particular,
-you can define new variables and parameters with that name.
-Each reference to a global name uses the <code>_ENV</code> that is
-visible at that point in the program,
-following the usual visibility rules of Lua (see <a href="#3.5">&sect;3.5</a>).
+¾¡¹Ü´æÔÚÍâ²¿ <code>_ENV</code> ±äÁ¿ÓÃÓÚÈ«¾ÖÃû³ÆµÄ·­Òë£¬<code>_ENV</code> ±¾ÉíÆäÊµÊÇÒ»¸öÍêÈ«·ûºÏÃüÃû¹æÔòµÄÃû³Æ¡£ÄãÍêÈ«¿ÉÒÔ¶¨ÒåĞÂµÄ±äÁ¿/²ÎÊı²¢È¡Õâ¸öÃû×Ö¡£Ã¿Ò»´ÎÊ¹ÓÃ <code>_ENV</code> ¶ÔÈ«¾ÖÃû³ÆµÄÒıÓÃÔÚµ±Ê±¶Ô³ÌĞòÊÇ¿É¼ûµÄ£¬ÍêÈ«×ñÑ­ Lua Í¨ÓÃ¿É¼ûĞÔ¹æÔò£¨²Î¼û <a href="#3.5">&sect;3.5</a>£©¡£
 
 
 <p>
-Any table used as the value of <code>_ENV</code> is called an <em>environment</em>.
+ÈÎºÎ±»´æ´¢ <code>_ENV</code> ÖµµÄ±í½Ğ×÷ <em>environment£¨»·¾³£©</em>.
 
 
 <p>
-Lua keeps a distinguished environment called the <em>global environment</em>.
-This value is kept at a special index in the C registry (see <a href="#4.5">&sect;4.5</a>).
-In Lua, the variable <a href="#pdf-_G"><code>_G</code></a> is initialized with this same value.
+Lua Î¬³ÖÒ»¸ö½Ğ <em>global environment£¨È«¾Ö»·¾³£©</em>µÄÌØÊâ»·¾³¡£Õâ¸öÖµÔÚ C ×¢²á±í£¨²Î¼û <a href="#4.5">&sect;4.5</a>£©±íÊ¾Ò»¸öÌØÊâË÷Òı¡£ÔÚ Lua ÖĞ£¬±äÁ¿ <a href="#pdf-_G"><code>_G</code></a> ±»³õÊ¼»¯ÎªÏàÍ¬Öµ¡£
 
 
 <p>
-When Lua compiles a chunk,
-it initializes the value of its <code>_ENV</code> upvalue
-with the global environment (see <a href="#pdf-load"><code>load</code></a>).
-Therefore, by default,
-global variables in Lua code refer to entries in the global environment.
-Moreover, all standard libraries are loaded in the global environment
-and several functions there operate on that environment.
-You can use <a href="#pdf-load"><code>load</code></a> (or <a href="#pdf-loadfile"><code>loadfile</code></a>)
-to load a chunk with a different environment.
+µ± Lua ±àÒëÒ»¸ö chunk£¨Óï¾ä¿é£©Ê±£¬»áÏÈ½«ÆäÖĞ <code>_ENV</code> µÄÖµÌáÉıÎªÈ«¾Ö»·¾³£¨²Î¼û <a href="#pdf-load"><code>load</code></a>£©¡£Òò´Ë£¬Ä¬ÈÏÇé¿öÏÂ£¬Lua´úÂëÖĞµÄÈ«¾Ö±äÁ¿Ò»°ãÖ¸µÄÊÇÈ«¾Ö»·¾³ÀïµÄÈë¿Ú¡£´ËÍâ£¬¼ÓÔØµ½È«¾Ö»·¾³ÏÂµÄËùÓĞ±ê×¼¿âºÍ²¿·Öº¯Êı¾ùÊÇÔÚ¸Ã»·¾³ÏÂÔË×÷¡£Äã¿ÉÒÔÊ¹ÓÃ <a href="#pdf-load"><code>load</code></a> £¨»òÕß <a href="#pdf-loadfile"><code>loadfile</code></a>£©À´¼ÓÔØÒ»¸ö²»Í¬»·¾³ÏÂµÄ chunk¡£
+<!--
 (In C, you have to load the chunk and then change the value
 of its first upvalue.)
-
+-->
 
 <p>
-If you change the global environment in the registry
-(through C code or the debug library),
-all chunks loaded after the change will get the new environment.
-Previously loaded chunks are not affected, however,
-as each has its own reference to the environment in its <code>_ENV</code> variable.
-Moreover, the variable <a href="#pdf-_G"><code>_G</code></a>
-(which is stored in the original global environment)
-is never updated by Lua.
-
-
+Èç¹ûÄã¸Ä±äÁË×¢²á±íÖĞµÄÈ«¾Ö»·¾³£¨Í¨¹ı C ´úÂë»òÕß debug ¿â£©£¬ÔÚ¸Ä±äÖ®ºó¼ÓÔØµÄ chunk ½«»ñµÃĞÂµÄ»·¾³¡£ÏÈÇ°¼ÓÔØµÄ chunk Ëä²»ÊÜÓ°Ïì£¬µ«¶¼ÒªÔÚ×ÔÉíµÄ <code>_ENV</code> ±äÁ¿ÖĞÒıÓÃµ½ĞÂ»·¾³È¥¡£´ËÍâ£¬Lua ´Ó²»¸üĞÂ±äÁ¿ <a href="#pdf-_G"><code>_G</code></a>£¨´æÓÚÔ­Ê¼È«¾Ö»·¾³£©¡£
 
 
 
