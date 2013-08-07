@@ -772,139 +772,80 @@ Lua ´úÂë¿ÉÒÔÍ¨¹ıµ÷ÓÃ <a href="#pdf-error"><code>error</code></a> º¯ÊıÃ÷È·²úÉú´íÎ
 
 
 
-<h2>2.4 &ndash; <a name="2.4">Metatables and Metamethods</a></h2>
+<h2>2.4 &ndash; <a name="2.4">Ôª±íÓëÔª·½·¨</a></h2>
 
 <p>
-Every value in Lua can have a <em>metatable</em>.
-This <em>metatable</em> is an ordinary Lua table
-that defines the behavior of the original value
-under certain special operations.
-You can change several aspects of the behavior
-of operations over a value by setting specific fields in its metatable.
-For instance, when a non-numeric value is the operand of an addition,
-Lua checks for a function in the field "<code>__add</code>" of the value's metatable.
-If it finds one,
-Lua calls this function to perform the addition.
+Lua ÖĞµÄÃ¿¸öÖµ¾ùÄÜÓµÓĞÒ»¸ö<em>metatable£¨Ôª±í£©</em>¡£Õâ¸ö <em>metatable</em> ¾ÍÊÇÆÕÍ¨µÄ Lua table£¬È»ºó¶¨ÒåÁËÒ»Ğ©Ô­Ê¼ÖµÔÚÌØ¶¨²Ù×÷ÏÂµÄĞĞÎª¡£Äã¿ÉÒÔÍ¨¹ıÔÚÒ»¸öÖµµÄÔª±íÖĞÉèÖÃÌØ¶¨µÄÓòÀ´¸Ä±ä²Ù×÷ĞĞÎª¡£ÀıÈç£¬µ±Ò»¸ö·ÇÊı×ÖµÄÖµÒª×ö¼Ó·¨²Ù×÷£¬Lua »á²éÑ¯¸ÃÖµµÄÔª±íÖĞ "<code>__add</code>" ÓòÖĞµÄº¯Êı£¬Èç¹ûÕÒµ½Ò»¸öº¯Êı£¬Lua Ôòµ÷ÓÃ¸Ãº¯ÊıÀ´Ö´ĞĞ¼Ó·¨¡£
 
 
 <p>
-The keys in a metatable are derived from the <em>event</em> names;
-the corresponding values are called <em>metamethods</em>.
-In the previous example, the event is <code>"add"</code>
-and the metamethod is the function that performs the addition.
+Ôª±íÖĞµÄ¼üÃüÃûÎª <em>event£¨ÊÂ¼ş£©</em>£»¶ÔÓ¦µÄÖµ½Ğ <em>metamethods£¨Ôª·½·¨£©</em>¡£ÔÚ¸Õ²ÅµÄÀı×ÓÖĞ£¬ÊÂ¼şÊÇ
+ <code>"add"</code>£¬Ôª·½·¨ÔòÊÇÄÇ¸öÖ´ĞĞ¼Ó·¨²Ù×÷µÄº¯Êı¡£
 
 
 <p>
-You can query the metatable of any value
-using the <a href="#pdf-getmetatable"><code>getmetatable</code></a> function.
+Äã¿ÉÒÔÊ¹ÓÃ <a href="#pdf-getmetatable"><code>getmetatable</code></a> º¯ÊıÀ´²éÑ¯ÈÎºÎÖµµÄ metatable£¨Ôª±í£©¡£ 
+
+<p>
+Äã¿ÉÒÔÊ¹ÓÃ <a href="#pdf-setmetatable"><code>setmetatable</code></a> º¯ÊıÀ´Ìæ»» table µÄ metatable ¡£µ«²»ÄÜÔÚ Lua ÖĞ¸Ä±äÆäËûÀàĞÍ£¨±ÈÈç number¡¢stringÀàĞÍ£©µÄ metatable£¨³ı·ÇÊ¹ÓÃ debug ¿â£©£¬±ØĞëµÃÊ¹ÓÃ C&nbsp;API¡£
 
 
 <p>
-You can replace the metatable of tables
-using the <a href="#pdf-setmetatable"><code>setmetatable</code></a> function.
-You cannot change the metatable of other types from Lua
-(except by using the debug library);
-you must use the C&nbsp;API for that.
+Ã¿¸ö table ºÍ full userdata ÓµÓĞ¶ÀÁ¢µÄ metatable£¨ËäÈ»¶à¸ö table ºÍ userdata Ò²¿É¹²ÏíËüÃÇµÄ metatable£©¡£¶øËùÓĞÆäËûÀàĞÍµÄÖµ£¬Ò»ÖÖÀàĞÍÖ»ÓĞÒ»¸ö metatable£»ÒâÎ¶×ÅËùÓĞÊı×ÖÖ»ÓĞÒ»¸ö metatable£¬ËùÓĞ×Ö·û´®Ò²Ò»Ñù£¬µÈµÈ¡£Ä¬ÈÏÇé¿öÏÂ£¬µ¥¸öÖµÊÇÃ»ÓĞ metatable µÄ£¬µ«×Ö·û´®¿âÎª string ÀàĞÍÉèÖÃÁËÒ»¸ö metatable£¨²Î¼û <a href="#6.4">&sect;6.4</a>£©¡£
 
 
 <p>
-Tables and full userdata have individual metatables
-(although multiple tables and userdata can share their metatables).
-Values of all other types share one single metatable per type;
-that is, there is one single metatable for all numbers,
-one for all strings, etc.
-By default, a value has no metatable,
-but the string library sets a metatable for the string type (see <a href="#6.4">&sect;6.4</a>).
+Ò»¸ö metatable  ¿ØÖÆ×ÅÒ»¸ö¶ÔÏóÔÚÊıÑ§ÔËËã¡¢±È½Ï¡¢Á¬½Ó¡¢È¡³¤ºÍË÷ÒıµÈ²Ù×÷µÄĞĞÎª±íÏÖ¡£ËüÒ²ÄÜ¶¨Òåº¯Êı£¬ÈÃ userdata »òÕß table ×öÀ¬»øÊÕ¼¯Ê±µ÷ÓÃ¡£µ± Lua ĞèÒª¶ÔÄ³¸öÖµÖ´ĞĞÆäÖĞÒ»ÖÖ²Ù×÷Ê±£¬»áÏÈ¼ì²éÖµµÄ metatable ÖĞÊÇ·ñÓĞ¶ÔÓ¦µÄÊÂ¼ş¡£Èç¹ûÓĞ£¬¼ü¶ÔÓ¦µÄÖµ£¨metamethod Ôª·½·¨£©½«¾ö¶¨ Lua ÈçºÎÖ´ĞĞ²Ù×÷¡£
 
 
 <p>
-A metatable controls how an object behaves in arithmetic operations,
-order comparisons, concatenation, length operation, and indexing.
-A metatable also can define a function to be called
-when a userdata or a table is garbage collected.
-When Lua performs one of these operations over a value,
-it checks whether this value has a metatable with the corresponding event.
-If so, the value associated with that key (the metamethod)
-controls how Lua will perform the operation.
+
+Metatable ÄÜ¿ØÖÆµÄ²Ù×÷È«ÁĞÔÚÁËÏÂÃæ¡£¸÷ÖÖ²Ù×÷ÓÃ¶ÔÓ¦µÄÃû×ÖÇø·Ö¡£Ã¿ÖÖ²Ù×÷µÄ¼ü¶¼ÊÇ²Ù×÷ÃûÇ°Ãæ¼ÓÉÏÁ½¸öÏÂ»®Ïß £¨ '<code>__</code>' £©µÄ×Ö·û´®¡£±ÈÈç "add" ²Ù×÷µÄ¼ü¾ÍÊÇ×Ö·û´® "<code>__add</code>"¡£
 
 
 <p>
-Metatables control the operations listed next.
-Each operation is identified by its corresponding name.
-The key for each operation is a string with its name prefixed by
-two underscores, '<code>__</code>';
-for instance, the key for operation "add" is the
-string "<code>__add</code>".
-
-
-<p>
-The semantics of these operations is better explained by a Lua function
-describing how the interpreter executes the operation.
-The code shown here in Lua is only illustrative;
-the real behavior is hard coded in the interpreter
-and it is much more efficient than this simulation.
-All functions used in these descriptions
-(<a href="#pdf-rawget"><code>rawget</code></a>, <a href="#pdf-tonumber"><code>tonumber</code></a>, etc.)
-are described in <a href="#6.1">&sect;6.1</a>.
-In particular, to retrieve the metamethod of a given object,
-we use the expression
+ÕâĞ©²Ù×÷µÄº¬ÒåÓÉ Lua º¯ÊıÀ´½âÊÍ¸ü×¼È·£¬±Ï¾¹º¯ÊıÕ¹Ê¾ÁË½âÊÍÆ÷ÄÚ²¿ÈçºÎÖ´ĞĞ¸Ã²Ù×÷¡£ÕâÀïµÄ Lua ´úÂë½öÓÃ×÷½âÊÍËµÃ÷£¬Êµ¼ÊµÄĞĞÎªÒÑ¾­Ó²±àÂëÔÚ½âÊÍÆ÷ÖĞ£¬×ÔÈ»Ò²±ÈÕâĞ©Ä£Äâ´úÂë¸ßĞ§¡£ÔÚÏÂÃæ´úÂëÊ¹ÓÃµ½µÄ <a href="#pdf-rawget"><code>rawget</code></a>, <a href="#pdf-tonumber"><code>tonumber</code></a> µÈµÈº¯Êı¿ÉÔÚ <a href="#6.1">&sect;6.1</a> ÕÒµ½¡£×¢Òâ£¬ÎÒÃÇÊ¹ÓÃÏÂÃæÒ»ĞĞ±í´ïÊ½À´´Ó¸ø¶¨¶ÔÏóÖĞÌáÈ¡Ôª·½·¨
 
 <pre>
      metatable(obj)[event]
 </pre><p>
-This should be read as
+¿É±»½â¶Á³É
 
 <pre>
      rawget(getmetatable(obj) or {}, event)
 </pre><p>
-This means that the access to a metamethod does not invoke other metamethods,
-and access to objects with no metatables does not fail
-(it simply results in <b>nil</b>).
-
+ÕâÒâÎ¶×Å·ÃÎÊÒ»¸öÔª·½·¨²»»áµ÷ÓÃÆäËûÔª·½·¨£¬¶øÇÒ·ÃÎÊÃ»ÓĞ metatable µÄ¶ÔÏóÒ²²»»áÊ§°Ü£¨½ö½öµ¼ÖÂ <b>nil</b>£©¡£
 
 <p>
-For the unary <code>-</code> and <code>#</code> operators,
-the metamethod is called with a dummy second argument.
-This extra argument is only to simplify Lua's internals;
-it may be removed in future versions and therefore it is not present
-in the following code.
-(For most uses this extra argument is irrelevant.)
-
+¶ÔÓÚÒ»Ôª²Ù×÷·û <code>-</code> ºÍ <code>#</code>£¬Ôª·½·¨ÓÉĞéÄâµÄµÚ¶ş²ÎÊıµ÷ÓÃ¡£Õâ¸ö¶îÍâµÄ²ÎÊı½öÓÃÓÚ¼ò»¯ Lua µÄÄÚ½¨¶ÔÏó£»ÔÚ½«À´µÄ°æ±¾ÖĞ¿ÉÄÜ±»ÒÆ³ı£¬Òò´ËÎÒÃÇ²»»áÔÚÏÂÃæÌÖÂÛ¡££¨ÆäÊµ¶îÍâ²ÎÊıµÄ´ó²¿·ÖÊ¹ÓÃ¶¼ÊÇÎŞ¹Ø½ôÒªµÄ¡££©
 
 
 <ul>
 
-<li><b>"add": </b>
-the <code>+</code> operation.
-
-
+<li><a name =add><b>"add": </b></a>
+<code><b>+</b></code> ²Ù×÷¡£
 
 <p>
-The function <code>getbinhandler</code> below defines how Lua chooses a handler
-for a binary operation.
-First, Lua tries the first operand.
-If its type does not define a handler for the operation,
-then Lua tries the second operand.
+ÏÂÃæµÄ <code>getbinhandler</code> º¯Êı¶¨ÒåÁË Lua ÈçºÎÎª¶şÔªÔËËãÑ¡Ôñ´¦Àí·½·¨¡£Lua Ê×ÏÈ²âÊÔµÚÒ»¸ö²Ù×÷Êı£¬Èç¹ûËüµÄÀàĞÍÃ»ÓĞÎª¸ÃÔËËã²Ù×÷¶¨Òå´¦Àí·½·¨£¬Lua ¾Í»á²âÊÔµÚ¶ş¸ö²Ù×÷Êı¡£
 
 <pre>
      function getbinhandler (op1, op2, event)
        return metatable(op1)[event] or metatable(op2)[event]
      end
 </pre><p>
-By using this function,
-the behavior of the <code>op1 + op2</code> is
+Í¨¹ıÕâ¸öº¯Êı£¬<code>op1 + op2</code> µÄĞĞÎª¾ÍÊÇ
 
 <pre>
      function add_event (op1, op2)
        local o1, o2 = tonumber(op1), tonumber(op2)
-       if o1 and o2 then  -- both operands are numeric?
-         return o1 + o2   -- '+' here is the primitive 'add'
-       else  -- at least one of the operands is not numeric
+       if o1 and o2 then  -- Á½¸ö²Ù×÷Êı¾ùÎªÊı×Ö£¿
+         return o1 + o2   -- ÕâÀïµÄ '+' ¾ÍÊÇ»ù±¾¼Ó·¨£¨ 'add'£©
+       else  -- ÖÁÉÙÓĞÒ»¸ö²Ù×÷Êı²»ÊÇÊı×Ö
          local h = getbinhandler(op1, op2, "__add")
          if h then
-           -- call the handler with both operands
+           -- ÒÔÁ½¸ö²Ù×÷Êıµ÷ÓÃ´¦Àí·½·¨
            return (h(op1, op2))
-         else  -- no handler available: default behavior
+         else  -- Ã»ÓĞ´¦Àí·½·¨£ºÄ¬ÈÏĞĞÎª
            error(&middot;&middot;&middot;)
          end
        end
@@ -912,43 +853,38 @@ the behavior of the <code>op1 + op2</code> is
 </pre><p>
 </li>
 
-<li><b>"sub": </b>
-the <code>-</code> operation.
+<li><b>"sub"£º</b>
+<code><b>-</b></code> ²Ù×÷£¬
 
-Behavior similar to the "add" operation.
+ĞĞÎªÀàËÆ <a href="#add">"add"</a> ²Ù×÷¡£
 </li>
 
-<li><b>"mul": </b>
-the <code>*</code> operation.
+<li><b>"mul"£º</b>
+<code><b>*</b></code> ²Ù×÷£¬
 
-Behavior similar to the "add" operation.
+ĞĞÎªÀàËÆ <a href="#add">"add"</a> ²Ù×÷¡£
 </li>
 
-<li><b>"div": </b>
-the <code>/</code> operation.
+<li><b>"div"£º </b>
+<code><b>/</b></code> ²Ù×÷£¬
 
-Behavior similar to the "add" operation.
+ĞĞÎªÀàËÆ <a href="#add">"add"</a> ²Ù×÷¡£
 </li>
 
-<li><b>"mod": </b>
-the <code>%</code> operation.
+<li><b>"mod"£º</b>
+<code><b>%</b></code> ²Ù×÷£¬
 
-Behavior similar to the "add" operation,
-with the operation
-<code>o1 - floor(o1/o2)*o2</code> as the primitive operation.
+ĞĞÎªÀàËÆ <a href="#add">"add"</a> ²Ù×÷£¬Ô­Ê¼²Ù×÷ÊÇ <code>o1 - floor(o1/o2)*o2</code>¡£
 </li>
 
-<li><b>"pow": </b>
-the <code>^</code> (exponentiation) operation.
+<li><b>"pow"£º</b>
+<code><b>^</b></code> £¨Ãİ£©²Ù×÷¡£
 
-Behavior similar to the "add" operation,
-with the function <code>pow</code> (from the C&nbsp;math library)
-as the primitive operation.
+ĞĞÎªÀàËÆ <a href="#add">"add"</a> ²Ù×÷£¬Ô­Ê¼²Ù×÷ÊÇ <code>pow</code>  º¯Êı£¨À´×Ô C&nbsp;math ¿â£©¡£
 </li>
 
-<li><b>"unm": </b>
-the unary <code>-</code> operation.
-
+<li><b>"unm"£º</b>
+Ò»Ôª <code><b>-</b></code> ²Ù×÷¡£
 
 <pre>
      function unm_event (op)
@@ -969,8 +905,8 @@ the unary <code>-</code> operation.
 </pre><p>
 </li>
 
-<li><b>"concat": </b>
-the <code>..</code> (concatenation) operation.
+<li><b>"concat"£º</b>
+<code><b>..</b></code> £¨Á¬½Ó£©²Ù×÷¡£
 
 
 <pre>
@@ -990,8 +926,8 @@ the <code>..</code> (concatenation) operation.
 </pre><p>
 </li>
 
-<li><b>"len": </b>
-the <code>#</code> operation.
+<li><b>"len"£º</b>
+<code><b>#</b></code> ²Ù×÷¡£
 
 
 <pre>
@@ -1010,18 +946,14 @@ the <code>#</code> operation.
        end
      end
 </pre><p>
-See <a href="#3.4.6">&sect;3.4.6</a> for a description of the length of a table.
+¹ØÓÚ table µÄ³¤¶ÈÇë²ÎÔÄ <a href="#3.4.6">&sect;3.4.6</a>¡£
 </li>
 
-<li><b>"eq": </b>
-the <code>==</code> operation.
+<li><b>"eq"£º</b>
+<code><b>==</b></code> ²Ù×÷¡£
 
-The function <code>getequalhandler</code> defines how Lua chooses a metamethod
-for equality.
-A metamethod is selected only when both values
-being compared have the same type
-and the same metamethod for the selected operation,
-and the values are either tables or full userdata.
+º¯Êı <code>getequalhandler</code> ¶¨ÒåÁË Lua ÈçºÎÑ¡ÔñÔª·½·¨½øĞĞÏàµÈ²Ù×÷¡£Ö»ÓĞµ±Á½¸ö±»±È½ÏµÄÖµÀàĞÍÏàÍ¬£¬¶øÇÒÔÚµ±Ç°²Ù×÷ÏÂÓµÓĞÏàÍ¬µÄÔª·½·¨£¬¶øÇÒ²»ÊôÓÚ table »ò full userdata ¼äµÄÒ»ÖÖÊ±£¬±»Ñ¡³öµÄÔª·½·¨²Å»áÓĞĞ§¡£
+
 
 <pre>
      function getequalhandler (op1, op2)
@@ -1034,7 +966,7 @@ and the values are either tables or full userdata.
        if mm1 == mm2 then return mm1 else return nil end
      end
 </pre><p>
-The "eq" event is defined as follows:
+"eq" ÊÂ¼ş¶¨ÒåÈçÏÂ£º
 
 <pre>
      function eq_event (op1, op2)
@@ -1050,11 +982,11 @@ The "eq" event is defined as follows:
        end
      end
 </pre><p>
-Note that the result is always a boolean.
+×¢Òâ½á¹û³£Îª boolean Öµ¡£
 </li>
 
-<li><b>"lt": </b>
-the <code>&lt;</code> operation.
+<li><b>"lt"£º</b>
+<code><b>&lt;</b></code> ²Ù×÷¡£
 
 
 <pre>
@@ -1073,11 +1005,11 @@ the <code>&lt;</code> operation.
        end
      end
 </pre><p>
-Note that the result is always a boolean.
+×¢Òâ½á¹û³£Îª boolean Öµ¡£
 </li>
 
 <li><b>"le": </b>
-the <code>&lt;=</code> operation.
+<code><b>&lt;=</b></code> ²Ù×÷¡£
 
 
 <pre>
@@ -1101,23 +1033,15 @@ the <code>&lt;=</code> operation.
        end
      end
 </pre><p>
-Note that, in the absence of a "le" metamethod,
-Lua tries the "lt", assuming that <code>a &lt;= b</code> is
-equivalent to <code>not (b &lt; a)</code>.
+×¢Òâ£¬È±ÉÙ "le" Ôª·½·¨Ê±£¬Lua ¾Í³¢ÊÔ "lt"£¬²¢¼Ù¶¨ <code>a &lt;= b</code> µÈ¼ÛÓÚ <code>not (b &lt; a)</code>¡£
 
 
 <p>
-As with the other comparison operators,
-the result is always a boolean.
+¾ÍÏñÆäËû±È½ÏÔËËã·û£¬Æä½á¹û³£Îª boolean Öµ¡£
 </li>
 
-<li><b>"index": </b>
-The indexing access <code>table[key]</code>.
-Note that the metamethod is tried only
-when <code>key</code> is not present in <code>table</code>.
-(When <code>table</code> is not a table,
-no key is ever present,
-so the metamethod is always tried.)
+<li><b>"index"£º</b>
+Ë÷Òı²Ù×÷ÓÃÓÚ·ÃÎÊ <code>table[key]</code>¡£×¢Òâ½öµ± <code>key</code> ²»ÔÚ <code>table</code> ÖĞÊ±£¬²Å»á³¢ÊÔÔª·½·¨¡££¨µ± <code>table</code> ²»ÊÇ±íÊ±£¬ÀïÃæÃ»ÓĞ¼ü£¬ËùÒÔ»áÒ»Ö±³¢ÊÔÔª·½·¨¡££©
 
 
 <pre>
@@ -1143,10 +1067,8 @@ so the metamethod is always tried.)
 </pre><p>
 </li>
 
-<li><b>"newindex": </b>
-The indexing assignment <code>table[key] = value</code>.
-Note that the metamethod is tried only
-when <code>key</code> is not present in <code>table</code>.
+<li><b>"newindex"£º</b>
+¸³Öµ¸øË÷Òı <code>table[key] = value</code>¡£×¢Òâ½öµ± <code>key</code> ²»ÔÚ <code>table</code> ÖĞÊ±£¬²Å»á³¢ÊÔÔª·½·¨¡£
 
 
 <pre>
@@ -1172,8 +1094,8 @@ when <code>key</code> is not present in <code>table</code>.
 </pre><p>
 </li>
 
-<li><b>"call": </b>
-called when Lua calls a value.
+<li><b>"call"£º</b>
+µ± Lua µ÷ÓÃÒ»¸öÖµÊ±µ÷ÓÃ¡£
 
 
 <pre>
