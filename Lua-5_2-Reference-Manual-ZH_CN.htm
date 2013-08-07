@@ -665,18 +665,18 @@ Lua中有八种基本类型：
 <b>nil</b> 和 <b>false</b> 都表示条件为假；而其他任何值均为真。
 
 <p>
-<em>Number</em> 表示实数（双精度浮点数）。数字间的运算操作与底层C实现遵循相同的规则，一般就是IEEE 754标准。（使用内部其他数字类型如单精度浮点或长整型重新编译一个Lua解释器非常容易；详见<code> luaconf.h </code>文件。）
+<em>Number</em> 表示实数（双精度浮点数）。数字间的运算操作与底层C实现遵循相同的规则，一般就是IEEE 754标准。（使用内部其他数字类型如单精度浮点或长整型重新编译一个Lua解释器非常容易；参见<code> luaconf.h </code>文件。）
 
 <p>
 <em>String</em> 代表字节串。Lua is 8-bit clean：字符串可以包含任意8-bit的值，包括 '<code>\0</code>' 。
 
 <p>
-Lua 可以调用（操作）用&nbsp;Lua&nbsp;和&nbsp;C&nbsp;写的<em> Function </em>（详见 <a href="#3.4.9">&sect;3.4.9</a>）。
+Lua 可以调用（操作）用&nbsp;Lua&nbsp;和&nbsp;C&nbsp;写的<em> Function </em>（参见 <a href="#3.4.9">&sect;3.4.9</a>）。
 
 <p>
 <em>userdata</em> 类型用来将任意&nbsp;C&nbsp;数据保存在&nbsp;Lua&nbsp;变量中。
 一个&nbsp;userdata&nbsp;类型的值就是一块原生内存的指针。 &nbsp;userdata&nbsp;分两类：full userdata 和 light userdata ，前者的内存块由 Lua 管理；后者的内存块由 host 管理。
-Userdata 在 Lua 中除了赋值与鉴定测试便没有其他预定义操作了。但是通过使用<em> metatables（元表）</em>，程序员可以为 full userdata 类型的值自定义操作（详见 <a href="#2.4">&sect;2.4</a>）。
+Userdata 在 Lua 中除了赋值与鉴定测试便没有其他预定义操作了。但是通过使用<em> metatables（元表）</em>，程序员可以为 full userdata 类型的值自定义操作（参见 <a href="#2.4">&sect;2.4</a>）。
 Userdata 类型的值不能在 Lua 中创建与修改，只能通过 C&nbsp;API。这样保证了宿主程序能完全掌管其中的数据。
 
 <p>
@@ -692,30 +692,16 @@ an associated value <b>nil</b>.
 
 
 <p>
-Tables are the sole data structuring mechanism in Lua;
-they can be used to represent ordinary arrays, sequences,
-symbol tables, sets, records, graphs, trees, etc.
-To represent records, Lua uses the field name as an index.
-The language supports this representation by
-providing <code>a.name</code> as syntactic sugar for <code>a["name"]</code>.
-There are several convenient ways to create tables in Lua
-(see <a href="#3.4.8">&sect;3.4.8</a>).
+Table 是 Lua 中唯一的数据组织机制，可以用于表示普通数组、序列、符号表、集合、记录、图、树等等。在表示记录时，Lua 使用域名作为索引。语言支持以<code>a.name</code>来表示a["name"]，这只是一种语法糖。可以使用多种方式创建 table
+（参见 <a href="#3.4.8">&sect;3.4.8</a>）。
 
 
 <p>
-We use the term <em>sequence</em> to denote a table where
-the set of all positive numeric keys is equal to <em>{1..n}</em>
-for some integer <em>n</em>,
-which is called the length of the sequence (see <a href="#3.4.6">&sect;3.4.6</a>).
+我们使用<em> 序列 </em>这个词来表示一个递增表，其索引键为<em> {1..n} </em>，其中的<em> n </em>表示序列的长度（参见 <a href="#3.4.6">&sect;3.4.6</a>）。
 
 
 <p>
-Like indices,
-the values of table fields can be of any type.
-In particular,
-because functions are first-class values,
-table fields can contain functions.
-Thus tables can also carry <em>methods</em> (see <a href="#3.4.10">&sect;3.4.10</a>).
+与索引一样，table 中的域值也可为任意类型。特别的，由于函数也是 first-class values （第一类值/一等公民），所以 table 的域也可包含函数。从而 table 也能携带<em> methods </em> （参见 <a href="#3.4.10">&sect;3.4.10</a>）。（译注：这为面向对象提供了基础）
 
 
 <p>
@@ -728,20 +714,11 @@ if and only if <code>i</code> and <code>j</code> are raw equal
 
 
 <p>
-Tables, functions, threads, and (full) userdata values are <em>objects</em>:
-variables do not actually <em>contain</em> these values,
-only <em>references</em> to them.
-Assignment, parameter passing, and function returns
-always manipulate references to such values;
-these operations do not imply any kind of copy.
+Table、function、thread 和 (full) userdata 类型的值均是 <em>对象</em>：变量实际上不<em>含有 </em>值，只是<em>引用 </em>值。赋值、参数传递和函数返回等操作的只是值的引用；这些操作不会做任何性质的拷贝。
 
 
 <p>
-The library function <a href="#pdf-type"><code>type</code></a> returns a string describing the type
-of a given value (see <a href="#6.1">&sect;6.1</a>).
-
-
-
+库函数<a href="#pdf-type"><code> type </code></a>可以返回一个给定值的类型（参见 <a href="#6.1">&sect;6.1</a>）。
 
 
 <h2>2.2 &ndash; <a name="2.2">Environments and the Global Environment</a></h2>
