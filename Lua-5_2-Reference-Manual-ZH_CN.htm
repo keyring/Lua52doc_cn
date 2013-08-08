@@ -1119,83 +1119,34 @@ Metatable 能控制的操作全列在了下面。各种操作用对应的名字区分。每种操作的键都是操
 
 
 
-<h2>2.5 &ndash; <a name="2.5">Garbage Collection</a></h2>
+<h2>2.5 &ndash; <a name="2.5">垃圾收集</a></h2>
 
 <p>
-Lua performs automatic memory management.
-This means that
-you have to worry neither about allocating memory for new objects
-nor about freeing it when the objects are no longer needed.
-Lua manages memory automatically by running
-a <em>garbage collector</em> to collect all <em>dead objects</em>
-(that is, objects that are no longer accessible from Lua).
-All memory used by Lua is subject to automatic management:
-strings, tables, userdata, functions, threads, internal structures, etc.
+Lua 实行自动内存管理。意味着你不用担心创建新对象时的内存分配，也不用担心对象不再需要时的内存释放。Lua 运行一个 <em>garbage collector（垃圾收集器）</em> 来自动管理内存，收集 <em>dead objects（死亡对象）</em>（指 Lua 不再访问的对象）。Lua 中使用的所有内存（对象）均被自动管理：strings、tables、userdata、functions、threads、internal structures 等等。
 
 
 <p>
-Lua implements an incremental mark-and-sweep collector.
-It uses two numbers to control its garbage-collection cycles:
-the <em>garbage-collector pause</em> and
-the <em>garbage-collector step multiplier</em>.
-Both use percentage points as units
-(e.g., a value of 100 means an internal value of 1).
+Lua 实现了一个增量标记-清除收集器。它使用两个数字来控制垃圾收集周期： <em>garbage-collector pause</em> 和
+ <em>garbage-collector step multiplier</em>。两者均使用百分点作为计数单元（比如，100在内在表示 为1个百分点）。
+
+<p>
+garbage-collector pause 控制着收集器在开始新周期前的停顿时长。数字越大收集器越不积极，停顿时间越长。小于100意味着收集器不停顿即开始新周期。200表示收集器在内存使用量达到原来的两倍时才会开启新的周期。
 
 
 <p>
-The garbage-collector pause
-controls how long the collector waits before starting a new cycle.
-Larger values make the collector less aggressive.
-Values smaller than 100 mean the collector will not wait to
-start a new cycle.
-A value of 200 means that the collector waits for the total memory in use
-to double before starting a new cycle.
+garbage-collector step multiplier 控制收集器与内存分配的相对速度。数字越大收集器越积极，增加的收集量也越大。小于100会让收集器工作的非常慢，甚至造成收集器永远无法结束当前周期。默认值为200，表示收集器以内存分配的两倍速度运行着。
 
 
 <p>
-The garbage-collector step multiplier
-controls the relative speed of the collector relative to
-memory allocation.
-Larger values make the collector more aggressive but also increase
-the size of each incremental step.
-Values smaller than 100 make the collector too slow and
-can result in the collector never finishing a cycle.
-The default is 200,
-which means that the collector runs at "twice"
-the speed of memory allocation.
+如果你将 step multiplier 设置的非常大（比程序中可能使用到的最大字节数还要大10%），收集器的行为将类似 stop-the-world 收集器（即为了完成一个完整的垃圾收集周期而暂停与主程序的交互）。如果你同时又将 pause 设成200，那收集器就像老版本的Lua一样，等内存使用量达到 Lua 本身使用量的两倍才会做一次完全的垃圾回收。
 
 
 <p>
-If you set the step multiplier to a very large number
-(larger than 10% of the maximum number of
-bytes that the program may use),
-the collector behaves like a stop-the-world collector.
-If you then set the pause to 200,
-the collector behaves as in old Lua versions,
-doing a complete collection every time Lua doubles its
-memory usage.
+你可以通过在 C 中调用 <a href="#lua_gc"><code>lua_gc</code></a> 或者在 Lua 中调用 <a href="#pdf-collectgarbage"><code>collectgarbage</code></a> 来改变这些数字。你也可以通过这些函数来直接控制垃圾收集器（比如关闭、重启之类）。
 
 
 <p>
-You can change these numbers by calling <a href="#lua_gc"><code>lua_gc</code></a> in C
-or <a href="#pdf-collectgarbage"><code>collectgarbage</code></a> in Lua.
-You can also use these functions to control
-the collector directly (e.g., stop and restart it).
-
-
-<p>
-As an experimental feature in Lua 5.2,
-you can change the collector's operation mode
-from incremental to <em>generational</em>.
-A <em>generational collector</em> assumes that most objects die young,
-and therefore it traverses only young (recently created) objects.
-This behavior can reduce the time used by the collector,
-but also increases memory usage (as old dead objects may accumulate).
-To mitigate this second problem,
-from time to time the generational collector performs a full collection.
-Remember that this is an experimental feature;
-you are welcome to try it,
-but check your gains.
+作为 Lua 5.2 中的一个实验特性，你可以改变收集器的操作模式，从 incremental 改成<em>generational</em>。<em>generational collector</em> 假设大部分对象存活时间很短，因此收集器只会检测最近创建的新对象。这种行为能降低收集器的使用时间，但会增加内存使用量（逐渐累积老死的对象）。要解决第二个问题，可以让 generational collector 时常执行完整的回收。记住，这只是处于实验阶段的特性，欢迎尝试，看看效果咋样。
 
 
 
