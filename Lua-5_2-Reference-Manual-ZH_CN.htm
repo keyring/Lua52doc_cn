@@ -1286,51 +1286,30 @@ Lua 支持 coroutines（协程），也叫 <em>collaborative multithreading（协同多线程）
 
 
 
-<h1>3 &ndash; <a name="3">The Language</a></h1>
+<h1>3 &ndash; <a name="3">语言</a></h1>
 
 <p>
-This section describes the lexis, the syntax, and the semantics of Lua.
-In other words,
-this section describes
-which tokens are valid,
-how they can be combined,
-and what their combinations mean.
+本章介绍 Lua 的词法、语法和句法。换言之，这一章介绍哪些 token（符号）是合法的，它们如何组合，以及组合后的含义。
 
 
 <p>
-Language constructs will be explained using the usual extended BNF notation,
-in which
-{<em>a</em>}&nbsp;means&nbsp;0 or more <em>a</em>'s, and
-[<em>a</em>]&nbsp;means an optional <em>a</em>.
-Non-terminals are shown like non-terminal,
-keywords are shown like <b>kword</b>,
-and other terminal symbols are shown like &lsquo;<b>=</b>&rsquo;.
-The complete syntax of Lua can be found in <a href="#9">&sect;9</a>
-at the end of this manual.
+语言的结构由常用的扩展BNF范式来表示，即 {<em>a</em>} 表示0或多个 a，[<em>a</em>] 表示 a 为可选项。非终结符（一般是语言里的语法成分）保持不变，关键字类似 <b>kword</b>，其余的终结符（语言字符集的基本字符）要像这样 &lsquo;<b>=</b>&rsquo; 位于引号中。完整的 Lua 语法可在本手册最末处 <a href="#9">&sect;9</a> 找到。
 
 
 
-<h2>3.1 &ndash; <a name="3.1">Lexical Conventions</a></h2>
+<h2>3.1 &ndash; <a name="3.1">词法规定</a></h2>
 
 <p>
-Lua is a free-form language.
-It ignores spaces (including new lines) and comments
-between lexical elements (tokens),
-except as delimiters between names and keywords.
+Lua 是门 free-form 语言。除了名字与关键字间的分隔符，它将忽略词法元素（符号）之间的空白（包括换行）和注释。
+
 
 
 <p>
-<em>Names</em>
-(also called <em>identifiers</em>)
-in Lua can be any string of letters,
-digits, and underscores,
-not beginning with a digit.
-Identifiers are used to name variables, table fields, and labels.
+Lua 中的 <em>Names（名字）</em> （也叫 <em>identifiers（标识符）</em>）可以是任何字母、数字、下划线组成的非数字开头的字符串。标识符用于命名变量、表的域和标签。
 
 
 <p>
-The following <em>keywords</em> are reserved
-and cannot be used as names:
+下面是 Lua 保留的 <em>keywords（关键字）</em>，不能用作名字：
 
 
 <pre>
@@ -1341,16 +1320,11 @@ and cannot be used as names:
 </pre>
 
 <p>
-Lua is a case-sensitive language:
-<code>and</code> is a reserved word, but <code>And</code> and <code>AND</code>
-are two different, valid names.
-As a convention, names starting with an underscore followed by
-uppercase letters (such as <a href="#pdf-_VERSION"><code>_VERSION</code></a>)
-are reserved for variables used by Lua.
+Lua 区分大小写： <code>and</code> 是保留字，但 <code>And</code> 和 <code>AND</code> 则是两个不同的合法名字。一般约定，以下划线开头接大写字母的名字（比如 <a href="#pdf-_VERSION"><code>_VERSION</code></a>）被保留用于 Lua 内部变量。
 
 
 <p>
-The following strings denote other tokens:
+下面是其他符号：
 
 <pre>
      +     -     *     /     %     ^     #
@@ -1360,62 +1334,25 @@ The following strings denote other tokens:
 </pre>
 
 <p>
-<em>Literal strings</em>
-can be delimited by matching single or double quotes,
-and can contain the following C-like escape sequences:
-'<code>\a</code>' (bell),
-'<code>\b</code>' (backspace),
-'<code>\f</code>' (form feed),
-'<code>\n</code>' (newline),
-'<code>\r</code>' (carriage return),
-'<code>\t</code>' (horizontal tab),
-'<code>\v</code>' (vertical tab),
-'<code>\\</code>' (backslash),
-'<code>\"</code>' (quotation mark [double quote]),
-and '<code>\'</code>' (apostrophe [single quote]).
-A backslash followed by a real newline
-results in a newline in the string.
-The escape sequence '<code>\z</code>' skips the following span
-of white-space characters,
-including line breaks;
-it is particularly useful to break and indent a long literal string
-into multiple lines without adding the newlines and spaces
-into the string contents.
+<em>Literal strings（文字串）</em> 可以放在单双引号内，其中也可包含类似 C 中的转义序列： '<code>\a</code>' (响铃)，
+'<code>\b</code>' (退格)，
+'<code>\f</code>' (换页)，
+'<code>\n</code>' (换行)，
+'<code>\r</code>' (回车)，
+'<code>\t</code>' (横向制表)，
+'<code>\v</code>' (纵向制表)，
+'<code>\\</code>' (反斜线)，
+'<code>\"</code>' (双引号)，
+和 '<code>\'</code>' (单引号)。
+一个反斜线后跟一个换行符（\\n）会让字符串中产生一个换行符号（\n）。转义序列 '<code>\z</code>' 会跳过后面的空白字符，包括换行符；这个在将一段很长的文字串截成多行时非常有用。
 
 
 <p>
-A byte in a literal string can also be specified by its numerical value.
-This can be done with the escape sequence <code>\x<em>XX</em></code>,
-where <em>XX</em> is a sequence of exactly two hexadecimal digits,
-or with the escape sequence <code>\<em>ddd</em></code>,
-where <em>ddd</em> is a sequence of up to three decimal digits.
-(Note that if a decimal escape is to be followed by a digit,
-it must be expressed using exactly three digits.)
-Strings in Lua can contain any 8-bit value, including embedded zeros,
-which can be specified as '<code>\0</code>'.
+文字串中的字节也可通过数字表示出来。使用转义序列 <code>\x<em>XX</em></code>即可办到， <em>XX</em> 是两个十六进制数字；或者使用转义序列 <code>\<em>ddd</em></code>，<em>ddd</em> 表示最多三个十进制数字的序列。（注意，如果要在转义之后跟一个数字，那斜线后必须写满三个数字，否则会有歧义。）Lua 中的字符串可以包含任意8-bit值，包括 '<code>\0</code>' 表示的零；
 
 
 <p>
-Literal strings can also be defined using a long format
-enclosed by <em>long brackets</em>.
-We define an <em>opening long bracket of level <em>n</em></em> as an opening
-square bracket followed by <em>n</em> equal signs followed by another
-opening square bracket.
-So, an opening long bracket of level&nbsp;0 is written as <code>[[</code>,
-an opening long bracket of level&nbsp;1 is written as <code>[=[</code>,
-and so on.
-A <em>closing long bracket</em> is defined similarly;
-for instance, a closing long bracket of level&nbsp;4 is written as <code>]====]</code>.
-A <em>long literal</em> starts with an opening long bracket of any level and
-ends at the first closing long bracket of the same level.
-It can contain any text except a closing bracket of the proper level.
-Literals in this bracketed form can run for several lines,
-do not interpret any escape sequences,
-and ignore long brackets of any other level.
-Any kind of end-of-line sequence
-(carriage return, newline, carriage return followed by newline,
-or newline followed by carriage return)
-is converted to a simple newline.
+文字串也可由<em>长括号</em>的形式定义。左长括号由两个左方括号（[[）表示，在两个方括号之间可以有 <em>n</em> 个等号（=），等号代表级别。于是，0级左长括号就写作 <code>[[</code>，1级就写作 <code>[=[</code>。相对应的右长括号就是 <code>]]</code> 和 <code>]=]</code>。这主要用于长文字串，在相同等级（就是等号一样多）的左右长括号之内，可输入任何文本，不处理转义符，不受分行限制，忽略所有不对等级的嵌套长括号。任何行尾符（回车、换行、回车加换行、换行加回车）统统变成简单的换行。
 
 
 <p>
@@ -1430,13 +1367,8 @@ explicit escape sequences for non-text characters.
 
 
 <p>
-For convenience,
-when the opening long bracket is immediately followed by a newline,
-the newline is not included in the string.
-As an example, in a system using ASCII
-(in which '<code>a</code>' is coded as&nbsp;97,
-newline is coded as&nbsp;10, and '<code>1</code>' is coded as&nbsp;49),
-the five literal strings below denote the same string:
+为了方便，左长括号后面紧跟的那个换行符将被忽略。例如，一个使用 ASCII 码的系统中（ '<code>a</code>' 编码为 97，\n 编码为 10， '<code>1</code>'  编码为 49），下面五种形式表示相同的字符串：
+
 
 <pre>
      a = 'alo\n123"'
@@ -1450,15 +1382,7 @@ the five literal strings below denote the same string:
 </pre>
 
 <p>
-A <em>numerical constant</em> can be written with an optional fractional part
-and an optional decimal exponent,
-marked by a letter '<code>e</code>' or '<code>E</code>'.
-Lua also accepts hexadecimal constants,
-which start with <code>0x</code> or <code>0X</code>.
-Hexadecimal constants also accept an optional fractional part
-plus an optional binary exponent,
-marked by a letter '<code>p</code>' or '<code>P</code>'.
-Examples of valid numerical constants are
+<em>numerical constant（数值常量）</em> 可以写成普通形式，也可以写成科学计数法（指数部分由字母  '<code>e</code>' 或 '<code>E</code>' 标记）。Lua 也支持十六进制常量，只需前面加上 <code>0x</code> 或者 <code>0X</code>。十六进制也接受二进制指数形式的小数（用字母 '<code>p</code>' 或 '<code>P</code> 标记）。以下是一些合法的数值常量写法：
 
 <pre>
      3     3.0     3.1416     314.16e-2     0.31416E1
@@ -1466,16 +1390,7 @@ Examples of valid numerical constants are
 </pre>
 
 <p>
-A <em>comment</em> starts with a double hyphen (<code>--</code>)
-anywhere outside a string.
-If the text immediately after <code>--</code> is not an opening long bracket,
-the comment is a <em>short comment</em>,
-which runs until the end of the line.
-Otherwise, it is a <em>long comment</em>,
-which runs until the corresponding closing long bracket.
-Long comments are frequently used to disable code temporarily.
-
-
+<em>comment（注释）</em> 由两横开始 (<code>--</code>)，可以出现在字符串之外的任何地方。如果跟在 <code>--</code> 后面的不是一个左长括号，这就是一个 <em>短注释</em>，作用范围直到行末。否则就是一个 <em>长注释</em>，作用范围是同等级的右长括号。长注释常用于临时屏蔽代码块。
 
 
 
