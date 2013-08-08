@@ -1184,79 +1184,31 @@ garbage-collector step multiplier 控制收集器与内存分配的相对速度。数字越大收集器
 
 
 
-<h3>2.5.2 &ndash; <a name="2.5.2">Weak Tables</a></h3>
+<h3>2.5.2 &ndash; <a name="2.5.2">弱表</a></h3>
 
 <p>
-A <em>weak table</em> is a table whose elements are
-<em>weak references</em>.
-A weak reference is ignored by the garbage collector.
-In other words,
-if the only references to an object are weak references,
-then the garbage collector will collect that object.
+<em>weak table</em> 指表中元素被 <em>weak references（弱引用）</em>。而垃圾收集器会忽略弱引用，换言之，如果一个对象只有弱引用，垃圾收集器会将之回收。
+
+<p>
+弱表的键与值均可为 weak。拥有弱键的表，键会被回收而对应的值不会。而键与值都 weak 的话，收集器会将键与值都回收掉。而且，无论键与值谁被回收了，对应的键值对都会从表中移除。table 的 weak 性质受元表的 <code>__mode</code> 域控制。如果 <code>__mode</code> 域是一个含有字符&nbsp;'<code>k</code>' 的字符串，则 table 中的键就是 weak 的；相应的，如果 <code>__mode</code> 域含有字符  '<code>v</code>'，table 中的值就是 weak 的。
 
 
 <p>
-A weak table can have weak keys, weak values, or both.
-A table with weak keys allows the collection of its keys,
-but prevents the collection of its values.
-A table with both weak keys and weak values allows the collection of
-both keys and values.
-In any case, if either the key or the value is collected,
-the whole pair is removed from the table.
-The weakness of a table is controlled by the
-<code>__mode</code> field of its metatable.
-If the <code>__mode</code> field is a string containing the character&nbsp;'<code>k</code>',
-the keys in the table are weak.
-If <code>__mode</code> contains '<code>v</code>',
-the values in the table are weak.
+拥有弱键与强值的表也叫 <em>ephemeron table（短命表）</em>。在这种表中，值的可访问性只依赖对应键的可访问性。尤其是键的唯一引用来自它的值时，这个键值对将被移除。
 
 
 <p>
-A table with weak keys and strong values
-is also called an <em>ephemeron table</em>.
-In an ephemeron table,
-a value is considered reachable only if its key is reachable.
-In particular,
-if the only reference to a key comes through its value,
-the pair is removed.
+对表的 weak 性质做任何改变只会对下一个垃圾收集周期产生影响。而且，如果你改成更 strong（强）的模式，Lua 在更改真正生效之前仍然会回收表中某些项。
+
+<p>只有那些明确说明的对象才会从弱表中移除。数字和轻量 C 函数之类不受垃圾收集管理，因此不会从弱表中移除（除非它的关联值已被回收了）。虽然字符串受垃圾收集管理，但它们没有明确说明，因此也不会从弱表中移除。
 
 
 <p>
-Any change in the weakness of a table may take effect only
-at the next collect cycle.
-In particular, if you change the weakness to a stronger mode,
-Lua may still collect some items from that table
-before the change takes effect.
+复活的对象（指那些即将析构且只能由析构器访问的对象）在弱表中有一种特殊行为。它们在运行自身析构器之前会从弱值中移除，但只能在下一个垃圾收集周期从弱键中移除，此时才是真正的对象释放。这种行为就允许析构器在弱表中访问与对象相关的属性。
 
 
 <p>
-Only objects that have an explicit construction
-are removed from weak tables.
-Values, such as numbers and light C functions,
-are not subject to garbage collection,
-and therefore are not removed from weak tables
-(unless its associated value is collected).
-Although strings are subject to garbage collection,
-they do not have an explicit construction,
-and therefore are not removed from weak tables.
-
-
-<p>
-Resurrected objects
-(that is, objects being finalized
-and objects accessible only through objects being finalized)
-have a special behavior in weak tables.
-They are removed from weak values before running their finalizers,
-but are removed from weak keys only in the next collection
-after running their finalizers, when such objects are actually freed.
-This behavior allows the finalizer to access properties
-associated with the object through weak tables.
-
-
-<p>
-If a weak table is among the resurrected objects in a collection cycle,
-it may not be properly cleared until the next cycle.
-
+如果一个弱表在当前回收周期位于一个复活对象中，那只能在下一个周期里才能正确清除掉。
 
 
 
