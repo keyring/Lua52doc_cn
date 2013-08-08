@@ -724,9 +724,9 @@ Table¡¢function¡¢thread ºÍ (full) userdata ÀàĞÍµÄÖµ¾ùÊÇ <em>¶ÔÏó</em>£º±äÁ¿Êµ¼ÊÉ
 <h2>2.2 &ndash; <a name="2.2">»·¾³ÓëÈ«¾Ö±äÁ¿</a></h2>
 
 <p>
-¾ÍÏñÔÚ <a href="#3.2">&sect;3.2</a> ºÍ <a href="#3.3.3">&sect;3.3.3</a> ÌÖÂÛµÄÄÇÑù£¬ÈÎºÎ¶ÔÈ«¾ÖÃû³Æ <code>var</code> µÄÒıÓÃ¾ù»á±»·­Òë³É <code>_ENV.var</code>¡£´ËÍâ£¬ÈÎºÎÔÚ¾Ö²¿±äÁ¿Ö®Íâ±àÒëµÄÓï¾ä¿é¾ù½Ğ×÷
+¾ÍÏñÔÚ <a href="#3.2">&sect;3.2</a> ºÍ <a href="#3.3.3">&sect;3.3.3</a> ÌÖÂÛµÄÄÇÑù£¬ÈÎºÎ¶ÔÈ«¾ÖÃû³Æ <code>var</code> µÄÒıÓÃ¾ù»á±»·­Òë³É <code>_ENV.var</code>¡£´ËÍâ£¬ÈÎºÎÔÚ¾Ö²¿±äÁ¿Ö®Íâ±àÒëµÄ³ÌĞò¿é¾ù½Ğ×÷
  <code>_ENV</code>£¨²Î¼û <a href="#3.3.2">&sect;3.3.2</a>£©£¬
-ËùÒÔ <code>_ENV</code> ±¾ÉíÔÚÓï¾ä¿éÖĞ´ÓÀ´¶¼²»ÊÇÈ«¾ÖÃû³Æ¡£
+ËùÒÔ <code>_ENV</code> ±¾ÉíÔÚ³ÌĞò¿éÖĞ´ÓÀ´¶¼²»ÊÇÈ«¾ÖÃû³Æ¡£
 
 
 <p>
@@ -742,7 +742,7 @@ Lua Î¬³ÖÒ»¸ö½Ğ <em>global environment£¨È«¾Ö»·¾³£©</em>µÄÌØÊâ»·¾³¡£Õâ¸öÖµÔÚ C ×¢²
 
 
 <p>
-µ± Lua ±àÒëÒ»¸ö chunk£¨Óï¾ä¿é£©Ê±£¬»áÏÈ½«ÆäÖĞ <code>_ENV</code> µÄÖµÌáÉıÎªÈ«¾Ö»·¾³£¨²Î¼û <a href="#pdf-load"><code>load</code></a>£©¡£Òò´Ë£¬Ä¬ÈÏÇé¿öÏÂ£¬Lua´úÂëÖĞµÄÈ«¾Ö±äÁ¿Ò»°ãÖ¸µÄÊÇÈ«¾Ö»·¾³ÀïµÄÈë¿Ú¡£´ËÍâ£¬¼ÓÔØµ½È«¾Ö»·¾³ÏÂµÄËùÓĞ±ê×¼¿âºÍ²¿·Öº¯Êı¾ùÊÇÔÚ¸Ã»·¾³ÏÂÔË×÷¡£Äã¿ÉÒÔÊ¹ÓÃ <a href="#pdf-load"><code>load</code></a> £¨»òÕß <a href="#pdf-loadfile"><code>loadfile</code></a>£©À´¼ÓÔØÒ»¸ö²»Í¬»·¾³ÏÂµÄ chunk¡£
+µ± Lua ±àÒëÒ»¸ö chunk£¨³ÌĞò¿é£©Ê±£¬»áÏÈ½«ÆäÖĞ <code>_ENV</code> µÄÖµÌáÉıÎªÈ«¾Ö»·¾³£¨²Î¼û <a href="#pdf-load"><code>load</code></a>£©¡£Òò´Ë£¬Ä¬ÈÏÇé¿öÏÂ£¬Lua´úÂëÖĞµÄÈ«¾Ö±äÁ¿Ò»°ãÖ¸µÄÊÇÈ«¾Ö»·¾³ÀïµÄÈë¿Ú¡£´ËÍâ£¬¼ÓÔØµ½È«¾Ö»·¾³ÏÂµÄËùÓĞ±ê×¼¿âºÍ²¿·Öº¯Êı¾ùÊÇÔÚ¸Ã»·¾³ÏÂÔË×÷¡£Äã¿ÉÒÔÊ¹ÓÃ <a href="#pdf-load"><code>load</code></a> £¨»òÕß <a href="#pdf-loadfile"><code>loadfile</code></a>£©À´¼ÓÔØÒ»¸ö²»Í¬»·¾³ÏÂµÄ chunk¡£
 <!--
 (In C, you have to load the chunk and then change the value
 of its first upvalue.)
@@ -756,7 +756,7 @@ of its first upvalue.)
 <h2>2.3 &ndash; <a name="2.3">´íÎó´¦Àí</a></h2>
 
 <p>
-ÓÉÓÚ Lua ÊÇÒ»ÃÅÇ¶ÈëÊ½À©Õ¹ÓïÑÔ£¬ËùÓĞµÄ Lua ĞĞÎª¾ùÔ´ÓÚËŞÖ÷³ÌĞò C ´úÂë¶Ô Lua ¿âµÄº¯Êıµ÷ÓÃ£¨²Î¼û <a href="#lua_pcall"><code>lua_pcall</code></a>£©¡£ÎŞÂÛºÎÊ± Lua Óï¾ä¿é·¢Éú±àÒë/Ö´ĞĞ´íÎó£¬¿ØÖÆÈ¨¾ù»á½»¸øËŞÖ÷³ÌĞò£¬ÓÉËŞÖ÷³ÌĞò´¥·¢Ç¡µ±µÄ´ëÊ©£¨±ÈÈç´òÓ¡Ò»Ìõ³ö´íĞÅÏ¢£©¡£
+ÓÉÓÚ Lua ÊÇÒ»ÃÅÇ¶ÈëÊ½À©Õ¹ÓïÑÔ£¬ËùÓĞµÄ Lua ĞĞÎª¾ùÔ´ÓÚËŞÖ÷³ÌĞò C ´úÂë¶Ô Lua ¿âµÄº¯Êıµ÷ÓÃ£¨²Î¼û <a href="#lua_pcall"><code>lua_pcall</code></a>£©¡£ÎŞÂÛºÎÊ± Lua ³ÌĞò¿é·¢Éú±àÒë/Ö´ĞĞ´íÎó£¬¿ØÖÆÈ¨¾ù»á½»¸øËŞÖ÷³ÌĞò£¬ÓÉËŞÖ÷³ÌĞò´¥·¢Ç¡µ±µÄ´ëÊ©£¨±ÈÈç´òÓ¡Ò»Ìõ³ö´íĞÅÏ¢£©¡£
 
 
 <p>
@@ -1402,9 +1402,7 @@ explicit escape sequences for non-text characters.
 
 <p>
 Ò»¸öµ¥¶ÀµÄÃû×Ö¿ÉÒÔ±íÊ¾ÎªÒ»¸öÈ«¾Ö±äÁ¿»òÕßÒ»¸ö¾Ö²¿±äÁ¿£¨»òÕßÒ»¸öº¯Êı²ÎÊı£¬ÕâÒ²ÊÇÒ»ÖÖ¾Ö²¿±äÁ¿£©£º
-A single name can denote a global variable or a local variable
-(or a function's formal parameter,
-which is a particular kind of local variable):
+
 
 <pre>
 	var ::= Name
@@ -1438,30 +1436,25 @@ Name ¾ÍÊÇ <a href="#3.1">&sect;3.1</a>Ëù¶¨ÒåµÄ±êÊ¶·û¡£
 
 <p>
 ¶ÔÈ«¾Ö±äÁ¿ <code>x</code> µÄ·ÃÎÊµÈ¼ÛÓÚ·ÃÎÊ <code>_ENV.x</code>¡£
-ÓÉÓÚ°´Óï¾ä¿é±àÒëËùÒÔ£¬<code>_ENV</code> ±¾Éí²¢²»ÊÇÒ»¸öÈ«¾ÖÃû³Æ £¨²Î¼û <a href="#2.2">&sect;2.2</a>£©¡£
+ÓÉÓÚ°´³ÌĞò¿é±àÒëËùÒÔ£¬<code>_ENV</code> ±¾Éí²¢²»ÊÇÒ»¸öÈ«¾ÖÃû³Æ £¨²Î¼û <a href="#2.2">&sect;2.2</a>£©¡£
 
 
 
-<h2>3.3 &ndash; <a name="3.3">Statements</a></h2>
-
-<p>
-Lua supports an almost conventional set of statements,
-similar to those in Pascal or C.
-This set includes
-assignments, control structures, function calls,
-and variable declarations.
-
-
-
-<h3>3.3.1 &ndash; <a name="3.3.1">Blocks</a></h3>
+<h2>3.3 &ndash; <a name="3.3">Óï¾ä</a></h2>
 
 <p>
-A block is a list of statements,
-which are executed sequentially:
+Lua Ö§³ÖµÄ³£¼ûÓï¾äÀàËÆPascal»òÕßC¡£°üÀ¨¸³ÖµÓï¾ä¡¢¿ØÖÆÓï¾ä¡¢º¯Êıµ÷ÓÃºÍ±äÁ¿ÉùÃ÷¡£
+
+
+<h3>3.3.1 &ndash; <a name="3.3.1">Óï¾ä¿é</a></h3>
+
+<p>
+Ò»¸öÓï¾ä¿é¾ÍÊÇÒ»¶Ñ°´Ë³ĞòÖ´ĞĞµÄÓï¾ä£º
 
 <pre>
 	block ::= {stat}
 </pre><p>
+
 Lua has <em>empty statements</em>
 that allow you to separate statements with semicolons,
 start a block with a semicolon
