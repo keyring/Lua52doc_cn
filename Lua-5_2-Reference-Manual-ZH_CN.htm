@@ -1394,15 +1394,14 @@ explicit escape sequences for non-text characters.
 
 
 
-<h2>3.2 &ndash; <a name="3.2">Variables</a></h2>
+<h2>3.2 &ndash; <a name="3.2">变量</a></h2>
 
 <p>
-Variables are places that store values.
-There are three kinds of variables in Lua:
-global variables, local variables, and table fields.
+变量是存储值的地方。Lua 中有三种：全局变量、局部变量和表的域。
 
 
 <p>
+一个单独的名字可以表示为一个全局变量或者一个局部变量（或者一个函数参数，这也是一种局部变量）：
 A single name can denote a global variable or a local variable
 (or a function's formal parameter,
 which is a particular kind of local variable):
@@ -1410,51 +1409,36 @@ which is a particular kind of local variable):
 <pre>
 	var ::= Name
 </pre><p>
-Name denotes identifiers, as defined in <a href="#3.1">&sect;3.1</a>.
+Name 就是 <a href="#3.1">&sect;3.1</a>所定义的标识符。
 
 
 <p>
-Any variable name is assumed to be global unless explicitly declared
-as a local (see <a href="#3.3.7">&sect;3.3.7</a>).
-Local variables are <em>lexically scoped</em>:
-local variables can be freely accessed by functions
-defined inside their scope (see <a href="#3.5">&sect;3.5</a>).
+任何没有显示声明为 local （参见 <a href="#3.3.7">&sect;3.3.7</a>）的变量名均可假定为全局变量。局部变量的 <em>lexically scoped（作用域）</em>：定义在函数作用域（参见 <a href="#3.5">&sect;3.5</a>）的局部变量可被其自由访问。
+
+<p>
+变量首次赋值前，默认值均为 <b>nil</b>。
 
 
 <p>
-Before the first assignment to a variable, its value is <b>nil</b>.
-
-
-<p>
-Square brackets are used to index a table:
+方括号用于索引表：
 
 <pre>
 	var ::= prefixexp &lsquo;<b>[</b>&rsquo; exp &lsquo;<b>]</b>&rsquo;
 </pre><p>
-The meaning of accesses to table fields can be changed via metatables.
-An access to an indexed variable <code>t[i]</code> is equivalent to
-a call <code>gettable_event(t,i)</code>.
-(See <a href="#2.4">&sect;2.4</a> for a complete description of the
-<code>gettable_event</code> function.
-This function is not defined or callable in Lua.
-We use it here only for explanatory purposes.)
+访问表的域的含义能被元表更改。而访问被索引的变量 <code>t[i]</code> 等价于调用 <code>gettable_event(t,i)</code>。（参见 <a href="#2.4">&sect;2.4</a> 获取 <code>gettable_event</code> 函数的完整描述。该函数未在 Lua 中定义，也不能调用。这里仅仅用于阐述原理。）
 
 
 <p>
-The syntax <code>var.Name</code> is just syntactic sugar for
-<code>var["Name"]</code>:
+语法 <code>var.Name</code> 也仅是
+<code>var["Name"]</code> 的语法糖：
 
 <pre>
 	var ::= prefixexp &lsquo;<b>.</b>&rsquo; Name
 </pre>
 
 <p>
-An access to a global variable <code>x</code>
-is equivalent to <code>_ENV.x</code>.
-Due to the way that chunks are compiled,
-<code>_ENV</code> is never a global name (see <a href="#2.2">&sect;2.2</a>).
-
-
+对全局变量 <code>x</code> 的访问等价于访问 <code>_ENV.x</code>。
+由于按语句块编译所以，<code>_ENV</code> 本身并不是一个全局名称 （参见 <a href="#2.2">&sect;2.2</a>）。
 
 
 
