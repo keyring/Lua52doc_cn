@@ -1150,39 +1150,18 @@ garbage-collector step multiplier 控制收集器与内存分配的相对速度。数字越大收集器
 
 
 
-<h3>2.5.1 &ndash; <a name="2.5.1">Garbage-Collection Metamethods</a></h3>
+<h3>2.5.1 &ndash; <a name="2.5.1">垃圾收集元方法</a></h3>
 
 <p>
-You can set garbage-collector metamethods for tables
-and, using the C&nbsp;API,
-for full userdata (see <a href="#2.4">&sect;2.4</a>).
-These metamethods are also called <em>finalizers</em>.
-Finalizers allow you to coordinate Lua's garbage collection
-with external resource management
-(such as closing files, network or database connections,
-or freeing your own memory).
+你可以为 table 设置垃圾收集元方法，也可使用 C API 为 full  userdata 设置（参见 <a href="#2.4">&sect;2.4</a>）。这些元方法也叫 <em>finalizers（析构器）</em>。析构器允许外部资源管理（比如关闭文件、关闭网络、关闭数据库连接或者释放自己的内存）配合 Lua 的垃圾收集。
 
 
 <p>
-For an object (table or userdata) to be finalized when collected,
-you must <em>mark</em> it for finalization.
-
-You mark an object for finalization when you set its metatable
-and the metatable has a field indexed by the string "<code>__gc</code>".
-Note that if you set a metatable without a <code>__gc</code> field
-and later create that field in the metatable,
-the object will not be marked for finalization.
-However, after an object is marked,
-you can freely change the <code>__gc</code> field of its metatable.
+对象（table 或者 userdata）需要被析构回收时，你必须 <em>标记</em> 它为可析构。只需为对象设置一张有 "<code>__gc</code> 域的元表即可标记对象为可析构。注意一点，如果你为对象先设置了一张没有 <code>__gc</code> 域的元表，然后在元表中新建一个 <code>__gc</code> 域，这个对象是没法被标记的。而在对象被标记后，你可以随意改变元表中的 <code>__gc</code> 域 。
 
 
 <p>
-When a marked object becomes garbage,
-it is not collected immediately by the garbage collector.
-Instead, Lua puts it in a list.
-After the collection,
-Lua does the equivalent of the following function
-for each object in that list:
+当被标记对象变成垃圾时，垃圾收集器不会立马将它回收，而是由 Lua 将之放进一个列表中。收集结束后，Lua 对列表中每个对象执行下面函数的等价操作：
 
 <pre>
      function gc_event (obj)
@@ -1194,38 +1173,14 @@ for each object in that list:
 </pre>
 
 <p>
-At the end of each garbage-collection cycle,
-the finalizers for objects are called in
-the reverse order that they were marked for collection,
-among those collected in that cycle;
-that is, the first finalizer to be called is the one associated
-with the object marked last in the program.
-The execution of each finalizer may occur at any point during
-the execution of the regular code.
+每个垃圾收集周期的结尾，当前周期内收集到的垃圾对象会以被标记顺序的 <b>反序</b> 调用析构器。这意味着程序里最后被标记的对象最先析构。析构器的执行可能发生在普通代码执行期间的任何时候。
 
 
 <p>
-Because the object being collected must still be used by the finalizer,
-it (and other objects accessible only through it)
-must be <em>resurrected</em> by Lua.
-Usually, this resurrection is transient,
-and the object memory is freed in the next garbage-collection cycle.
-However, if the finalizer stores the object in some global place
-(e.g., a global variable),
-then there is a permanent resurrection.
-In any case,
-the object memory is freed only when it becomes completely inaccessible;
-its finalizer will never be called twice.
-
+由于被回收了的对象还要被析构器使用，该对象会由 Lua <em>resurrected（复活）</em>。当然，这个复活是短暂的，而且对象的内存会在下一个垃圾收集周期释放掉。然而，如果析构器将对象存在某些全局位置（比如一个全局变量里面），那这就变成永久性复活了。总之，对象的内存只有在完全不可访问的情况下才能被释放；它的析构器也从不会被调用两次。
 
 <p>
-When you close a state (see <a href="#lua_close"><code>lua_close</code></a>),
-Lua calls the finalizers of all objects marked for finalization,
-following the reverse order that they were marked.
-If any finalizer marks new objects for collection during that phase,
-these new objects will not be finalized.
-
-
+当关闭一个状态（参见 <a href="#lua_close"><code>lua_close</code></a>），Lua将对所有被标记为可析构的对象以标记的反序来调用析构器。如果刚好有新对象在这个阶段被标记，新对象是不会被析构的。
 
 
 
