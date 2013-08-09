@@ -1516,11 +1516,6 @@ Lua 将程序块当作一个拥有可变参数的匿名函数来处理（参见 <a href="#3.4.10">&sect;3
 
 <p>
 Lua 允许多重赋值。因此，赋值的语法规定等号左边是一串变量，右边是一串表达式。串中的元素用等号隔开：
-Lua allows multiple assignments.
-Therefore, the syntax for assignment
-defines a list of variables on the left side
-and a list of expressions on the right side.
-The elements in both lists are separated by commas:
 
 <pre>
 	stat ::= varlist &lsquo;<b>=</b>&rsquo; explist
@@ -1564,12 +1559,8 @@ The elements in both lists are separated by commas:
 
 
 
-<h3>3.3.4 &ndash; <a name="3.3.4">Control Structures</a></h3><p>
-The control structures
-<b>if</b>, <b>while</b>, and <b>repeat</b> have the usual meaning and
-familiar syntax:
-
-
+<h3>3.3.4 &ndash; <a name="3.3.4">控制结构</a></h3><p>
+<b>if</b>、<b>while</b> 和 <b>repeat</b> 等结构的意义和语法都很常见：
 
 
 <pre>
@@ -1577,30 +1568,19 @@ familiar syntax:
 	stat ::= <b>repeat</b> block <b>until</b> exp
 	stat ::= <b>if</b> exp <b>then</b> block {<b>elseif</b> exp <b>then</b> block} [<b>else</b> block] <b>end</b>
 </pre><p>
-Lua also has a <b>for</b> statement, in two flavors (see <a href="#3.3.5">&sect;3.3.5</a>).
+Lua 也有 <b>for</b> 语句，并有两种形式（参见 <a href="#3.3.5">&sect;3.3.5</a>）。
 
 
 <p>
-The condition expression of a
-control structure can return any value.
-Both <b>false</b> and <b>nil</b> are considered false.
-All values different from <b>nil</b> and <b>false</b> are considered true
-(in particular, the number 0 and the empty string are also true).
+控制结构中的条件表达式可以返回任何值。只有 <b>false</b> 和 <b>nil</b> 才被当作条件假。其他任何值都被当作条件真（尤其注意数字 0 和空字符串也为真）。
 
 
 <p>
-In the <b>repeat</b>&ndash;<b>until</b> loop,
-the inner block does not end at the <b>until</b> keyword,
-but only after the condition.
-So, the condition can refer to local variables
-declared inside the loop block.
+在 <b>repeat</b>&ndash;<b>until</b> 循环中，内部语句不在 <b>until</b> 关键字处结束，而是在条件后面结束。所以，条件中可以使用循环体内声明的局部变量。
 
 
 <p>
-The <b>goto</b> statement transfers the program control to a label.
-For syntactical reasons,
-labels in Lua are considered statements too:
-
+<b>goto</b> 语句能将程序控制转移到一个标签处。从语法上讲，Lua 中的标签也被当作是语句：
 
 
 <pre>
@@ -1610,49 +1590,35 @@ labels in Lua are considered statements too:
 </pre>
 
 <p>
-A label is visible in the entire block where it is defined,
-except
-inside nested blocks where a label with the same name is defined and
-inside nested functions.
-A goto may jump to any visible label as long as it does not
-enter into the scope of a local variable.
+标签在被定义的语句块内全部可见，除非在某个嵌套语句块的嵌套函数内定义了一个同名的标签。一个 goto 只要不进入局部变量作用域，它能跳转到任意可见的标签上。
 
 
 <p>
-Labels and empty statements are called <em>void statements</em>,
-as they perform no actions.
+标签可空语句叫作 <em>void statements</em>，表示它们本身没有任何行为。
 
 
 <p>
-The <b>break</b> statement terminates the execution of a
-<b>while</b>, <b>repeat</b>, or <b>for</b> loop,
-skipping to the next statement after the loop:
+<b>break</b> 语句用于终止
+<b>while</b>、<b>repeat</b> 或 <b>for</b> 循环，并忽略循环体中剩下的语句：
 
 
 <pre>
 	stat ::= <b>break</b>
 </pre><p>
-A <b>break</b> ends the innermost enclosing loop.
+<b>break</b> 能结束内层循环。
 
 
 <p>
-The <b>return</b> statement is used to return values
-from a function or a chunk (which is a function in disguise).
+<b>return</b> 语句用于从函数或程序块（伪装成函数）中返回值。
 
-Functions can return more than one value,
-so the syntax for the <b>return</b> statement is
+函数可以返回多个值。所以 <b>return</b> 语句的语法是：
 
 <pre>
 	stat ::= <b>return</b> [explist] [&lsquo;<b>;</b>&rsquo;]
 </pre>
 
 <p>
-The <b>return</b> statement can only be written
-as the last statement of a block.
-If it is really necessary to <b>return</b> in the middle of a block,
-then an explicit inner block can be used,
-as in the idiom <code>do return end</code>,
-because now <b>return</b> is the last statement in its (inner) block.
+<b>return</b> 语句只能写作语句块的最后一句。如果在语句块中间确实需要 <b>return</b>，得显示使用内部语句块。习惯写成 <code>do return end</code>，于是这个<b>return</b> 在内层语句块中成了最后一句（这完全符合前面的规定）。
 
 
 
