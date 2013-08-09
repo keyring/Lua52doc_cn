@@ -1732,42 +1732,33 @@ Lua Ò²ÓĞ <b>for</b> Óï¾ä£¬²¢ÓĞÁ½ÖÖĞÎÊ½£¨²Î¼û <a href="#3.3.5">&sect;3.3.5</a>£©¡
 
 
 
-<h3>3.3.6 &ndash; <a name="3.3.6">Function Calls as Statements</a></h3><p>
-To allow possible side-effects,
-function calls can be executed as statements:
+<h3>3.3.6 &ndash; <a name="3.3.6">º¯Êıµ÷ÓÃ×÷ÎªÓï¾ä</a></h3><p>
+ÎªÁËÔÊĞíÊ¹ÓÃ¿ÉÄÜµÄ¸±×÷ÓÃ£¬º¯Êıµ÷ÓÃ¿Éµ±×÷Óï¾äÖ´ĞĞ£º
 
 <pre>
 	stat ::= functioncall
 </pre><p>
-In this case, all returned values are thrown away.
-Function calls are explained in <a href="#3.4.9">&sect;3.4.9</a>.
+ÕâÖÖÇé¿öÏÂ£¬ËùÓĞµÄ·µ»ØÖµ¾ù±»¶ªÆú¡£¹ØÓÚº¯Êıµ÷ÓÃµÄËµÃ÷ÔÚ <a href="#3.4.9">&sect;3.4.9</a>¡£
 
 
 
 
 
-<h3>3.3.7 &ndash; <a name="3.3.7">Local Declarations</a></h3><p>
-Local variables can be declared anywhere inside a block.
-The declaration can include an initial assignment:
+<h3>3.3.7 &ndash; <a name="3.3.7">¾Ö²¿ÉùÃ÷</a></h3><p>
+¾Ö²¿±äÁ¿¿ÉÔÚÓï¾ä¿éÄÚÈÎºÎµØ·½ÉùÃ÷¡£ÉùÃ÷µÄÍ¬Ê±¿ÉÒÔ½øĞĞ³õÊ¼»¯¸³Öµ²Ù×÷£º
 
 <pre>
 	stat ::= <b>local</b> namelist [&lsquo;<b>=</b>&rsquo; explist]
 </pre><p>
-If present, an initial assignment has the same semantics
-of a multiple assignment (see <a href="#3.3.3">&sect;3.3.3</a>).
-Otherwise, all variables are initialized with <b>nil</b>.
+Èç¹û×öÁË£¬³õÊ¼»¯¸³Öµ²Ù×÷ÔÚÓï·¨ÉÏµÈÍ¬ÓÚ¶àÖØ¸³Öµ£¨see <a href="#3.3.3">&sect;3.3.3</a>£©¡£·ñÔò£¬ËùÓĞ±äÁ¿¾ù±»³õÊ¼»¯Îª <b>nil</b>¡£
 
 
 <p>
-A chunk is also a block (see <a href="#3.3.2">&sect;3.3.2</a>),
-and so local variables can be declared in a chunk outside any explicit block.
+³ÌĞò¿éÒ²ÊÇÓï¾ä¿é£¨²Î¼û <a href="#3.3.2">&sect;3.3.2</a>£©£¬Òò´Ë¾Ö²¿±äÁ¿¿ÉÔÚÈÎºÎÏÔÊ¾Óï¾ä¿éÖ®ÍâµÄ³ÌĞò¿éÖĞÉùÃ÷¡£
 
 
 <p>
-The visibility rules for local variables are explained in <a href="#3.5">&sect;3.5</a>.
-
-
-
+¾Ö²¿±äÁ¿µÄ¿É¼ûĞÔ¹æÔòÔÚ <a href="#3.5">&sect;3.5</a> ËµÃ÷¡£
 
 
 
