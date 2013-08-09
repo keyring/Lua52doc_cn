@@ -1489,46 +1489,25 @@ Lua 允许 <em>empty statements（空语句）</em>，可以用分号隔开语句，也可用一个或者
 
 
 
-
-
-<h3>3.3.2 &ndash; <a name="3.3.2">Chunks</a></h3>
+<h3>3.3.2 &ndash; <a name="3.3.2">程序块</a></h3>
 
 <p>
-The unit of compilation of Lua is called a <em>chunk</em>.
-Syntactically,
-a chunk is simply a block:
+<em>chunk（程序块）</em>就是 Lua 中的编译单元。从语法上讲，程序块就是简单的语句块。
 
 <pre>
 	chunk ::= block
 </pre>
 
 <p>
-Lua handles a chunk as the body of an anonymous function
-with a variable number of arguments
-(see <a href="#3.4.10">&sect;3.4.10</a>).
-As such, chunks can define local variables,
-receive arguments, and return values.
-Moreover, such anonymous function is compiled as in the
-scope of an external local variable called <code>_ENV</code> (see <a href="#2.2">&sect;2.2</a>).
-The resulting function always has <code>_ENV</code> as its only upvalue,
-even if it does not use that variable.
+Lua 将程序块当作一个拥有可变参数的匿名函数来处理（参见 <a href="#3.4.10">&sect;3.4.10</a>）。所以，程序块可以定义局部变量、接收参数并返回值。此外，这样的匿名函数被编译在一个叫 <code>_ENV</code> （参见 <a href="#2.2">&sect;2.2</a>）的外部局部变量的作用域内。产生的函数常用 <code>_ENV</code> 作为唯一的自由变量，即便根本没用它。（译者注：说白了就是程序块相当于匿名函数，这些函数默认处于 <code>_ENV</code> 的命名空间中，使用时要写成 <code>_ENV.*****</code>。）
 
 
 <p>
-A chunk can be stored in a file or in a string inside the host program.
-To execute a chunk,
-Lua first precompiles the chunk into instructions for a virtual machine,
-and then it executes the compiled code
-with an interpreter for the virtual machine.
+程序块可以存在单独的文件中，也可直接写在宿主程序的一个字符串中。执行程序块时，Lua 现将它预编译成虚拟机指令，然后由虚拟机的解释器来执行这些指令。
 
 
 <p>
-Chunks can also be precompiled into binary form;
-see program <code>luac</code> for details.
-Programs in source and compiled forms are interchangeable;
-Lua automatically detects the file type and acts accordingly.
-
-
+程序块也可被预编译成二进制形式；详情查阅程序 <code>luac</code>。源码形式和二进制形式的程序可以相互转换；Lua 会自动识别文件类型并做正确处理。
 
 
 
