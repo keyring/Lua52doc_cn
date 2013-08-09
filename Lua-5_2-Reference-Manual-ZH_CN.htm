@@ -1512,9 +1512,10 @@ Lua 将程序块当作一个拥有可变参数的匿名函数来处理（参见 <a href="#3.4.10">&sect;3
 
 
 
-<h3>3.3.3 &ndash; <a name="3.3.3">Assignment</a></h3>
+<h3>3.3.3 &ndash; <a name="3.3.3">赋值</a></h3>
 
 <p>
+Lua 允许多重赋值。因此，赋值的语法规定等号左边是一串变量，右边是一串表达式。串中的元素用等号隔开：
 Lua allows multiple assignments.
 Therefore, the syntax for assignment
 defines a list of variables on the left side
@@ -1526,66 +1527,40 @@ The elements in both lists are separated by commas:
 	varlist ::= var {&lsquo;<b>,</b>&rsquo; var}
 	explist ::= exp {&lsquo;<b>,</b>&rsquo; exp}
 </pre><p>
-Expressions are discussed in <a href="#3.4">&sect;3.4</a>.
+表达式放在 <a href="#3.4">&sect;3.4</a> 讨论。
 
 
 <p>
-Before the assignment,
-the list of values is <em>adjusted</em> to the length of
-the list of variables.
-If there are more values than needed,
-the excess values are thrown away.
-If there are fewer values than needed,
-the list is extended with as many  <b>nil</b>'s as needed.
-If the list of expressions ends with a function call,
-then all values returned by that call enter the list of values,
-before the adjustment
-(except when the call is enclosed in parentheses; see <a href="#3.4">&sect;3.4</a>).
+赋值之前，会先根据左边变量的数量对右边值的数量进行调整。值多了，多余的将被丢弃；值少了，用 <b>nil</b> 补齐。如果右边最后是一个函数调用结尾，则在数量对齐之前用该函数的全部返回值替换它（除非函数调用位于括号内：参见 <a href="#3.4">&sect;3.4</a>）。
 
 
 <p>
-The assignment statement first evaluates all its expressions
-and only then are the assignments performed.
-Thus the code
+赋值语句会首先执行所有表达式（两边），然后做纯粹的赋值。因此，下面这段代码
 
 <pre>
      i = 3
      i, a[i] = i+1, 20
 </pre><p>
-sets <code>a[3]</code> to 20, without affecting <code>a[4]</code>
-because the <code>i</code> in <code>a[i]</code> is evaluated (to 3)
-before it is assigned&nbsp;4.
-Similarly, the line
+把 <code>a[3]</code> 赋值为20而不是影响 <code>a[4]</code>，因为 <code>a[i]</code> 中的 <code>i</code> 在赋值为4之前已经确定（为3）。同样，这一行
+
 
 <pre>
      x, y = y, x
 </pre><p>
-exchanges the values of <code>x</code> and <code>y</code>,
-and
+能用来交换 <code>x</code> 和 <code>y</code>的值，而且
 
 <pre>
      x, y, z = y, z, x
 </pre><p>
-cyclically permutes the values of <code>x</code>, <code>y</code>, and <code>z</code>.
+能循环交换 <code>x</code>，<code>y</code>，<code>z</code> 的值。
 
 
 <p>
-The meaning of assignments to global variables
-and table fields can be changed via metatables.
-An assignment to an indexed variable <code>t[i] = val</code> is equivalent to
-<code>settable_event(t,i,val)</code>.
-(See <a href="#2.4">&sect;2.4</a> for a complete description of the
-<code>settable_event</code> function.
-This function is not defined or callable in Lua.
-We use it here only for explanatory purposes.)
+对全局变量和表的域赋值的含义能通过元表进行更改。对索引变量赋值，即 <code>t[i] = val</code> 等价于 <code>settable_event(t,i,val)</code>。（参见 <a href="#2.4">&sect;2.4</a> 获取 <code>settable_event</code> 函数的完整描述。Lua 中并没有定义该函数，也不能调用。这里仅用于阐述原理。）
 
 
 <p>
-An assignment to a global variable <code>x = val</code>
-is equivalent to the assignment
-<code>_ENV.x = val</code> (see <a href="#2.2">&sect;2.2</a>).
-
-
+对全局变量赋值 <code>x = val</code> 等价于 <code>_ENV.x = val</code> （参见 <a href="#2.2">&sect;2.2</a>）。
 
 
 
