@@ -1454,56 +1454,38 @@ Lua 支持的常见语句类似Pascal或者C。包括赋值语句、控制语句、函数调用和变量声明。
 <pre>
 	block ::= {stat}
 </pre><p>
-
-Lua has <em>empty statements</em>
-that allow you to separate statements with semicolons,
-start a block with a semicolon
-or write two semicolons in sequence:
+Lua 允许 <em>empty statements（空语句）</em>，可以用分号隔开语句，也可用一个或者连续两个分号来作空语句块。
 
 <pre>
 	stat ::= &lsquo;<b>;</b>&rsquo;
 </pre>
 
 <p>
-Function calls and assignments
-can start with an open parenthesis.
-This possibility leads to an ambiguity in Lua's grammar.
-Consider the following fragment:
+左括号表示函数调用和赋值语句。这有时会让 Lua 的语法产生歧义。比如下面这段代码：
 
 <pre>
      a = b + c
      (print or io.write)('done')
 </pre><p>
-The grammar could see it in two ways:
+有两种语法分析方式：
 
 <pre>
      a = b + c(print or io.write)('done')
      
      a = b + c; (print or io.write)('done')
 </pre><p>
-The current parser always sees such constructions
-in the first way,
-interpreting the open parenthesis
-as the start of the arguments to a call.
-To avoid this ambiguity,
-it is a good practice to always precede with a semicolon
-statements that start with a parenthesis:
-
+现今的语法分析器经常以第一种方式解析这类写法。即把左括号解释成函数调用。要避免这种歧义，最好是在那些括号开头的语句前面写个分号：
 <pre>
      ;(print or io.write)('done')
 </pre>
 
 <p>
-A block can be explicitly delimited to produce a single statement:
+一个语句块也可以用下面的方式写成一条语句（写在 do 和 end 之间）：
 
 <pre>
 	stat ::= <b>do</b> block <b>end</b>
 </pre><p>
-Explicit blocks are useful
-to control the scope of variable declarations.
-Explicit blocks are also sometimes used to
-add a <b>return</b> statement in the middle
-of another block (see <a href="#3.3.4">&sect;3.3.4</a>).
+显示的语句块对控制变量的作用域很有用。有时也用于在其他语句块中插入 <b>return</b> 语句（参见see <a href="#3.3.4">&sect;3.3.4</a>）。
 
 
 
