@@ -1624,31 +1624,26 @@ Lua Ò²ÓĞ <b>for</b> Óï¾ä£¬²¢ÓĞÁ½ÖÖĞÎÊ½£¨²Î¼û <a href="#3.3.5">&sect;3.3.5</a>£©¡
 
 
 
-<h3>3.3.5 &ndash; <a name="3.3.5">For Statement</a></h3>
+<h3>3.3.5 &ndash; <a name="3.3.5">For Óï¾ä</a></h3>
 
 <p>
 
-The <b>for</b> statement has two forms:
-one numeric and one generic.
+<b>for</b> Óï¾äÓĞÁ½ÖÖĞÎÊ½£ºÊı×ÖĞÎÊ½ºÍÒ»°ãĞÎÊ½¡£
 
 
 <p>
-The numeric <b>for</b> loop repeats a block of code while a
-control variable runs through an arithmetic progression.
-It has the following syntax:
+Êı×ÖĞÎÊ½µÄ <b>for</b> Ñ­»·£¬¿ØÖÆÁ¿ÒÔµÈ²îÊıÁĞ±ä»¯À´ÖØ¸´ÔËĞĞ´úÂë¿é¡£Óï·¨ÈçÏÂ£º
 
 <pre>
 	stat ::= <b>for</b> Name &lsquo;<b>=</b>&rsquo; exp &lsquo;<b>,</b>&rsquo; exp [&lsquo;<b>,</b>&rsquo; exp] <b>do</b> block <b>end</b>
 </pre><p>
-The <em>block</em> is repeated for <em>name</em> starting at the value of
-the first <em>exp</em>, until it passes the second <em>exp</em> by steps of the
-third <em>exp</em>.
-More precisely, a <b>for</b> statement like
+
+<em>block</em> ´Ó <em>name</em> µÈÓÚµÚÒ»¸ö <em>exp</em> ¿ªÊ¼ÖØ¸´ÔËĞĞ¡£²»¶ÏÒÔµÚÈı¸ö <em>exp</em> ×÷Îª²½³¤Ö±µ½µÈÓÚµÚ¶ş¸ö <em>exp</em> ²ÅÍ£Ö¹Ñ­»·¡£¸ü×¼È·µÄËµ£¬Ò»Ìõ <b>for</b> Óï¾äÀàËÆÓÚ£º
 
 <pre>
      for v = <em>e1</em>, <em>e2</em>, <em>e3</em> do <em>block</em> end
 </pre><p>
-is equivalent to the code:
+µÈ¼ÛÓÚÈçÏÂ´úÂë£º
 
 <pre>
      do
@@ -1661,56 +1656,45 @@ is equivalent to the code:
        end
      end
 </pre><p>
-Note the following:
+×¢ÒâÊÂÏî£º
 
 <ul>
 
 <li>
-All three control expressions are evaluated only once,
-before the loop starts.
-They must all result in numbers.
+ËùÓĞÈı¸ö¿ØÖÆ±í´ïÊ½ÔÚÑ­»·Ç°½ö±»ÇóÖµÒ»´Î¡£ËüÃÇµÄ½á¹û±ØĞëÎªÊı×Ö¡£
 </li>
 
 <li>
-<code><em>var</em></code>, <code><em>limit</em></code>, and <code><em>step</em></code> are invisible variables.
-The names shown here are for explanatory purposes only.
+<code><em>var</em></code>¡¢<code><em>limit</em></code> ºÍ <code><em>step</em></code> ¶¼ÊÇ²»¿É¼û±äÁ¿¡£ÕâÀïµÄÃû×Ö½öÓÃ×÷½âÊÍËµÃ÷¡£
 </li>
 
 <li>
-If the third expression (the step) is absent,
-then a step of&nbsp;1 is used.
+Èç¹ûÊ¡ÂÔµÚÈı¸ö±í´ïÊ½£¨²½³¤£©£¬Ôò²½³¤Ä¬ÈÏÎª 1.
 </li>
 
 <li>
-You can use <b>break</b> to exit a <b>for</b> loop.
+¿ÉÒÔÊ¹ÓÃ <b>break</b> À´Ìø³ö <b>for</b> Ñ­»·¡£
 </li>
 
 <li>
-The loop variable <code>v</code> is local to the loop;
-you cannot use its value after the <b>for</b> ends or is broken.
-If you need this value,
-assign it to another variable before breaking or exiting the loop.
+Ñ­»·Á¿ <code>v</code> ÊÇÑ­»·ÄÚ²¿µÄ¾Ö²¿±äÁ¿£º²»ÄÜÔÚ <b>for</b> Ñ­»·½áÊø»òÌø³öºó¼ÌĞøÊ¹ÓÃËüµÄÖµ¡£Èç¹ûÈ·ÊµĞèÒª¸ÃÖµ£¬ÇëÔÚÑ­»·ÍË³ö»òÌø³öÖ®Ç°°ÑÖµ¸³¸øÁíÍâµÄ±äÁ¿¡£
 </li>
 
 </ul>
 
 <p>
-The generic <b>for</b> statement works over functions,
-called <em>iterators</em>.
-On each iteration, the iterator function is called to produce a new value,
-stopping when this new value is <b>nil</b>.
-The generic <b>for</b> loop has the following syntax:
+Ò»°ãĞÎÊ½µÄ <b>for</b> Óï¾äÍ¨¹ı½Ğ <em>iterators£¨µü´úÆ÷£©</em> µÄº¯Êı¹¤×÷¡£Ã¿Ò»´Îµü´ú£¬¶¼»áµ÷ÓÃµü´úÆ÷À´²úÉúÒ»¸öĞÂÖµ¡£µ±ĞÂÖµÎª <b>nil</b> Ê±£¬Ñ­»·Í£Ö¹¡£Ò»°ãĞÎÊ½µÄ <b>for</b> Ñ­»·Óï·¨ÈçÏÂ£º
 
 <pre>
 	stat ::= <b>for</b> namelist <b>in</b> explist <b>do</b> block <b>end</b>
 	namelist ::= Name {&lsquo;<b>,</b>&rsquo; Name}
 </pre><p>
-A <b>for</b> statement like
+Ò»Ìõ <b>for</b> Óï¾äÀàËÆÓÚ
 
 <pre>
      for <em>var_1</em>, &middot;&middot;&middot;, <em>var_n</em> in <em>explist</em> do <em>block</em> end
 </pre><p>
-is equivalent to the code:
+µÈ¼ÛÓÚÈçÏÂ´úÂë£º
 
 <pre>
      do
@@ -1723,31 +1707,24 @@ is equivalent to the code:
        end
      end
 </pre><p>
-Note the following:
+×¢ÒâÊÂÏî£º
 
 <ul>
 
 <li>
-<code><em>explist</em></code> is evaluated only once.
-Its results are an <em>iterator</em> function,
-a <em>state</em>,
-and an initial value for the first <em>iterator variable</em>.
+<code><em>explist</em></code> ½ö±»ÇóÖµÒ»´Î¡£Æä½á¹ûÓĞÈı£ºÒ»¸ö <em>iterator£¨µü´úÆ÷£©</em> º¯Êı£¬Ò»¸ö <em>state£¨×´Ì¬£©</em>ºÍÊ×¸ö <em>iterator variable£¨µü´úÁ¿£©</em>µÄ³õÊ¼Öµ¡£
 </li>
 
 <li>
-<code><em>f</em></code>, <code><em>s</em></code>, and <code><em>var</em></code> are invisible variables.
-The names are here for explanatory purposes only.
+<code><em>f</em></code>¡¢<code><em>s</em></code> ºÍ <code><em>var</em></code> ¶¼ÊÇ²»¿É¼û±äÁ¿¡£ÕâÀïµÄÃû×Ö½öÓÃ×÷½âÊÍËµÃ÷¡£
 </li>
 
 <li>
-You can use <b>break</b> to exit a <b>for</b> loop.
+¿ÉÒÔÊ¹ÓÃ <b>break</b> À´Ìø³ö <b>for</b> Ñ­»·¡£
 </li>
 
 <li>
-The loop variables <code><em>var_i</em></code> are local to the loop;
-you cannot use their values after the <b>for</b> ends.
-If you need these values,
-then assign them to other variables before breaking or exiting the loop.
+Ñ­»·Á¿ <code><em>var_i</em></code> ÊÇÑ­»·ÌåÄÚµÄ¾Ö²¿±äÁ¿£º²»ÄÜÔÚ <b>for</b> Ñ­»·½áÊøºó¼ÌĞøÊ¹ÓÃËüµÄÖµ¡£Èç¹ûÈ·ÊµĞèÒª¸ÃÖµ£¬ÇëÔÚÑ­»·ÍË³ö»òÌø³öÖ®Ç°°ÑÖµ¸³¸øÁíÍâµÄ±äÁ¿¡£
 </li>
 
 </ul>
