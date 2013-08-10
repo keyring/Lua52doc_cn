@@ -1784,80 +1784,48 @@ Lua 中的基本表达式如下：
 <p>
 数字和文字串的说明在 <a href="#3.1">&sect;3.1</a>；
 变量的说明在 <a href="#3.2">&sect;3.2</a>；
-函数定义的说明在 <a href="#3.4.10">&sect;3.4.10</a>；
+函数定义的介绍在 <a href="#3.4.10">&sect;3.4.10</a>；
 函数调用的说明在 <a href="#3.4.9">&sect;3.4.9</a>；
 表的构造器在 <a href="#3.4.8">&sect;3.4.8</a>。
 由三点（'<code>...</code>'）表示的可变参数表达式只能用于有可变参数的函数中：详见 <a href="#3.4.10">&sect;3.4.10</a>。
 
 
 <p>
-Binary operators comprise arithmetic operators (see <a href="#3.4.1">&sect;3.4.1</a>),
-relational operators (see <a href="#3.4.3">&sect;3.4.3</a>), logical operators (see <a href="#3.4.4">&sect;3.4.4</a>),
-and the concatenation operator (see <a href="#3.4.5">&sect;3.4.5</a>).
-Unary operators comprise the unary minus (see <a href="#3.4.1">&sect;3.4.1</a>),
-the unary <b>not</b> (see <a href="#3.4.4">&sect;3.4.4</a>),
-and the unary <em>length operator</em> (see <a href="#3.4.6">&sect;3.4.6</a>).
+二元运算包括算术运算（<a href="#3.4.1">&sect;3.4.1</a>）、关系运算（<a href="#3.4.3">&sect;3.4.3</a>）、逻辑运算（<a href="#3.4.4">&sect;3.4.4</a>）以及连接运算（<a href="#3.4.5">&sect;3.4.5</a>）。一元运算包括取负（<a href="#3.4.1">&sect;3.4.1</a>）、<b>not</b>（<a href="#3.4.4">&sect;3.4.4</a>）和 <em>取长度</em> （<a href="#3.4.6">&sect;3.4.6</a>）。
 
 
 <p>
-Both function calls and vararg expressions can result in multiple values.
-If a function call is used as a statement (see <a href="#3.3.6">&sect;3.3.6</a>),
-then its return list is adjusted to zero elements,
-thus discarding all returned values.
-If an expression is used as the last (or the only) element
-of a list of expressions,
-then no adjustment is made
-(unless the expression is enclosed in parentheses).
-In all other contexts,
-Lua adjusts the result list to one element,
-either discarding all values except the first one
-or adding a single <b>nil</b> if there are no values.
+函数调用和参数可变的表达式均可返回多个值。如果将函数调用作为一条语句使用（参见<a href="#3.3.6">&sect;3.3.6</a>），则其返回值列表与0对齐，即丢弃所有返回值。如果一个表达式是一串表达式中最后的/唯一的元素，则不会有对齐操作（除非该表达式位于括号内）。在其他情况，Lua 会将返回结果表与1对齐，即丢弃第一个返回值外的其他值；如果没有返回值，Lua 自动添加一个 <b>nil</b>。
 
 
 <p>
-Here are some examples:
+以下是一些示例：
 
 <pre>
-     f()                -- adjusted to 0 results
-     g(f(), x)          -- f() is adjusted to 1 result
-     g(x, f())          -- g gets x plus all results from f()
-     a,b,c = f(), x     -- f() is adjusted to 1 result (c gets nil)
-     a,b = ...          -- a gets the first vararg parameter, b gets
-                        -- the second (both a and b can get nil if there
-                        -- is no corresponding vararg parameter)
+     f()                -- 调整成 返回0 个结果
+     g(f(), x)          -- f() 被调整成返回 1 个结果
+     g(x, f())          -- g 被传入 x 和所有 f() 返回值
+     a,b,c = f(), x     -- f() 被调整成返回 1 个结果（c 就成了 nil）
+     a,b = ...          -- a 被赋值为可变参数中的第一个，
+                        -- b 为第二个（如果可变参数没有对应参数，a 和 b 都为 nil ）
      
-     a,b,c = x, f()     -- f() is adjusted to 2 results
-     a,b,c = f()        -- f() is adjusted to 3 results
-     return f()         -- returns all results from f()
-     return ...         -- returns all received vararg parameters
-     return x,y,f()     -- returns x, y, and all results from f()
-     {f()}              -- creates a list with all results from f()
-     {...}              -- creates a list with all vararg parameters
-     {f(), nil}         -- f() is adjusted to 1 result
+     a,b,c = x, f()     -- f() 被调整成返回 2 个结果
+     a,b,c = f()        -- f() 被调整成返回 3 个结果
+     return f()         -- 返回 f() 所有结果
+     return ...         -- 返回可变参数接收到的所有参数
+     return x,y,f()     -- 返回 x、y、和所有 f() 返回值
+     {f()}              -- 为 f() 的所有返回值创建一个列表
+     {...}              -- 为可变参数接收到的所有参数创建一个列表
+     {f(), nil}         -- f() 被调整成返回 1 个结果
 </pre>
 
 <p>
-Any expression enclosed in parentheses always results in only one value.
-Thus,
-<code>(f(x,y,z))</code> is always a single value,
-even if <code>f</code> returns several values.
-(The value of <code>(f(x,y,z))</code> is the first value returned by <code>f</code>
-or <b>nil</b> if <code>f</code> does not return any values.)
+任何由括号括起来的表达式只被当成一个值。因此，<code>(f(x,y,z))</code> 永远都只能是个单值，即使 <code>f</code> 返回了多个值。（<code>(f(x,y,z))</code> 的值是 <code>f</code> 返回的第一个值；如果 <code>f</code> 没有返回值，则为 <b>nil</b>。）
 
 
 
-<h3>3.4.1 &ndash; <a name="3.4.1">Arithmetic Operators</a></h3><p>
-Lua supports the usual arithmetic operators:
-the binary <code>+</code> (addition),
-<code>-</code> (subtraction), <code>*</code> (multiplication),
-<code>/</code> (division), <code>%</code> (modulo), and <code>^</code> (exponentiation);
-and unary <code>-</code> (mathematical negation).
-If the operands are numbers, or strings that can be converted to
-numbers (see <a href="#3.4.2">&sect;3.4.2</a>),
-then all operations have the usual meaning.
-Exponentiation works for any exponent.
-For instance, <code>x^(-0.5)</code> computes the inverse of the square root of <code>x</code>.
-Modulo is defined as
+<h3>3.4.1 &ndash; <a name="3.4.1">算术运算符</a></h3><p>
+Lua 支持常用算术运算符： <code>+</code>（加）、<code>-</code>（减）、<code>*</code>（乘）、<code>/</code>（除）、<code>%</code>（取模）和  <code>^</code>（幂）；还有一元<code>-</code>（取负）操作。如果运算对象是数字，或是可转换为数字的字符串（参见 <a href="#3.4.2">&sect;3.4.2</a>），那就是单纯的数学运算。求幂操作可用于任何指数，比如 <code>x^(-0.5)</code> 计算出 <code>x</code> 平方根的倒数。取模操作的定义是
 
 <pre>
      a % b == a - math.floor(a/b)*b
@@ -1869,21 +1837,10 @@ the quotient towards minus infinity.
 
 
 
-<h3>3.4.2 &ndash; <a name="3.4.2">Coercion</a></h3>
+<h3>3.4.2 &ndash; <a name="3.4.2">强制转换</a></h3>
 
 <p>
-Lua provides automatic conversion between
-string and number values at run time.
-Any arithmetic operation applied to a string tries to convert
-this string to a number, following the rules of the Lua lexer.
-(The string may have leading and trailing spaces and a sign.)
-Conversely, whenever a number is used where a string is expected,
-the number is converted to a string, in a reasonable format.
-For complete control over how numbers are converted to strings,
-use the <code>format</code> function from the string library
-(see <a href="#pdf-string.format"><code>string.format</code></a>).
-
-
+Lua 在运行时提供字符串与数字之见的自动转换。在 Lua 的词法分析下，任何适用字符串的算术运算都会尝试把字符串转化为数字。（字符串首尾可能有空白和标记。）反过来，任何需要字符串的时候，数字就会被转化成字符串。想要完全掌控数字转化字符串，可以使用 string 库中的 <code>format</code> 函数（参见 <a href="#pdf-string.format"><code>string.format</code></a>）。
 
 
 
