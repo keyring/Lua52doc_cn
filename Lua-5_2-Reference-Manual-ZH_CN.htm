@@ -1985,69 +1985,38 @@ Lua 中操作符优先级如下表所示，从低到高排列：
 
 
 
-<h3>3.4.9 &ndash; <a name="3.4.9">Function Calls</a></h3><p>
-A function call in Lua has the following syntax:
+<h3>3.4.9 &ndash; <a name="3.4.9">函数调用</a></h3><p>
+Lua 中的函数调用语法如下：
 
 <pre>
 	functioncall ::= prefixexp args
 </pre><p>
-In a function call,
-first prefixexp and args are evaluated.
-If the value of prefixexp has type <em>function</em>,
-then this function is called
-with the given arguments.
-Otherwise, the prefixexp "call" metamethod is called,
-having as first parameter the value of prefixexp,
-followed by the original call arguments
-(see <a href="#2.4">&sect;2.4</a>).
+在函数调用中，首先对 prefixexp 和 args 求值。如果 prefixexp 的值的也是 <em>function（函数）</em>，则用相应参数调用该函数。否则，调用 prefixexp 的 "call" 元方法，并将 prefixexp 的值作第一个参数，再跟其他原始参数（参见 <a href="#2.4">&sect;2.4</a>）。
 
 
 <p>
-The form
+这种形式
 
 <pre>
 	functioncall ::= prefixexp &lsquo;<b>:</b>&rsquo; Name args
 </pre><p>
-can be used to call "methods".
-A call <code>v:name(<em>args</em>)</code>
-is syntactic sugar for <code>v.name(v,<em>args</em>)</code>,
-except that <code>v</code> is evaluated only once.
+可以用来调用“方法”。 <code>v.name(v,<em>args</em>)</code> 只在 <code>v</code> 仅被求值一次的时候可以写成 <code>v:name(<em>args</em>)</code>，这种写法只是语法糖便利。
 
 
 <p>
-Arguments have the following syntax:
+参数的语法如下：
 
 <pre>
 	args ::= &lsquo;<b>(</b>&rsquo; [explist] &lsquo;<b>)</b>&rsquo;
 	args ::= tableconstructor
 	args ::= String
 </pre><p>
-All argument expressions are evaluated before the call.
-A call of the form <code>f{<em>fields</em>}</code> is
-syntactic sugar for <code>f({<em>fields</em>})</code>;
-that is, the argument list is a single new table.
-A call of the form <code>f'<em>string</em>'</code>
-(or <code>f"<em>string</em>"</code> or <code>f[[<em>string</em>]]</code>)
-is syntactic sugar for <code>f('<em>string</em>')</code>;
-that is, the argument list is a single literal string.
+所有参数表达式都在函数调用之前被求值。<code>f{<em>fields</em>}</code> 形式的函数调用也只是 <code>f({<em>fields</em>})</code> 形式的语法糖写法；即参数列表是个新表。而 <code>f'<em>string</em>'</code>
+（或者 <code>f"<em>string</em>"</code> 或者 <code>f[[<em>string</em>]]</code>）一类的调用形式也只是 <code>f('<em>string</em>')</code> 的语法糖写法；即参数表是单一的文字串。
 
 
 <p>
-A call of the form <code>return <em>functioncall</em></code> is called
-a <em>tail call</em>.
-Lua implements <em>proper tail calls</em>
-(or <em>proper tail recursion</em>):
-in a tail call,
-the called function reuses the stack entry of the calling function.
-Therefore, there is no limit on the number of nested tail calls that
-a program can execute.
-However, a tail call erases any debug information about the
-calling function.
-Note that a tail call only happens with a particular syntax,
-where the <b>return</b> has one single function call as argument;
-this syntax makes the calling function return exactly
-the returns of the called function.
-So, none of the following examples are tail calls:
+Lua 中将 <code>return <em>functioncall</em></code> 这种形式叫 <em>tail call（尾调用）</em>。Lua 实现的是<em>完全尾调用</em>（也叫完全尾递归）：在尾调用中，被调用的函数重用调用它的函数的堆栈。因此，程序可执行的嵌套尾调用没有层数限制（即无限尾调用）。而尾调用也会删除任何关于调用它的函数的调试信息。注意，尾调用只能出现在特殊的语法下：<b>return</b> 只有一个函数作为参数；这使得调用函数能明确返回被调函数的结果。所以，下面这些都不是尾调用：
 
 <pre>
      return (f(x))        -- results adjusted to 1
