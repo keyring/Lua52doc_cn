@@ -1844,82 +1844,41 @@ Lua ÔÚÔËĞĞÊ±Ìá¹©×Ö·û´®ÓëÊı×ÖÖ®¼ûµÄ×Ô¶¯×ª»»¡£ÔÚ Lua µÄ´Ê·¨·ÖÎöÏÂ£¬ÈÎºÎÊÊÓÃ×Ö·û´®µ
 
 
 
-<h3>3.4.3 &ndash; <a name="3.4.3">Relational Operators</a></h3><p>
-The relational operators in Lua are
-
+<h3>3.4.3 &ndash; <a name="3.4.3">¹ØÏµÔËËã·û</a></h3><p>
+Lua ÖĞµÄ¹ØÏµÔËËã·ûÓĞ
 <pre>
      ==    ~=    &lt;     &gt;     &lt;=    &gt;=
 </pre><p>
-These operators always result in <b>false</b> or <b>true</b>.
+ÔËËã½á¹ûÎª <b>false</b> »òÕß <b>true</b>.
 
 
 <p>
-Equality (<code>==</code>) first compares the type of its operands.
-If the types are different, then the result is <b>false</b>.
-Otherwise, the values of the operands are compared.
-Numbers and strings are compared in the usual way.
-Tables, userdata, and threads
-are compared by reference:
-two objects are considered equal only if they are the same object.
-Every time you create a new object
-(a table, userdata, or thread),
-this new object is different from any previously existing object.
-Closures with the same reference are always equal.
-Closures with any detectable difference
-(different behavior, different definition) are always different.
+ÏàµÈÅĞ¶Ï£¨<code>==</code>£©Ê×ÏÈ±È½ÏÔËËã¶ÔÏóµÄÀàĞÍ¡£Èç¹ûÀàĞÍ²»Í¬£¬Ôò½á¹ûÎª <b>false</b>¡£·ñÔò²Å±È½Ï¶ÔÏóµÄÖµ¡£Êı×Ö¡¢×Ö·û´®ÓÃ³£¹æ·½Ê½±È½Ï¡£¶ø±í¡¢ÓÃ»§Êı¾İºÍÏß³ÌµÃ¿¿ÒıÓÃÀ´±È½Ï£ºÁ½¸ö¶ÔÏóÖ»ÔÚÖ¸Ïò£¨ÒıÓÃ£©Í¬Ò»¸ö¶ÔÏó²ÅÅĞÎªÏàµÈ¡£Ã¿Ò»´Î´´½¨µÄĞÂ¶ÔÏó£¨±í¡¢ÓÃ»§Êı¾İ»òÕßÏß³Ì£©¶¼ÓëÇ°Ãæ´æÔÚµÄ¶ÔÏó²»Í¬¡£¶ÔÏàÍ¬ÒıÓÃµÄ±Õ°ü»¥ÏàÏàµÈ¡£¶øÈÎºÎ¿É¼ì²â³ö²»Í¬£¨ĞĞÎª²»Í¬¡¢¶¨Òå²»Í¬£©µÄ±Õ°ü×ÔÈ»Ò²²»ÏàµÈ¡£
 
 
 <p>
-You can change the way that Lua compares tables and userdata
-by using the "eq" metamethod (see <a href="#2.4">&sect;2.4</a>).
+µ±È»£¬Äã¿ÉÒÔÊ¹ÓÃ "eq" Ôª·½·¨£¨²Î¼û <a href="#2.4">&sect;2.4</a>£©À´¸Ä±ä±íÓëÓÃ»§Êı¾İµÄ±È½Ï²Ù×÷¡£
 
 
 <p>
-The conversion rules of <a href="#3.4.2">&sect;3.4.2</a>
-do not apply to equality comparisons.
-Thus, <code>"0"==0</code> evaluates to <b>false</b>,
-and <code>t[0]</code> and <code>t["0"]</code> denote different
-entries in a table.
+ <a href="#3.4.2">&sect;3.4.2</a> µÄ×ª»»¹æÔò²»ÊÊÓÃÓÚÏàµÈĞÔÅĞ¶Ï²Ù×÷¡£Òò´Ë£¬ <code>"0"==0</code> ÖµÎª <b>false</b>¡£<code>t[0]</code> ºÍ <code>t["0"]</code> ´ú±íµÄÊÇ±íÖĞ²»Í¬µÄÔªËØ¡£
 
 
 <p>
-The operator <code>~=</code> is exactly the negation of equality (<code>==</code>).
+<code>~=</code> ²Ù×÷·û¸ÕºÃÓë <code>==</code> ÒâÒåÏà·´¡£
 
 
 <p>
-The order operators work as follows.
-If both arguments are numbers, then they are compared as such.
-Otherwise, if both arguments are strings,
-then their values are compared according to the current locale.
-Otherwise, Lua tries to call the "lt" or the "le"
-metamethod (see <a href="#2.4">&sect;2.4</a>).
-A comparison <code>a &gt; b</code> is translated to <code>b &lt; a</code>
-and <code>a &gt;= b</code> is translated to <code>b &lt;= a</code>.
+´óĞ¡±È½ÏµÄ¹æÔòÈçÏÂ£ºÈç¹û±È½Ï²ÎÊı¶¼ÎªÊı×Ö£¬Ôò×öÊı×Ö±È½Ï£»Èç¹û¶¼Îª×Ö·û´®£¬Ôò°´×Ö·û´®±È½Ï¹æÔò½øĞĞ£»·ñÔò£¬Lua ¾Í³¢ÊÔÊ¹ÓÃ "lt" »ò "le" Ôª·½·¨£¨²Î¼û <a href="#2.4">&sect;2.4</a>£©¡£<code>a &gt; b</code> ±»·­Òë³É <code>b &lt; a</code>£¬<code>a &gt;= b</code> ±»·­Òë³É <code>b &lt;= a</code>¡£
 
 
 
-
-
-<h3>3.4.4 &ndash; <a name="3.4.4">Logical Operators</a></h3><p>
-The logical operators in Lua are
-<b>and</b>, <b>or</b>, and <b>not</b>.
-Like the control structures (see <a href="#3.3.4">&sect;3.3.4</a>),
-all logical operators consider both <b>false</b> and <b>nil</b> as false
-and anything else as true.
+<h3>3.4.4 &ndash; <a name="3.4.4">Âß¼­ÔËËã·û</a></h3><p>
+Lua ÖĞµÄÂß¼­ÔËËã·ûÓĞ <b>and</b>¡¢<b>or</b>¡¢ºÍ <b>not</b>¡£ÀàËÆ¿ØÖÆ½á¹¹£¨²Î¼û <a href="#3.3.4">&sect;3.3.4</a>£©£¬ËùÓĞµÄÂß¼­²Ù×÷·ûÖ»½« <b>false</b> ºÍ <b>nil</b> µ±×÷¼Ù£¬ÆäËûËùÓĞÇé¿ö¶¼ÎªÕæ¡£
 
 
 <p>
-The negation operator <b>not</b> always returns <b>false</b> or <b>true</b>.
-The conjunction operator <b>and</b> returns its first argument
-if this value is <b>false</b> or <b>nil</b>;
-otherwise, <b>and</b> returns its second argument.
-The disjunction operator <b>or</b> returns its first argument
-if this value is different from <b>nil</b> and <b>false</b>;
-otherwise, <b>or</b> returns its second argument.
-Both <b>and</b> and <b>or</b> use short-cut evaluation;
-that is,
-the second operand is evaluated only if necessary.
-Here are some examples:
+È¡·´²Ù×÷ <b>not</b> Ö»·µ»Ø <b>false</b> »òÕß <b>true</b>¡£Óë²Ù×÷ <b>and</b> ÔÚµÚÒ»¸ö²ÎÊıÎª <b>false</b> »ò <b>nil</b> Ê±·µ»ØµÚÒ»¸ö²ÎÊı£¬·ñÔò·µ»ØµÚ¶ş¸ö²ÎÊı¡£»ò²Ù×÷ <b>or</b> ÔÚµÚÒ»¸ö²ÎÊı²»ÊÇ <b>nil</b> ºÍ <b>false</b> Ê±·µ»ØµÚÒ»¸ö²ÎÊı¡£·ñÔò·µ»ØµÚ¶ş¸ö²ÎÊı¡£<b>and</b> ºÍ <b>or</b> ¶¼Ê¹ÓÃ¶ÌÂ·ÇóÖµ·¨£»ÒâË¼ÊÇµÚ¶ş¸ö²ÎÊıÖ»ÔÚ±ØÒªÊ±²ÅÇóÖµ¡£ÏÂÃæÊÇĞ©Àı×Ó£º
 
 <pre>
      10 or 20            --&gt; 10
@@ -1931,8 +1890,7 @@ Here are some examples:
      false or nil        --&gt; nil
      10 and 20           --&gt; 20
 </pre><p>
-(In this manual,
-<code>--&gt;</code> indicates the result of the preceding expression.)
+£¨±¾ÊÖ²áÖĞµÄ <code>--&gt;</code> ·ûºÅÖ¸´úÇ°Ãæ±í´ïÊ½µÄ½á¹û¡££©
 
 
 
