@@ -1943,12 +1943,8 @@ Lua 中操作符优先级如下表所示，从低到高排列：
 
 
 
-<h3>3.4.8 &ndash; <a name="3.4.8">Table Constructors</a></h3><p>
-Table constructors are expressions that create tables.
-Every time a constructor is evaluated, a new table is created.
-A constructor can be used to create an empty table
-or to create a table and initialize some of its fields.
-The general syntax for constructors is
+<h3>3.4.8 &ndash; <a name="3.4.8">表的构造器</a></h3><p>
+表的构造器是一对用于创建表的表达式。每执行一次构造器就创建一张新表。构造器可用于创建空表或者创建的同时初始化一些域。构造器的语法如下：
 
 <pre>
 	tableconstructor ::= &lsquo;<b>{</b>&rsquo; [fieldlist] &lsquo;<b>}</b>&rsquo;
@@ -1958,20 +1954,12 @@ The general syntax for constructors is
 </pre>
 
 <p>
-Each field of the form <code>[exp1] = exp2</code> adds to the new table an entry
-with key <code>exp1</code> and value <code>exp2</code>.
-A field of the form <code>name = exp</code> is equivalent to
-<code>["name"] = exp</code>.
-Finally, fields of the form <code>exp</code> are equivalent to
-<code>[i] = exp</code>, where <code>i</code> are consecutive numerical integers,
-starting with 1.
-Fields in the other formats do not affect this counting.
-For example,
+ 每一个 <code>[exp1] = exp2</code> 形式的域都将为新表加入一个键为 <code>exp1</code> 值为 <code>exp2</code> 的元素。<code>name = exp</code> 形式的域等价于 <code>["name"] = exp</code>。而 <code>exp</code> 形式的域等价于 <code>[i] = exp</code>，其中的 <code>i</code> 为从 1 开始的连续整数。其他格式的域不影响计数。比如，
 
 <pre>
      a = { [f(1)] = g; "x", "y"; x = 1, f(x), [30] = 23; 45 }
 </pre><p>
-is equivalent to
+等价于
 
 <pre>
      do
@@ -1988,16 +1976,11 @@ is equivalent to
 </pre>
 
 <p>
-If the last field in the list has the form <code>exp</code>
-and the expression is a function call or a vararg expression,
-then all values returned by this expression enter the list consecutively
-(see <a href="#3.4.9">&sect;3.4.9</a>).
+如果列表中最后一个域形式为 <code>exp</code>，而且这个表达式是个函数调用或者参数可变，那么表达式的所有返回值将按顺序插入列表（参见 <a href="#3.4.9">&sect;3.4.9</a>）。
 
 
 <p>
-The field list can have an optional trailing separator,
-as a convenience for machine-generated code.
-
+域的列表可以有一个可选的尾部分隔符，这样方便机器生成代码。
 
 
 
