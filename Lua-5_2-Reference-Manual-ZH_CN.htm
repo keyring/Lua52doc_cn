@@ -1896,58 +1896,36 @@ Lua 中的逻辑运算符有 <b>and</b>、<b>or</b>、和 <b>not</b>。类似控制结构（参见 <a
 
 
 
-<h3>3.4.5 &ndash; <a name="3.4.5">Concatenation</a></h3><p>
-The string concatenation operator in Lua is
-denoted by two dots ('<code>..</code>').
-If both operands are strings or numbers, then they are converted to
-strings according to the rules mentioned in <a href="#3.4.2">&sect;3.4.2</a>.
-Otherwise, the <code>__concat</code> metamethod is called (see <a href="#2.4">&sect;2.4</a>).
+<h3>3.4.5 &ndash; <a name="3.4.5">连接操作</a></h3><p>
+Lua 使用两个点（'<code>..</code>'）表示字符串连接操作。如果操作对象是字符串和数字，则会按照 <a href="#3.4.2">&sect;3.4.2</a> 提到的规则将他们转化为字符串。不然就调用 <code>__concat</code> 元方法（参见 <a href="#2.4">&sect;2.4</a>）。
 
 
 
 
 
-<h3>3.4.6 &ndash; <a name="3.4.6">The Length Operator</a></h3>
+<h3>3.4.6 &ndash; <a name="3.4.6">取长度操作符</a></h3>
 
 <p>
-The length operator is denoted by the unary prefix operator <code>#</code>.
-The length of a string is its number of bytes
-(that is, the usual meaning of string length when each
-character is one byte).
+取长度的操作符是一元运算符 <code>#</code>。字符串的长度是其字节数（就是一个字符表示一个字节算出的长度）。
 
 
 <p>
-A program can modify the behavior of the length operator for
-any value but strings through the <code>__len</code> metamethod (see <a href="#2.4">&sect;2.4</a>).
+程序里可通过 <code>__len</code> 元方法（参见 <a href="#2.4">&sect;2.4</a>）来修改除字符串外所有值的取长度操作行为。
 
 
 <p>
-Unless a <code>__len</code> metamethod is given,
-the length of a table <code>t</code> is only defined if the
-table is a <em>sequence</em>,
-that is,
-the set of its positive numeric keys is equal to <em>{1..n}</em>
-for some integer <em>n</em>.
-In that case, <em>n</em> is its length.
-Note that a table like
+除了已知的 <code>__len</code> 元方法，表 <code>t</code> 的长度只在它是<em>顺序</em>表时有定义。而且其键值要按 <em>{1..n}</em> 递增，则整数 <em>n</em> 就是长度。注意像下面这样的表
 
 <pre>
      {10, 20, nil, 40}
 </pre><p>
-is not a sequence, because it has the key <code>4</code>
-but does not have the key <code>3</code>.
-(So, there is no <em>n</em> such that the set <em>{1..n}</em> is equal
-to the set of positive numeric keys of that table.)
-Note, however, that non-numeric keys do not interfere
-with whether a table is a sequence.
+不是顺序表，因为它有第 <code>4</code> 个键，却没有第 <code>3</code> 个键。而非数字键则不影响判断表是否为顺序表。
 
 
 
 
-
-<h3>3.4.7 &ndash; <a name="3.4.7">Precedence</a></h3><p>
-Operator precedence in Lua follows the table below,
-from lower to higher priority:
+<h3>3.4.7 &ndash; <a name="3.4.7">优先级</a></h3><p>
+Lua 中操作符优先级如下表所示，从低到高排列：
 
 <pre>
      or
@@ -1959,11 +1937,7 @@ from lower to higher priority:
      not   #     - (unary)
      ^
 </pre><p>
-As usual,
-you can use parentheses to change the precedences of an expression.
-The concatenation ('<code>..</code>') and exponentiation ('<code>^</code>')
-operators are right associative.
-All other binary operators are left associative.
+通常，可以在表达式中使用括号来改变优先级。连接符（'<code>..</code>'）和求幂（'<code>^</code>'）从右往左结合。其他二元运算符是从左往右的。
 
 
 
