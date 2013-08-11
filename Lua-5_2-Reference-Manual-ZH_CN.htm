@@ -139,58 +139,58 @@ keyring (译)   keyrings@163.com
 <LI><A HREF="#2">2 &ndash; 基本概念</A>
 <UL>
 <LI><A HREF="#2.1">2.1 &ndash; 值与类型</A>
-<LI><A HREF="#2.2">2.2 &ndash; Environments and the Global Environment</A>
-<LI><A HREF="#2.3">2.3 &ndash; Error Handling</A>
-<LI><A HREF="#2.4">2.4 &ndash; Metatables and Metamethods</A>
-<LI><A HREF="#2.5">2.5 &ndash; Garbage Collection</A>
+<LI><A HREF="#2.2">2.2 &ndash; 环境与全局变量</A>
+<LI><A HREF="#2.3">2.3 &ndash; 错误处理</A>
+<LI><A HREF="#2.4">2.4 &ndash; 元表与元方法</A>
+<LI><A HREF="#2.5">2.5 &ndash; 垃圾回收</A>
 <UL>
-<LI><A HREF="#2.5.1">2.5.1 &ndash; Garbage-Collection Metamethods</A>
-<LI><A HREF="#2.5.2">2.5.2 &ndash; Weak Tables</A>
+<LI><A HREF="#2.5.1">2.5.1 &ndash; 垃圾回收元方法</A>
+<LI><A HREF="#2.5.2">2.5.2 &ndash; 弱表</A>
 </UL>
-<LI><A HREF="#2.6">2.6 &ndash; Coroutines</A>
-</UL>
-<P>
-<LI><A HREF="#3">3 &ndash; The Language</A>
-<UL>
-<LI><A HREF="#3.1">3.1 &ndash; Lexical Conventions</A>
-<LI><A HREF="#3.2">3.2 &ndash; Variables</A>
-<LI><A HREF="#3.3">3.3 &ndash; Statements</A>
-<UL>
-<LI><A HREF="#3.3.1">3.3.1 &ndash; Blocks</A>
-<LI><A HREF="#3.3.2">3.3.2 &ndash; Chunks</A>
-<LI><A HREF="#3.3.3">3.3.3 &ndash; Assignment</A>
-<LI><A HREF="#3.3.4">3.3.4 &ndash; Control Structures</A>
-<LI><A HREF="#3.3.5">3.3.5 &ndash; For Statement</A>
-<LI><A HREF="#3.3.6">3.3.6 &ndash; Function Calls as Statements</A>
-<LI><A HREF="#3.3.7">3.3.7 &ndash; Local Declarations</A>
-</UL>
-<LI><A HREF="#3.4">3.4 &ndash; Expressions</A>
-<UL>
-<LI><A HREF="#3.4.1">3.4.1 &ndash; Arithmetic Operators</A>
-<LI><A HREF="#3.4.2">3.4.2 &ndash; Coercion</A>
-<LI><A HREF="#3.4.3">3.4.3 &ndash; Relational Operators</A>
-<LI><A HREF="#3.4.4">3.4.4 &ndash; Logical Operators</A>
-<LI><A HREF="#3.4.5">3.4.5 &ndash; Concatenation</A>
-<LI><A HREF="#3.4.6">3.4.6 &ndash; The Length Operator</A>
-<LI><A HREF="#3.4.7">3.4.7 &ndash; Precedence</A>
-<LI><A HREF="#3.4.8">3.4.8 &ndash; Table Constructors</A>
-<LI><A HREF="#3.4.9">3.4.9 &ndash; Function Calls</A>
-<LI><A HREF="#3.4.10">3.4.10 &ndash; Function Definitions</A>
-</UL>
-<LI><A HREF="#3.5">3.5 &ndash; Visibility Rules</A>
+<LI><A HREF="#2.6">2.6 &ndash; 协程</A>
 </UL>
 <P>
-<LI><A HREF="#4">4 &ndash; The Application Program Interface</A>
+<LI><A HREF="#3">3 &ndash; 语言</A>
 <UL>
-<LI><A HREF="#4.1">4.1 &ndash; The Stack</A>
-<LI><A HREF="#4.2">4.2 &ndash; Stack Size</A>
-<LI><A HREF="#4.3">4.3 &ndash; Valid and Acceptable Indices</A>
-<LI><A HREF="#4.4">4.4 &ndash; C Closures</A>
-<LI><A HREF="#4.5">4.5 &ndash; Registry</A>
-<LI><A HREF="#4.6">4.6 &ndash; Error Handling in C</A>
-<LI><A HREF="#4.7">4.7 &ndash; Handling Yields in C</A>
-<LI><A HREF="#4.8">4.8 &ndash; Functions and Types</A>
-<LI><A HREF="#4.9">4.9 &ndash; The Debug Interface</A>
+<LI><A HREF="#3.1">3.1 &ndash; 词法约定</A>
+<LI><A HREF="#3.2">3.2 &ndash; 变量</A>
+<LI><A HREF="#3.3">3.3 &ndash; 语句</A>
+<UL>
+<LI><A HREF="#3.3.1">3.3.1 &ndash; 语句块</A>
+<LI><A HREF="#3.3.2">3.3.2 &ndash; 程序块</A>
+<LI><A HREF="#3.3.3">3.3.3 &ndash; 赋值</A>
+<LI><A HREF="#3.3.4">3.3.4 &ndash; 控制结构</A>
+<LI><A HREF="#3.3.5">3.3.5 &ndash; For 语句</A>
+<LI><A HREF="#3.3.6">3.3.6 &ndash; 函数调用作语句</A>
+<LI><A HREF="#3.3.7">3.3.7 &ndash; 局部声明</A>
+</UL>
+<LI><A HREF="#3.4">3.4 &ndash; 表达式</A>
+<UL>
+<LI><A HREF="#3.4.1">3.4.1 &ndash; 数学运算符</A>
+<LI><A HREF="#3.4.2">3.4.2 &ndash; 强制转换</A>
+<LI><A HREF="#3.4.3">3.4.3 &ndash; 关系运算符</A>
+<LI><A HREF="#3.4.4">3.4.4 &ndash; 逻辑运算符</A>
+<LI><A HREF="#3.4.5">3.4.5 &ndash; 连接操作</A>
+<LI><A HREF="#3.4.6">3.4.6 &ndash; 取长度运算符</A>
+<LI><A HREF="#3.4.7">3.4.7 &ndash; 优先级</A>
+<LI><A HREF="#3.4.8">3.4.8 &ndash; 表的构造器</A>
+<LI><A HREF="#3.4.9">3.4.9 &ndash; 函数调用</A>
+<LI><A HREF="#3.4.10">3.4.10 &ndash; 函数定义</A>
+</UL>
+<LI><A HREF="#3.5">3.5 &ndash; 可见性规则</A>
+</UL>
+<P>
+<LI><A HREF="#4">4 &ndash; 应用程序接口</A>
+<UL>
+<LI><A HREF="#4.1">4.1 &ndash; 栈</A>
+<LI><A HREF="#4.2">4.2 &ndash; 栈的大小</A>
+<LI><A HREF="#4.3">4.3 &ndash; 有效索引与合法索引</A>
+<LI><A HREF="#4.4">4.4 &ndash; C 闭包</A>
+<LI><A HREF="#4.5">4.5 &ndash; 注册表</A>
+<LI><A HREF="#4.6">4.6 &ndash; C 中的错误处理</A>
+<LI><A HREF="#4.7">4.7 &ndash; C 中的挂起处理</A>
+<LI><A HREF="#4.8">4.8 &ndash; 函数与类型</A>
+<LI><A HREF="#4.9">4.9 &ndash; 调试接口</A>
 </UL>
 <P>
 <LI><A HREF="#5">5 &ndash; The Auxiliary Library</A>
@@ -2241,7 +2241,7 @@ Lua 无论何时调用 C，它都确保栈至少拥有 <a name="pdf-LUA_MINSTACK"><code>LUA_MINS
 
 
 
-<h2>4.3 &ndash; <a name="4.3">合格有效的索引</a></h2>
+<h2>4.3 &ndash; <a name="4.3">有效索引与合格索引</a></h2>
 
 <p>
 API 中的任何能接受栈索引的函数只接受 <em>valid indices（有效索引）</em> 或 <em>acceptable indices（合格索引）</em>。
