@@ -2333,68 +2333,30 @@ API 中大部分函数都能抛出错误，比如内存分配错误。每个函数的文档内具体指示了它是否
 
 
 
-<h2>4.7 &ndash; <a name="4.7">Handling Yields in C</a></h2>
+<h2>4.7 &ndash; <a name="4.7">C 中的挂起处理</a></h2>
 
 <p>
-Internally, Lua uses the C <code>longjmp</code> facility to yield a coroutine.
-Therefore, if a function <code>foo</code> calls an API function
-and this API function yields
-(directly or indirectly by calling another function that yields),
-Lua cannot return to <code>foo</code> any more,
-because the <code>longjmp</code> removes its frame from the C stack.
+在内部实现中，Lua 使用 C的 <code>longjmp</code> 机制来挂起协程。因此，如果函数 <code>foo</code> 调用一个 API 函数，而该 API 函数挂起了（直接或间接挂起），Lua 没法给 <code>foo</code> 返回任何东西，因为 <code>longjmp</code> 已将它的 frame 从 C 栈中移除了。
 
 
 <p>
-To avoid this kind of problem,
-Lua raises an error whenever it tries to yield across an API call,
-except for three functions:
-<a href="#lua_yieldk"><code>lua_yieldk</code></a>, <a href="#lua_callk"><code>lua_callk</code></a>, and <a href="#lua_pcallk"><code>lua_pcallk</code></a>.
-All those functions receive a <em>continuation function</em>
-(as a parameter called <code>k</code>) to continue execution after a yield.
+为避免这类问题，每当穿过 API 调用而挂起时 Lua 都会弹出错误，只除了这三个函数：<a href="#lua_yieldk"><code>lua_yieldk</code></a>、<a href="#lua_callk"><code>lua_callk</code></a> 和 <a href="#lua_pcallk"><code>lua_pcallk</code></a>。这三个函数接收一个 <em>continuation function（继续函数）</em>（有一个参数叫 <code>k</code>）用于挂起后继续执行。
 
 
 <p>
-We need to set some terminology to explain continuations.
-We have a C function called from Lua which we will call
-the <em>original function</em>.
-This original function then calls one of those three functions in the C API,
-which we will call the <em>callee function</em>,
-that then yields the current thread.
-(This can happen when the callee function is <a href="#lua_yieldk"><code>lua_yieldk</code></a>,
-or when the callee function is either <a href="#lua_callk"><code>lua_callk</code></a> or <a href="#lua_pcallk"><code>lua_pcallk</code></a>
-and the function called by them yields.)
+我们需要用一些术语来解释这个 continuation。首先，我们有一个由 Lua 调用的 C 函数，它叫 <em>original function（原始函数）</em>。这个原始函数随后在 C API 内调用了前面三个函数中的一个，叫 <em>callee function（被调函数）</em>，然后当前线程被挂起。（挂起可能发生在被调函数是 <a href="#lua_yieldk"><code>lua_yieldk</code></a>时，或者被调函数是 <a href="#lua_callk"><code>lua_callk</code></a> 或 <a href="#lua_pcallk"><code>lua_pcallk</code></a>二者其一而且被自己挂起。）
 
 
 <p>
-Suppose the running thread yields while executing the callee function.
-After the thread resumes,
-it eventually will finish running the callee function.
-However,
-the callee function cannot return to the original function,
-because its frame in the C stack was destroyed by the yield.
-Instead, Lua calls a <em>continuation function</em>,
-which was given as an argument to the callee function.
-As the name implies,
-the continuation function should continue the task
-of the original function.
+假定是在执行被调函数时运行的线程被挂起。等线程恢复后，它最终会结束运行被调函数。然而，被调函数此时却没法返回给原始函数，因为它在 C 栈中的 frame 在挂起时给销毁了。于是，Lua 调用当作参数传递给被调函数的 <em>continuation function（继续函数）</em>。顾名思义，继续函数可以继续原始函数的工作。
 
 
 <p>
-Lua treats the continuation function as if it were the original function.
-The continuation function receives the same Lua stack
-from the original function,
-in the same state it would be if the callee function had returned.
-(For instance,
-after a <a href="#lua_callk"><code>lua_callk</code></a> the function and its arguments are
-removed from the stack and replaced by the results from the call.)
-It also has the same upvalues.
-Whatever it returns is handled by Lua as if it were the return
-of the original function.
+Lua 将继续函数看作原始函数。继续函数接收来源于原始函数的相同 Lua 栈，在被调函数返回后也（与原始函数）处于一样的状态。（例如，<a href="#lua_callk"><code>lua_callk</code></a> 调用一个函数后，它的参数均从栈中移除并被替换成那个函数的返回结果。）继续函数也拥有相同的 upvalue。无论继续函数返回什么值，都会被 Lua 当作是由原始函数返回的一样进行处理。
 
 
 <p>
-The only difference in the Lua state between the original function
-and its continuation is the result of a call to <a href="#lua_getctx"><code>lua_getctx</code></a>.
+在 Lua 状态机中，原始函数与它的继续函数唯一的不同就是 <a href="#lua_getctx"><code>lua_getctx</code></a> 返回结果的不同。
 
 
 
