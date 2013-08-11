@@ -2029,10 +2029,10 @@ Lua ÖĞ½« <code>return <em>functioncall</em></code> ÕâÖÖĞÎÊ½½Ğ <em>tail call£¨Î²µ
 
 
 
-<h3>3.4.10 &ndash; <a name="3.4.10">Function Definitions</a></h3>
+<h3>3.4.10 &ndash; <a name="3.4.10">º¯Êı¶¨Òå</a></h3>
 
 <p>
-The syntax for function definition is
+º¯Êı¶¨ÒåµÄÓï·¨ÈçÏÂ£º
 
 <pre>
 	functiondef ::= <b>function</b> funcbody
@@ -2040,100 +2040,72 @@ The syntax for function definition is
 </pre>
 
 <p>
-The following syntactic sugar simplifies function definitions:
+ÏÂÃæµÄÓï·¨ÌÇĞ´·¨¿ÉÒÔ¼ò»¯º¯ÊıµÄ¶¨Òå£º
 
 <pre>
 	stat ::= <b>function</b> funcname funcbody
 	stat ::= <b>local</b> <b>function</b> Name funcbody
 	funcname ::= Name {&lsquo;<b>.</b>&rsquo; Name} [&lsquo;<b>:</b>&rsquo; Name]
 </pre><p>
-The statement
+Óï¾ä
 
 <pre>
      function f () <em>body</em> end
 </pre><p>
-translates to
+×ª»¯³É
 
 <pre>
      f = function () <em>body</em> end
 </pre><p>
-The statement
+Óï¾ä
 
 <pre>
      function t.a.b.c.f () <em>body</em> end
 </pre><p>
-translates to
+×ª»¯³É
 
 <pre>
      t.a.b.c.f = function () <em>body</em> end
 </pre><p>
-The statement
+Óï¾ä
 
 <pre>
      local function f () <em>body</em> end
 </pre><p>
-translates to
+×ª»¯³É
 
 <pre>
      local f; f = function () <em>body</em> end
 </pre><p>
-not to
+¶ø²»ÊÇ×ª»¯³É
 
 <pre>
      local f = function () <em>body</em> end
 </pre><p>
-(This only makes a difference when the body of the function
-contains references to <code>f</code>.)
+£¨ÕâÖ»ÔÚº¯ÊıÌåÄÚĞèÒªÒıÓÃ <code>f</code> Ê±²ÅÓĞµãÇø±ğ¡££©
 
 
 <p>
-A function definition is an executable expression,
-whose value has type <em>function</em>.
-When Lua precompiles a chunk,
-all its function bodies are precompiled too.
-Then, whenever Lua executes the function definition,
-the function is <em>instantiated</em> (or <em>closed</em>).
-This function instance (or <em>closure</em>)
-is the final value of the expression.
+º¯Êı¶¨ÒåÊÇÒ»¸ö¿ÉÖ´ĞĞ±í´ïÊ½£¬Ö´ĞĞ½á¹ûÊÇ¸öÀàĞÍÎª <em>function</em>µÄÖµ¡£Lua Ô¤±àÒë chunk£¨³ÌĞò¿é£©Ê±£¬ËüµÄËùÓĞº¯ÊıÌåÒ²»á±»Ô¤±àÒë¡£Ã¿µ± Lua Ö´ĞĞº¯Êı¶¨Òå£¬º¯Êı²Å±» <em>instantiated£¨ÊµÀı»¯£©</em> £¨Ò²½Ğ <em>closed£¨±ÕºÏ£©</em>£©¡£Õâ¸öº¯ÊıÊµÀı£¨Ò²½Ğ<em>closure£¨±Õ°ü£©</em>£©²ÅÊÇ±í´ïÊ½×îÖÕµÄÖµ¡£
 
 
 <p>
-Parameters act as local variables that are
-initialized with the argument values:
+ĞÎ²Î£¨º¯Êı¶¨ÒåµÄ²ÎÊı£©×÷Îª¾Ö²¿±äÁ¿ÓÉÊµ²Î£¨º¯Êıµ÷ÓÃÊ±´«ÈëµÄ²ÎÊı£©µÄÖµ³õÊ¼»¯£º
 
 <pre>
 	parlist ::= namelist [&lsquo;<b>,</b>&rsquo; &lsquo;<b>...</b>&rsquo;] | &lsquo;<b>...</b>&rsquo;
 </pre><p>
-When a function is called,
-the list of arguments is adjusted to
-the length of the list of parameters,
-unless the function is a <em>vararg function</em>,
-which is indicated by three dots ('<code>...</code>')
-at the end of its parameter list.
-A vararg function does not adjust its argument list;
-instead, it collects all extra arguments and supplies them
-to the function through a <em>vararg expression</em>,
-which is also written as three dots.
-The value of this expression is a list of all actual extra arguments,
-similar to a function with multiple results.
-If a vararg expression is used inside another expression
-or in the middle of a list of expressions,
-then its return list is adjusted to one element.
-If the expression is used as the last element of a list of expressions,
-then no adjustment is made
-(unless that last expression is enclosed in parentheses).
-
+µ÷ÓÃº¯ÊıÊ±£¬Êµ²ÎÁĞ±í»á¸ù¾İĞÎ²ÎÁĞ±íµÄ³¤¶È×öµ÷Õû£¬³ı·ÇÓöÉÏÁËĞÎ²ÎÁĞ±íÒÔÈıµã£¨'<code>...</code>'£©½áÎ²µÄ <em>vararg function£¨±ä²Îº¯Êı£©</em>¡£±ä²Îº¯Êı²»»áµ÷ÕûÊµ²ÎÁĞ±í£¬¶øÊÇÊÕ¼¯ËùÓĞ¶îÍâµÄÊµ²ÎÈ»ºóÍ¨¹ı <em>vararg expression£¨±ä²Î±í´ïÊ½£©</em>£¨Ò²Ğ´³É '<code>...</code>'£©´«¸øº¯Êı¡£±ä²Î±í´ïÊ½µÄÖµ¾ÍÊÇ°üº¬È«²¿¶îÍâÊµ²ÎµÄÁĞ±í£¬ÕâÀàËÆ·µ»Ø¶àÖµµÄº¯Êı¡£Èç¹û±ä²Î±í´ïÊ½ÔÚÁíÒ»¸ö±í´ïÊ½ÖĞÊ¹ÓÃ£¬»òÕßÊÇÎ»ÓÚÒ»¶Ñ±í´ïÊ½µÄÖĞ¼ä£¬ÄÇÃ´Ëü·µ»ØµÄÖµ»á±»µ÷Õû³Éµ¥¸öÔªËØ¡£¶øÈôÊÇ¸Ã±í´ïÊ½ÊÇÄÇ¶Ñ±í´ïÊ½µÄ×îºóÒ»¸ö£¬ÄÇ¾Í²»ÓÃ×öµ÷ÕûÁË£¨³ı·Ç×îºóµÄ±í´ïÊ½Î»ÓÚÀ¨ºÅÖ®ÄÚ£©¡£
 
 <p>
-As an example, consider the following definitions:
+ÏÈ¿´ÏÂÃæÕâ¸öº¯Êı¶¨ÒåµÄÀı×Ó£º
 
 <pre>
      function f(a, b) end
      function g(a, b, ...) end
      function r() return 1,2,3 end
 </pre><p>
-Then, we have the following mapping from arguments to parameters and
-to the vararg expression:
+È»ºóÓĞÈçÏÂÊµ²Îµ½ĞÎ²ÎºÍ±ä²Î±í´ïÊ½µÄÓ³Éä¹ØÏµ£º
 
 <pre>
      CALL            PARAMETERS
@@ -2151,29 +2123,21 @@ to the vararg expression:
 </pre>
 
 <p>
-Results are returned using the <b>return</b> statement (see <a href="#3.3.4">&sect;3.3.4</a>).
-If control reaches the end of a function
-without encountering a <b>return</b> statement,
-then the function returns with no results.
+<b>return</b> Óï¾äÓÃÓÚ·µ»Ø½á¹û£¨²Î¼û <a href="#3.3.4">&sect;3.3.4</a>£©¡£Èç¹ûÖ´ĞĞµ½º¯Êı½áÎ²Ã»·¢ÏÖÒ»¸ö <b>return</b> Óï¾ä£¬Ôòº¯ÊıÃ»ÓĞ½á¹û·µ»Ø¡£
+
+
+<p>
+Ò»¸öº¯ÊıÄÜ·µ»ØµÄ½á¹ûÊıÁ¿ÒòÏµÍ³²»Í¬¶øÏŞÖÆ²»Í¬£¬µ«¿Ï¶¨´óÓÚ1000¡£
 
 
 <p>
 
-There is a system-dependent limit on the number of values
-that a function may return.
-This limit is guaranteed to be larger than 1000.
-
-
-<p>
-The <em>colon</em> syntax
-is used for defining <em>methods</em>,
-that is, functions that have an implicit extra parameter <code>self</code>.
-Thus, the statement
+<em>colon£¨Ã°ºÅ£©</em> Óï·¨ÓÃÓÚ¶¨Òå <em>methods£¨·½·¨£©</em>¡£ÒâË¼ÊÇº¯ÊıÓĞÒ»¸ö¶îÍâµÄÒşÊ½²ÎÊı <code>self</code>¡£ËùÒÔ£¬ÈçÏÂÓï¾ä
 
 <pre>
      function t.a.b.c:f (<em>params</em>) <em>body</em> end
 </pre><p>
-is syntactic sugar for
+ÊÇÈçÏÂĞ´·¨µÄÓï·¨ÌÇ£¨¼òĞ´£©ĞÎÊ½
 
 <pre>
      t.a.b.c.f = function (self, <em>params</em>) <em>body</em> end
