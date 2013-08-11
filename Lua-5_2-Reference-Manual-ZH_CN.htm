@@ -2148,50 +2148,36 @@ Lua ÖĞ½« <code>return <em>functioncall</em></code> ÕâÖÖĞÎÊ½½Ğ <em>tail call£¨Î²µ
 
 
 
-<h2>3.5 &ndash; <a name="3.5">Visibility Rules</a></h2>
+<h2>3.5 &ndash; <a name="3.5">¿É¼ûĞÔ¹æÔò</a></h2>
 
 <p>
-
-Lua is a lexically scoped language.
-The scope of a local variable begins at the first statement after
-its declaration and lasts until the last non-void statement
-of the innermost block that includes the declaration.
-Consider the following example:
+Lua ÊÇÃÅÓĞ´Ê·¨ÓòµÄÓïÑÔ¡£Ò»¸ö¾Ö²¿±äÁ¿µÄ×÷ÓÃÓò¿ªÊ¼ÓÚÉùÃ÷ºóµÄµÚÒ»ÌõÓï¾ä£¬½áÊøÓÚ°üº¬¸ÃÉùÃ÷µÄ×îÄÚ²ãÓï¾ä¿éÖĞµÄ×îºóÒ»Ìõ·Ç¿ÕÓï¾ä¡£Ë¼¿¼ÏÂÃæµÄÀı×Ó£º
 
 <pre>
-     x = 10                -- global variable
-     do                    -- new block
-       local x = x         -- new 'x', with value 10
+     x = 10                -- È«¾Ö±äÁ¿
+     do                    -- ĞÂÓï¾ä¿é¿ªÊ¼
+       local x = x         -- ĞÂµÄ 'x'£¬ÖµÎª 10
        print(x)            --&gt; 10
        x = x+1
-       do                  -- another block
-         local x = x+1     -- another 'x'
+       do                  -- ÁíÒ»¸öÓï¾ä¿é¿ªÊ¼
+         local x = x+1     -- ÁíÒ»¸ö 'x'
          print(x)          --&gt; 12
        end
        print(x)            --&gt; 11
      end
-     print(x)              --&gt; 10  (the global one)
+     print(x)              --&gt; 10£¨´ËÎªÈ«¾ÖµÄÄÇÒ»¸ö£©
 </pre>
 
 <p>
-Notice that, in a declaration like <code>local x = x</code>,
-the new <code>x</code> being declared is not in scope yet,
-and so the second <code>x</code> refers to the outside variable.
+ÁôĞÄ×¢Òâ£¬ÀàËÆ <code>local x = x</code> µÄÉùÃ÷£¬ĞÂÉùÃ÷µÄ <code>x</code> »¹²»ÔÚ×÷ÓÃÓòÄÚ£¨ÒëÕß×¢£º×÷ÓÃÓò¿ªÊ¼ÓÚÉùÃ÷Óï¾äµÄÏÂÒ»¾ä£¬²»°üÀ¨ÉùÃ÷Óï¾ä±¾Éí£©£¬ËùÒÔºóÃæµÄ <code>x</code> »¹ÊÇÖ¸ÄÇ¸öÍâ²ã±äÁ¿¡£
 
 
 <p>
-Because of the lexical scoping rules,
-local variables can be freely accessed by functions
-defined inside their scope.
-A local variable used by an inner function is called
-an <em>upvalue</em>, or <em>external local variable</em>,
-inside the inner function.
+ÒòÎªÓĞ´Ê·¨Óò¹æÔò£¬ËùÒÔº¯Êı¿ÉËæÒâ·ÃÎÊ¶¨ÒåÔÚÆä×÷ÓÃÓòÄÚµÄ¾Ö²¿±äÁ¿¡£¾Ö²¿±äÁ¿±»¸üÄÚ²ãµÄº¯ÊıÊ¹ÓÃ£¬Ôò³ÆÆäÎª <em>upvalue</em>£¬»òÕßÊÇ <em>external local variable£¨Íâ²ã¾Ö²¿±äÁ¿£©</em>¡£
 
 
 <p>
-Notice that each execution of a <b>local</b> statement
-defines new local variables.
-Consider the following example:
+Òª×¢Òâ£¬Ã¿Ö´ĞĞÒ»´Î <b>local</b> Óï¾ä¶¼»á¶¨ÒåĞÂµÄ¾Ö²¿±äÁ¿¡£Ë¼¿¼ÏÂÃæµÄÀı×Ó£º
 
 <pre>
      a = {}
@@ -2201,10 +2187,7 @@ Consider the following example:
        a[i] = function () y=y+1; return x+y end
      end
 </pre><p>
-The loop creates ten closures
-(that is, ten instances of the anonymous function).
-Each of these closures uses a different <code>y</code> variable,
-while all of them share the same <code>x</code>.
+Õâ¸öÑ­»·´´½¨ÁËÊ®¸ö closures£¨±Õ°ü£¬ÕâÀïÖ¸Ê®¸öÄäÃûº¯ÊıÊµÀı£©¡£Ã¿Ò»¸ö closure Ê¹ÓÃµÄ¶¼ÊÇ²»Í¬µÄ <code>y</code> £¬ÏàÍ¬µÄ <code>x</code>¡£
 
 
 
