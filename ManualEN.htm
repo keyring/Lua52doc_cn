@@ -1,28 +1,33 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" >
+锘�<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 
 <head>
-<title>Lua 5.2 参考手册</title>
-<META HTTP-EQUIV="content-type" CONTENT="text/html; charset=gb2312">
+<title>Lua 5.2 Reference Manual</title>
+<META HTTP-EQUIV="content-type" CONTENT="text/html; charset=iso-8859-1">
 
-<style type="text/css">
+<STYLE TYPE="text/css">
+ul {
+	list-style-type: none ;
+	list-style-position: outside ;
+}
+
 HTML {
 	BACKGROUND-COLOR: #f8f8f8
 }
 BODY {
-	BORDER-BOTTOM: #a0a0a0 1px solid; TEXT-ALIGN: justify; BORDER-LEFT: #a0a0a0 1px solid; PADDING-BOTTOM: 26px; BACKGROUND-COLOR: #ffffff; MARGIN: 16px; PADDING-LEFT: 26px; PADDING-RIGHT: 26px; FONT-FAMILY: Helvetica, Arial,  Microsoft YaHei; COLOR: #000000; BORDER-TOP: #a0a0a0 1px solid; BORDER-RIGHT: #a0a0a0 1px solid; PADDING-TOP: 26px; border-radius: 20px
+	BORDER-BOTTOM: #a0a0a0 1px solid; TEXT-ALIGN: justify; BORDER-LEFT: #a0a0a0 1px solid; PADDING-BOTTOM: 26px; BACKGROUND-COLOR: #ffffff; MARGIN: 16px; PADDING-LEFT: 26px; PADDING-RIGHT: 26px; FONT-FAMILY: Helvetica, Arial, sans-serif; COLOR: #000000; BORDER-TOP: #a0a0a0 1px solid; BORDER-RIGHT: #a0a0a0 1px solid; PADDING-TOP: 26px; border-radius: 20px
 }
 H1 {
-	FONT-STYLE: normal; FONT-FAMILY: Helvetica, Microsoft YaHei; FONT-WEIGHT: normal
+	FONT-STYLE: normal; FONT-FAMILY: Verdana, Geneva, sans-serif; FONT-WEIGHT: normal
 }
 H2 {
-	FONT-STYLE: normal; FONT-FAMILY:  Helvetica, Microsoft YaHei, sans-serif; FONT-WEIGHT: normal
+	FONT-STYLE: normal; FONT-FAMILY: Verdana, Geneva, sans-serif; FONT-WEIGHT: normal
 }
 H3 {
-	FONT-STYLE: normal; FONT-FAMILY: Helvetica, Microsoft YaHei, sans-serif; FONT-WEIGHT: normal
+	FONT-STYLE: normal; FONT-FAMILY: Verdana, Geneva, sans-serif; FONT-WEIGHT: normal
 }
 H4 {
-	FONT-STYLE: normal; FONT-FAMILY: Helvetica, Microsoft YaHei, sans-serif;  FONT-WEIGHT: normal
+	FONT-STYLE: normal; FONT-FAMILY: Verdana, Geneva, sans-serif; FONT-WEIGHT: normal
 }
 H1 {
 	FONT-STYLE: italic
@@ -95,7 +100,7 @@ UL + H1 {
 }
 
 
-</style>
+</STYLE>
 
 </head>
 
@@ -103,11 +108,9 @@ UL + H1 {
 
 <hr>
 <h1>
-<a href="#"><img src="data:image/gif;base64,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
-" alt="" border="0"></a>
-
-
-Lua 5.2 参考手册</h1>
+<a href="../../home.html"><img src="data:image/gif;base64,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" alt="" border="0"></a>
+Lua 5.2 Reference Manual
+</h1>
 
 by Roberto Ierusalimschy, Luiz Henrique de Figueiredo, Waldemar Celes
 <p>
@@ -118,81 +121,79 @@ Freely available under the terms of the
 </small>
 <hr>
 <p>
-keyring (译)   keyrings@163.com
+<A HREF="#1">start</A>
+&middot;
+<a href="#contents">contents</A>
+&middot;
+<a href="#index">index</A>
+&middot;
+<a href="index.htm">Chinese version</A>
+
 <!-- ====================================================================== -->
 <p>
 
 <!-- $Id: manual.of,v 1.103 2013/03/14 18:51:56 roberto Exp $ -->
 
-<P>
-<A HREF="#1">开始</A>
-&middot;
-<A HREF="#contents">目录</A>
-&middot;
-<A HREF="#index">索引</A>
-&middot;
-<A HREF="ManualEN.htm">英文版</A>
-<HR>
 
-<H2><A NAME="contents">目录</A></H2>
+<H2><A NAME="contents">Contents</A></H2>
 <UL style="padding: 0">
-<LI><A HREF="#1">1 &ndash; 简介</A>
+<LI><A HREF="#1">1 &ndash; Introduction</A>
 <P>
-<LI><A HREF="#2">2 &ndash; 基本概念</A>
+<LI><A HREF="#2">2 &ndash; Basic Concepts</A>
 <UL>
-<LI><A HREF="#2.1">2.1 &ndash; 值与类型</A>
-<LI><A HREF="#2.2">2.2 &ndash; 环境与全局变量</A>
-<LI><A HREF="#2.3">2.3 &ndash; 错误处理</A>
-<LI><A HREF="#2.4">2.4 &ndash; 元表与元方法</A>
-<LI><A HREF="#2.5">2.5 &ndash; 垃圾回收</A>
+<LI><A HREF="#2.1">2.1 &ndash; Values and Types</A>
+<LI><A HREF="#2.2">2.2 &ndash; Environments and the Global Environment</A>
+<LI><A HREF="#2.3">2.3 &ndash; Error Handling</A>
+<LI><A HREF="#2.4">2.4 &ndash; Metatables and Metamethods</A>
+<LI><A HREF="#2.5">2.5 &ndash; Garbage Collection</A>
 <UL>
-<LI><A HREF="#2.5.1">2.5.1 &ndash; 垃圾回收元方法</A>
-<LI><A HREF="#2.5.2">2.5.2 &ndash; 弱表</A>
+<LI><A HREF="#2.5.1">2.5.1 &ndash; Garbage-Collection Metamethods</A>
+<LI><A HREF="#2.5.2">2.5.2 &ndash; Weak Tables</A>
 </UL>
-<LI><A HREF="#2.6">2.6 &ndash; 协程</A>
-</UL>
-<P>
-<LI><A HREF="#3">3 &ndash; 语言</A>
-<UL>
-<LI><A HREF="#3.1">3.1 &ndash; 词法约定</A>
-<LI><A HREF="#3.2">3.2 &ndash; 变量</A>
-<LI><A HREF="#3.3">3.3 &ndash; 语句</A>
-<UL>
-<LI><A HREF="#3.3.1">3.3.1 &ndash; 语句块</A>
-<LI><A HREF="#3.3.2">3.3.2 &ndash; 程序块</A>
-<LI><A HREF="#3.3.3">3.3.3 &ndash; 赋值</A>
-<LI><A HREF="#3.3.4">3.3.4 &ndash; 控制结构</A>
-<LI><A HREF="#3.3.5">3.3.5 &ndash; For 语句</A>
-<LI><A HREF="#3.3.6">3.3.6 &ndash; 函数调用作语句</A>
-<LI><A HREF="#3.3.7">3.3.7 &ndash; 局部声明</A>
-</UL>
-<LI><A HREF="#3.4">3.4 &ndash; 表达式</A>
-<UL>
-<LI><A HREF="#3.4.1">3.4.1 &ndash; 数学运算符</A>
-<LI><A HREF="#3.4.2">3.4.2 &ndash; 强制转换</A>
-<LI><A HREF="#3.4.3">3.4.3 &ndash; 关系运算符</A>
-<LI><A HREF="#3.4.4">3.4.4 &ndash; 逻辑运算符</A>
-<LI><A HREF="#3.4.5">3.4.5 &ndash; 连接操作</A>
-<LI><A HREF="#3.4.6">3.4.6 &ndash; 取长度运算符</A>
-<LI><A HREF="#3.4.7">3.4.7 &ndash; 优先级</A>
-<LI><A HREF="#3.4.8">3.4.8 &ndash; 表的构造器</A>
-<LI><A HREF="#3.4.9">3.4.9 &ndash; 函数调用</A>
-<LI><A HREF="#3.4.10">3.4.10 &ndash; 函数定义</A>
-</UL>
-<LI><A HREF="#3.5">3.5 &ndash; 可见性规则</A>
+<LI><A HREF="#2.6">2.6 &ndash; Coroutines</A>
 </UL>
 <P>
-<LI><A HREF="#4">4 &ndash; 应用程序接口</A>
+<LI><A HREF="#3">3 &ndash; The Language</A>
 <UL>
-<LI><A HREF="#4.1">4.1 &ndash; 栈</A>
-<LI><A HREF="#4.2">4.2 &ndash; 栈的大小</A>
-<LI><A HREF="#4.3">4.3 &ndash; 有效索引与合法索引</A>
-<LI><A HREF="#4.4">4.4 &ndash; C 闭包</A>
-<LI><A HREF="#4.5">4.5 &ndash; 注册表</A>
-<LI><A HREF="#4.6">4.6 &ndash; C 中的错误处理</A>
-<LI><A HREF="#4.7">4.7 &ndash; C 中的挂起处理</A>
-<LI><A HREF="#4.8">4.8 &ndash; 函数与类型</A>
-<LI><A HREF="#4.9">4.9 &ndash; 调试接口</A>
+<LI><A HREF="#3.1">3.1 &ndash; Lexical Conventions</A>
+<LI><A HREF="#3.2">3.2 &ndash; Variables</A>
+<LI><A HREF="#3.3">3.3 &ndash; Statements</A>
+<UL>
+<LI><A HREF="#3.3.1">3.3.1 &ndash; Blocks</A>
+<LI><A HREF="#3.3.2">3.3.2 &ndash; Chunks</A>
+<LI><A HREF="#3.3.3">3.3.3 &ndash; Assignment</A>
+<LI><A HREF="#3.3.4">3.3.4 &ndash; Control Structures</A>
+<LI><A HREF="#3.3.5">3.3.5 &ndash; For Statement</A>
+<LI><A HREF="#3.3.6">3.3.6 &ndash; Function Calls as Statements</A>
+<LI><A HREF="#3.3.7">3.3.7 &ndash; Local Declarations</A>
+</UL>
+<LI><A HREF="#3.4">3.4 &ndash; Expressions</A>
+<UL>
+<LI><A HREF="#3.4.1">3.4.1 &ndash; Arithmetic Operators</A>
+<LI><A HREF="#3.4.2">3.4.2 &ndash; Coercion</A>
+<LI><A HREF="#3.4.3">3.4.3 &ndash; Relational Operators</A>
+<LI><A HREF="#3.4.4">3.4.4 &ndash; Logical Operators</A>
+<LI><A HREF="#3.4.5">3.4.5 &ndash; Concatenation</A>
+<LI><A HREF="#3.4.6">3.4.6 &ndash; The Length Operator</A>
+<LI><A HREF="#3.4.7">3.4.7 &ndash; Precedence</A>
+<LI><A HREF="#3.4.8">3.4.8 &ndash; Table Constructors</A>
+<LI><A HREF="#3.4.9">3.4.9 &ndash; Function Calls</A>
+<LI><A HREF="#3.4.10">3.4.10 &ndash; Function Definitions</A>
+</UL>
+<LI><A HREF="#3.5">3.5 &ndash; Visibility Rules</A>
+</UL>
+<P>
+<LI><A HREF="#4">4 &ndash; The Application Program Interface</A>
+<UL>
+<LI><A HREF="#4.1">4.1 &ndash; The Stack</A>
+<LI><A HREF="#4.2">4.2 &ndash; Stack Size</A>
+<LI><A HREF="#4.3">4.3 &ndash; Valid and Acceptable Indices</A>
+<LI><A HREF="#4.4">4.4 &ndash; C Closures</A>
+<LI><A HREF="#4.5">4.5 &ndash; Registry</A>
+<LI><A HREF="#4.6">4.6 &ndash; Error Handling in C</A>
+<LI><A HREF="#4.7">4.7 &ndash; Handling Yields in C</A>
+<LI><A HREF="#4.8">4.8 &ndash; Functions and Types</A>
+<LI><A HREF="#4.9">4.9 &ndash; The Debug Interface</A>
 </UL>
 <P>
 <LI><A HREF="#5">5 &ndash; The Auxiliary Library</A>
@@ -229,7 +230,7 @@ keyring (译)   keyrings@163.com
 <LI><A HREF="#9">9 &ndash; The Complete Syntax of Lua</A>
 </UL>
 
-<H2><A NAME="index">索引</A></H2>
+<H2><A NAME="index">Index</A></H2>
 <TABLE WIDTH="100%">
 <TR VALIGN="top">
 <TD>
@@ -618,92 +619,173 @@ keyring (译)   keyrings@163.com
 
 <HR>
 
-<h1>1 &ndash; <a name="1">简介</a></h1>
+
+
+<h1>1 &ndash; <a name="1">Introduction</a></h1>
 
 <p>
-Lua是一门扩展型程序设计语言，用于辅助一般的过程式编程。
-当然，它也对面向对象编程、函数式编程和数据驱动式编程提供
-良好的支持。Lua作为一门强大、轻量、可嵌入式的脚本语言能供
-任何需要的程序使用。Lua由 clean C（标准&nbsp;C和C++的一个共通子集）实现成一个库。
-
-<p>
-作为一门扩展型语言，Lua没有“main”程序的概念：它只能<em>嵌入</em>宿主程序，宿主程序被称为<em>embedding program</em> 或者简称 <em>host</em>。
-宿主程序可以调用函数执行一小段Lua代码，可以读写Lua变量，甚至可以注册C&nbsp;函数以在Lua代码中调用。通过对C&nbsp;函数的使用，Lua足以应付各种领域，完全可以共享一个句法框架而定制不同程序语言。Lua官方发布版包括一个叫<code>lua</code>的示例宿主程序，是利用Lua库写成的完整独立的Lua解释器，一般用于交互和批处理。
-
-
-<p>
-Lua是自由软件,
-就像license里面所说，使用它是不需要抵押品的 :)。本手册所描述的实现可以在Lua官方网站<code>www.lua.org</code>中找到。
+Lua is an extension programming language designed to support
+general procedural programming with data description
+facilities.
+It also offers good support for object-oriented programming,
+functional programming, and data-driven programming.
+Lua is intended to be used as a powerful, lightweight,
+embeddable scripting language for any program that needs one.
+Lua is implemented as a library, written in <em>clean C</em>,
+the common subset of Standard&nbsp;C and C++.
 
 
 <p>
-就像任何参考手册一样，这份文档某些地方有点枯燥。关于Lua背后设计思想的探讨，可以看看Lua官方网站上的技术论文。至于Lua编程的详细介绍，请参阅Roberto的书，<em>Programming in Lua</em>（当前最新是第三版）。
+Being an extension language, Lua has no notion of a "main" program:
+it only works <em>embedded</em> in a host client,
+called the <em>embedding program</em> or simply the <em>host</em>.
+The host program can invoke functions to execute a piece of Lua code,
+can write and read Lua variables,
+and can register C&nbsp;functions to be called by Lua code.
+Through the use of C&nbsp;functions, Lua can be augmented to cope with
+a wide range of different domains,
+thus creating customized programming languages sharing a syntactical framework.
+The Lua distribution includes a sample host program called <code>lua</code>,
+which uses the Lua library to offer a complete, standalone Lua interpreter,
+for interactive or batch use.
 
-
-<h1>2 &ndash; <a name="2">基本概念</a></h1>
 
 <p>
-本章节介绍Lua语言里的基本概念。
+Lua is free software,
+and is provided as usual with no guarantees,
+as stated in its license.
+The implementation described in this manual is available
+at Lua's official web site, <code>www.lua.org</code>.
 
-<h2>2.1 &ndash; <a name="2.1">值与类型</a></h2>
-
-<p>
-Lua是一门<em>动态类型语言</em>。这意味着变量没有类型，只有值。Lua没有类型定义。由值本身携带自己的类型信息。
-
-<p>
-Lua中的所有值均是<em>第一类值（first-class values）</em>。这意味着所有的值均可存于变量中，也可作为参数传递给其他函数，也可作为结果被返回。
 
 <p>
-Lua中有八种基本类型：
-<em>nil（空）</em>、<em>boolean（布尔）</em>、 <em>number（数字）</em>
-<em>string（字符串）</em>、 <em>function（函数）</em>、 <em>userdata（用户数据）</em>、
-<em>thread（线程）</em>和<em>table（表）</em>。
+Like any other reference manual,
+this document is dry in places.
+For a discussion of the decisions behind the design of Lua,
+see the technical papers available at Lua's web site.
+For a detailed introduction to programming in Lua,
+see Roberto's book, <em>Programming in Lua</em>.
+
+
+
+<h1>2 &ndash; <a name="2">Basic Concepts</a></h1>
 
 <p>
-<em>Nil</em> 类型只有值 <b>nil</b>，主要用于标识与其他值的不同；通常代表无意义的值。
+This section describes the basic concepts of the language.
+
+
+
+<h2>2.1 &ndash; <a name="2.1">Values and Types</a></h2>
 
 <p>
-<em>Boolean</em> 类型只有两种值 <b>false</b> 和 <b>true</b>。
-<b>nil</b> 和 <b>false</b> 都表示条件为假；而其他任何值均为真。
+Lua is a <em>dynamically typed language</em>.
+This means that
+variables do not have types; only values do.
+There are no type definitions in the language.
+All values carry their own type.
+
 
 <p>
-<em>Number</em> 表示实数（双精度浮点数）。数字间的运算操作与底层C实现遵循相同的规则，一般就是IEEE 754标准。（使用内部其他数字类型如单精度浮点或长整型重新编译一个Lua解释器非常容易；参见<code> luaconf.h </code>文件。）
+All values in Lua are <em>first-class values</em>.
+This means that all values can be stored in variables,
+passed as arguments to other functions, and returned as results.
+
 
 <p>
-<em>String</em> 代表字节串。Lua is 8-bit clean：字符串可以包含任意8-bit的值，包括 '<code>\0</code>' 。
+There are eight basic types in Lua:
+<em>nil</em>, <em>boolean</em>, <em>number</em>,
+<em>string</em>, <em>function</em>, <em>userdata</em>,
+<em>thread</em>, and <em>table</em>.
+<em>Nil</em> is the type of the value <b>nil</b>,
+whose main property is to be different from any other value;
+it usually represents the absence of a useful value.
+<em>Boolean</em> is the type of the values <b>false</b> and <b>true</b>.
+Both <b>nil</b> and <b>false</b> make a condition false;
+any other value makes it true.
+<em>Number</em> represents real (double-precision floating-point) numbers.
+Operations on numbers follow the same rules of
+the underlying C&nbsp;implementation,
+which, in turn, usually follows the IEEE 754 standard.
+(It is easy to build Lua interpreters that use other
+internal representations for numbers,
+such as single-precision floats or long integers;
+see file <code>luaconf.h</code>.)
+<em>String</em> represents immutable sequences of bytes.
+
+Lua is 8-bit clean:
+strings can contain any 8-bit value,
+including embedded zeros ('<code>\0</code>').
+
 
 <p>
-Lua 可以调用（操作）用&nbsp;Lua&nbsp;和&nbsp;C&nbsp;写的<em> Function </em>（参见 <a href="#3.4.9">&sect;3.4.9</a>）。
+Lua can call (and manipulate) functions written in Lua and
+functions written in C
+(see <a href="#3.4.9">&sect;3.4.9</a>).
+
 
 <p>
-<em>userdata</em> 类型用来将任意&nbsp;C&nbsp;数据保存在&nbsp;Lua&nbsp;变量中。
-一个&nbsp;userdata&nbsp;类型的值就是一块原生内存的指针。 &nbsp;userdata&nbsp;分两类：full userdata 和 light userdata ，前者的内存块由 Lua 管理；后者的内存块由 host 管理。
-Userdata 在 Lua 中除了赋值与鉴定测试便没有其他预定义操作了。但是通过使用<em> metatables（元表）</em>，程序员可以为 full userdata 类型的值自定义操作（参见 <a href="#2.4">&sect;2.4</a>）。
-Userdata 类型的值不能在 Lua 中创建与修改，只能通过 C&nbsp;API。这样保证了宿主程序能完全掌管其中的数据。
+The type <em>userdata</em> is provided to allow arbitrary C&nbsp;data to
+be stored in Lua variables.
+A userdata value is a pointer to a block of raw memory.
+There are two kinds of userdata:
+full userdata, where the block of memory is managed by Lua,
+and light userdata, where the block of memory is managed by the host.
+Userdata has no predefined operations in Lua,
+except assignment and identity test.
+By using <em>metatables</em>,
+the programmer can define operations for full userdata values
+(see <a href="#2.4">&sect;2.4</a>).
+Userdata values cannot be created or modified in Lua,
+only through the C&nbsp;API.
+This guarantees the integrity of data owned by the host program.
+
 
 <p>
-<em>thread</em> 代表独立的执行线程，用于实现 coroutines（协同程序）（参见 <a href="#2.6">&sect;2.6</a>）。不要把 Lua 线程与操作系统线程搞混。Lua 在所有系统上均支持 coroutines，即使系统并不支持 threads 。
+The type <em>thread</em> represents independent threads of execution
+and it is used to implement coroutines (see <a href="#2.6">&sect;2.6</a>).
+Do not confuse Lua threads with operating-system threads.
+Lua supports coroutines on all systems,
+even those that do not support threads.
+
 
 <p>
-<em>table</em> 类型实现关联数组。也就是说，数组可以用任何 Lua 值（除了<b>nil</b> and NaN
-(<em>Not a Number</em>）作索引，而不仅限于数字。
-Tables 可以包含所有类型的值（除了<b>nil</b>）。
+The type <em>table</em> implements associative arrays,
+that is, arrays that can be indexed not only with numbers,
+but with any Lua value except <b>nil</b> and NaN
+(<em>Not a Number</em>, a special numeric value used to represent
+undefined or unrepresentable results, such as <code>0/0</code>).
+Tables can be <em>heterogeneous</em>;
+that is, they can contain values of all types (except <b>nil</b>).
 Any key with value <b>nil</b> is not considered part of the table.
 Conversely, any key that is not part of a table has
 an associated value <b>nil</b>.
 
 
 <p>
-Table 是 Lua 中唯一的数据组织机制，可以用于表示普通数组、序列、符号表、集合、记录、图、树等等。在表示记录时，Lua 使用域名作为索引。语言支持以<code>a.name</code>来表示a["name"]，这只是一种语法糖。可以使用多种方式创建 table
-（参见 <a href="#3.4.8">&sect;3.4.8</a>）。
+Tables are the sole data structuring mechanism in Lua;
+they can be used to represent ordinary arrays, sequences,
+symbol tables, sets, records, graphs, trees, etc.
+To represent records, Lua uses the field name as an index.
+The language supports this representation by
+providing <code>a.name</code> as syntactic sugar for <code>a["name"]</code>.
+There are several convenient ways to create tables in Lua
+(see <a href="#3.4.8">&sect;3.4.8</a>).
 
 
 <p>
-我们使用<em> 序列 </em>这个词来表示一个递增表，其索引键为<em> {1..n} </em>，其中的<em> n </em>表示序列的长度（参见 <a href="#3.4.6">&sect;3.4.6</a>）。
+We use the term <em>sequence</em> to denote a table where
+the set of all positive numeric keys is equal to <em>{1..n}</em>
+for some integer <em>n</em>,
+which is called the length of the sequence (see <a href="#3.4.6">&sect;3.4.6</a>).
 
 
 <p>
-与索引一样，table 中的域值也可为任意类型。特别的，由于函数也是 first-class values （第一类值/一等公民），所以 table 的域也可包含函数。从而 table 也能携带<em> methods </em> （参见 <a href="#3.4.10">&sect;3.4.10</a>）。（译注：这为面向对象提供了基础）
+Like indices,
+the values of table fields can be of any type.
+In particular,
+because functions are first-class values,
+table fields can contain functions.
+Thus tables can also carry <em>methods</em> (see <a href="#3.4.10">&sect;3.4.10</a>).
 
 
 <p>
@@ -716,138 +798,263 @@ if and only if <code>i</code> and <code>j</code> are raw equal
 
 
 <p>
-Table、function、thread 和 (full) userdata 类型的值均是 <em>对象</em>：变量实际上不<em>含有 </em>值，只是<em>引用 </em>值。赋值、参数传递和函数返回等操作的只是值的引用；这些操作不会做任何性质的拷贝。
+Tables, functions, threads, and (full) userdata values are <em>objects</em>:
+variables do not actually <em>contain</em> these values,
+only <em>references</em> to them.
+Assignment, parameter passing, and function returns
+always manipulate references to such values;
+these operations do not imply any kind of copy.
 
 
 <p>
-库函数<a href="#pdf-type"><code> type </code></a>可以返回一个给定值的类型（参见 <a href="#6.1">&sect;6.1</a>）。
+The library function <a href="#pdf-type"><code>type</code></a> returns a string describing the type
+of a given value (see <a href="#6.1">&sect;6.1</a>).
 
 
-<h2>2.2 &ndash; <a name="2.2">环境与全局变量</a></h2>
 
-<p>
-就像在 <a href="#3.2">&sect;3.2</a> 和 <a href="#3.3.3">&sect;3.3.3</a> 讨论的那样，任何对全局名称 <code>var</code> 的引用均会被翻译成 <code>_ENV.var</code>。此外，任何在局部变量之外编译的程序块均叫作
- <code>_ENV</code>（参见 <a href="#3.3.2">&sect;3.3.2</a>），
-所以 <code>_ENV</code> 本身在程序块中从来都不是全局名称。
 
+
+<h2>2.2 &ndash; <a name="2.2">Environments and the Global Environment</a></h2>
 
 <p>
-尽管存在外部 <code>_ENV</code> 变量用于全局名称的翻译，<code>_ENV</code> 本身其实是一个完全符合命名规则的名称。你完全可以定义新的变量/参数并取这个名字。每一次使用 <code>_ENV</code> 对全局名称的引用在当时对程序是可见的，完全遵循 Lua 通用可见性规则（参见 <a href="#3.5">&sect;3.5</a>）。
-
-
-<p>
-任何被存储 <code>_ENV</code> 值的表叫作 <em>environment（环境）</em>.
-
-
-<p>
-Lua 维持一个叫 <em>global environment（全局环境）</em>的特殊环境。这个值在 C 注册表（参见 <a href="#4.5">&sect;4.5</a>）表示一个特殊索引。在 Lua 中，变量 <a href="#pdf-_G"><code>_G</code></a> 被初始化为相同值。
+As will be discussed in <a href="#3.2">&sect;3.2</a> and <a href="#3.3.3">&sect;3.3.3</a>,
+any reference to a global name <code>var</code> is syntactically translated
+to <code>_ENV.var</code>.
+Moreover, every chunk is compiled in the scope of
+an external local variable called <code>_ENV</code> (see <a href="#3.3.2">&sect;3.3.2</a>),
+so <code>_ENV</code> itself is never a global name in a chunk.
 
 
 <p>
-当 Lua 编译一个 chunk（程序块）时，会先将其中 <code>_ENV</code> 的值提升为全局环境（参见 <a href="#pdf-load"><code>load</code></a>）。因此，默认情况下，Lua代码中的全局变量一般指的是全局环境里的入口。此外，加载到全局环境下的所有标准库和部分函数均是在该环境下运作。你可以使用 <a href="#pdf-load"><code>load</code></a> （或者 <a href="#pdf-loadfile"><code>loadfile</code></a>）来加载一个不同环境下的 chunk。
-<!--
+Despite the existence of this external <code>_ENV</code> variable and
+the translation of global names,
+<code>_ENV</code> is a completely regular name.
+In particular,
+you can define new variables and parameters with that name.
+Each reference to a global name uses the <code>_ENV</code> that is
+visible at that point in the program,
+following the usual visibility rules of Lua (see <a href="#3.5">&sect;3.5</a>).
+
+
+<p>
+Any table used as the value of <code>_ENV</code> is called an <em>environment</em>.
+
+
+<p>
+Lua keeps a distinguished environment called the <em>global environment</em>.
+This value is kept at a special index in the C registry (see <a href="#4.5">&sect;4.5</a>).
+In Lua, the variable <a href="#pdf-_G"><code>_G</code></a> is initialized with this same value.
+
+
+<p>
+When Lua compiles a chunk,
+it initializes the value of its <code>_ENV</code> upvalue
+with the global environment (see <a href="#pdf-load"><code>load</code></a>).
+Therefore, by default,
+global variables in Lua code refer to entries in the global environment.
+Moreover, all standard libraries are loaded in the global environment
+and several functions there operate on that environment.
+You can use <a href="#pdf-load"><code>load</code></a> (or <a href="#pdf-loadfile"><code>loadfile</code></a>)
+to load a chunk with a different environment.
 (In C, you have to load the chunk and then change the value
 of its first upvalue.)
--->
-
-<p>
-如果你改变了注册表中的全局环境（通过 C 代码或者 debug 库），在改变之后加载的 chunk 将获得新的环境。先前加载的 chunk 虽不受影响，但都要在自身的 <code>_ENV</code> 变量中引用到新环境去。此外，Lua 从不更新变量 <a href="#pdf-_G"><code>_G</code></a>（存于原始全局环境）。
-
-
-
-<h2>2.3 &ndash; <a name="2.3">错误处理</a></h2>
-
-<p>
-由于 Lua 是一门嵌入式扩展语言，所有的 Lua 行为均源于宿主程序 C 代码对 Lua 库的函数调用（参见 <a href="#lua_pcall"><code>lua_pcall</code></a>）。无论何时 Lua 程序块发生编译/执行错误，控制权均会交给宿主程序，由宿主程序触发恰当的措施（比如打印一条出错信息）。
 
 
 <p>
-Lua 代码可以通过调用 <a href="#pdf-error"><code>error</code></a> 函数明确产生错误信息。如果需要在 Lua 中 捕捉错误，可以使用 <a href="#pdf-pcall"><code>pcall</code></a> 或 <a href="#pdf-xpcall"><code>xpcall</code></a> 来在<em> protected mode（保护模式）</em>下调用一个处理函数。
+If you change the global environment in the registry
+(through C code or the debug library),
+all chunks loaded after the change will get the new environment.
+Previously loaded chunks are not affected, however,
+as each has its own reference to the environment in its <code>_ENV</code> variable.
+Moreover, the variable <a href="#pdf-_G"><code>_G</code></a>
+(which is stored in the original global environment)
+is never updated by Lua.
+
+
+
+
+
+<h2>2.3 &ndash; <a name="2.3">Error Handling</a></h2>
+
+<p>
+Because Lua is an embedded extension language,
+all Lua actions start from C&nbsp;code in the host program
+calling a function from the Lua library (see <a href="#lua_pcall"><code>lua_pcall</code></a>).
+Whenever an error occurs during
+the compilation or execution of a Lua chunk,
+control returns to the host,
+which can take appropriate measures
+(such as printing an error message).
 
 
 <p>
-每产生一个错误，就会传播一个包含该错误信息的 <em>error object（错误对象）</em> （也叫 <em>error message（错误消息）</em>）。Lua 本身只为错误对象产生一条字符串错误信息，而程序可以为错误对象产生任何形式的错误信息。
+Lua code can explicitly generate an error by calling the
+<a href="#pdf-error"><code>error</code></a> function.
+If you need to catch errors in Lua,
+you can use <a href="#pdf-pcall"><code>pcall</code></a> or <a href="#pdf-xpcall"><code>xpcall</code></a>
+to call a given function in <em>protected mode</em>.
 
 
 <p>
-当使用 <a href="#pdf-xpcall"><code>xpcall</code></a> 或者 <a href="#lua_pcall"><code>lua_pcall</code></a>时，可以传递一个  <em>message handler（消息处理程序）</em>以在错误出现时调用。这个程序由原始错误消息调用并返回一条新的消息。它在错误离开栈之前被调用，故能收集更多关于错误的信息，比如检查堆栈和创建堆栈回溯。这个消息处理程序在保护模式下被调用，自身也处在保护中，因此，消息处理中出现错误的话将再次调用消息处理（也就是自己）。如果发生了这种循环，将由 Lua 中断并返回一段恰当的消息。
-
-
-
-<h2>2.4 &ndash; <a name="2.4">元表与元方法</a></h2>
-
-<p>
-Lua 中的每个值均能拥有一个<em>metatable（元表）</em>。这个 <em>metatable</em> 就是普通的 Lua table，然后定义了一些原始值在特定操作下的行为。你可以通过在一个值的元表中设置特定的域来改变操作行为。例如，当一个非数字的值要做加法操作，Lua 会查询该值的元表中 "<code>__add</code>" 域中的函数，如果找到一个函数，Lua 则调用该函数来执行加法。
-
-
-<p>
-元表中的键命名为 <em>event（事件）</em>；对应的值叫 <em>metamethods（元方法）</em>。在刚才的例子中，事件是
- <code>"add"</code>，元方法则是那个执行加法操作的函数。
+Whenever there is an error,
+an <em>error object</em> (also called an <em>error message</em>)
+is propagated with information about the error.
+Lua itself only generates errors where the error object is a string,
+but programs may generate errors with
+any value for the error object.
 
 
 <p>
-你可以使用 <a href="#pdf-getmetatable"><code>getmetatable</code></a> 函数来查询任何值的 metatable（元表）。 
+When you use <a href="#pdf-xpcall"><code>xpcall</code></a> or <a href="#lua_pcall"><code>lua_pcall</code></a>,
+you may give a <em>message handler</em>
+to be called in case of errors.
+This function is called with the original error message
+and returns a new error message.
+It is called before the error unwinds the stack,
+so that it can gather more information about the error,
+for instance by inspecting the stack and creating a stack traceback.
+This message handler is still protected by the protected call;
+so, an error inside the message handler
+will call the message handler again.
+If this loop goes on, Lua breaks it and returns an appropriate message.
+
+
+
+
+
+<h2>2.4 &ndash; <a name="2.4">Metatables and Metamethods</a></h2>
 
 <p>
-你可以使用 <a href="#pdf-setmetatable"><code>setmetatable</code></a> 函数来替换 table 的 metatable 。但不能在 Lua 中改变其他类型（比如 number、string类型）的 metatable（除非使用 debug 库），必须得使用 C&nbsp;API。
+Every value in Lua can have a <em>metatable</em>.
+This <em>metatable</em> is an ordinary Lua table
+that defines the behavior of the original value
+under certain special operations.
+You can change several aspects of the behavior
+of operations over a value by setting specific fields in its metatable.
+For instance, when a non-numeric value is the operand of an addition,
+Lua checks for a function in the field "<code>__add</code>" of the value's metatable.
+If it finds one,
+Lua calls this function to perform the addition.
 
 
 <p>
-每个 table 和 full userdata 拥有独立的 metatable（虽然多个 table 和 userdata 也可共享它们的 metatable）。而所有其他类型的值，一种类型只有一个 metatable；意味着所有数字只有一个 metatable，所有字符串也一样，等等。默认情况下，单个值是没有 metatable 的，但字符串库为 string 类型设置了一个 metatable（参见 <a href="#6.4">&sect;6.4</a>）。
+The keys in a metatable are derived from the <em>event</em> names;
+the corresponding values are called <em>metamethods</em>.
+In the previous example, the event is <code>"add"</code>
+and the metamethod is the function that performs the addition.
 
 
 <p>
-一个 metatable  控制着一个对象在数学运算、比较、连接、取长和索引等操作的行为表现。它也能定义函数，让 userdata 或者 table 做垃圾收集时调用。当 Lua 需要对某个值执行其中一种操作时，会先检查值的 metatable 中是否有对应的事件。如果有，键对应的值（metamethod 元方法）将决定 Lua 如何执行操作。
+You can query the metatable of any value
+using the <a href="#pdf-getmetatable"><code>getmetatable</code></a> function.
 
 
 <p>
-
-Metatable 能控制的操作全列在了下面。各种操作用对应的名字区分。每种操作的键都是操作名前面加上两个下划线 （ '<code>__</code>' ）的字符串。比如 "add" 操作的键就是字符串 "<code>__add</code>"。
+You can replace the metatable of tables
+using the <a href="#pdf-setmetatable"><code>setmetatable</code></a> function.
+You cannot change the metatable of other types from Lua
+(except by using the debug library);
+you must use the C&nbsp;API for that.
 
 
 <p>
-这些操作的含义由 Lua 函数来解释更准确，毕竟函数展示了解释器内部如何执行该操作。这里的 Lua 代码仅用作解释说明，实际的行为已经硬编码在解释器中，自然也比这些模拟代码高效。在下面代码使用到的 <a href="#pdf-rawget"><code>rawget</code></a>, <a href="#pdf-tonumber"><code>tonumber</code></a> 等等函数可在 <a href="#6.1">&sect;6.1</a> 找到。注意，我们使用下面一行表达式来从给定对象中提取元方法
+Tables and full userdata have individual metatables
+(although multiple tables and userdata can share their metatables).
+Values of all other types share one single metatable per type;
+that is, there is one single metatable for all numbers,
+one for all strings, etc.
+By default, a value has no metatable,
+but the string library sets a metatable for the string type (see <a href="#6.4">&sect;6.4</a>).
+
+
+<p>
+A metatable controls how an object behaves in arithmetic operations,
+order comparisons, concatenation, length operation, and indexing.
+A metatable also can define a function to be called
+when a userdata or a table is garbage collected.
+When Lua performs one of these operations over a value,
+it checks whether this value has a metatable with the corresponding event.
+If so, the value associated with that key (the metamethod)
+controls how Lua will perform the operation.
+
+
+<p>
+Metatables control the operations listed next.
+Each operation is identified by its corresponding name.
+The key for each operation is a string with its name prefixed by
+two underscores, '<code>__</code>';
+for instance, the key for operation "add" is the
+string "<code>__add</code>".
+
+
+<p>
+The semantics of these operations is better explained by a Lua function
+describing how the interpreter executes the operation.
+The code shown here in Lua is only illustrative;
+the real behavior is hard coded in the interpreter
+and it is much more efficient than this simulation.
+All functions used in these descriptions
+(<a href="#pdf-rawget"><code>rawget</code></a>, <a href="#pdf-tonumber"><code>tonumber</code></a>, etc.)
+are described in <a href="#6.1">&sect;6.1</a>.
+In particular, to retrieve the metamethod of a given object,
+we use the expression
 
 <pre>
      metatable(obj)[event]
 </pre><p>
-可被解读成
+This should be read as
 
 <pre>
      rawget(getmetatable(obj) or {}, event)
 </pre><p>
-这意味着访问一个元方法不会调用其他元方法，而且访问没有 metatable 的对象也不会失败（仅仅导致 <b>nil</b>）。
+This means that the access to a metamethod does not invoke other metamethods,
+and access to objects with no metatables does not fail
+(it simply results in <b>nil</b>).
+
 
 <p>
-对于一元操作符 <code>-</code> 和 <code>#</code>，元方法由虚拟的第二参数调用。这个额外的参数仅用于简化 Lua 的内建对象；在将来的版本中可能被移除，因此我们不会在下面讨论。（其实额外参数的大部分使用都是无关紧要的。）
+For the unary <code>-</code> and <code>#</code> operators,
+the metamethod is called with a dummy second argument.
+This extra argument is only to simplify Lua's internals;
+it may be removed in future versions and therefore it is not present
+in the following code.
+(For most uses this extra argument is irrelevant.)
+
 
 
 <ul>
 
-<li><a name =add><b>"add": </b></a>
-<code><b>+</b></code> 操作。
+<li><b>"add": </b>
+the <code>+</code> operation.
+
+
 
 <p>
-下面的 <code>getbinhandler</code> 函数定义了 Lua 如何为二元运算选择处理方法。Lua 首先测试第一个操作数，如果它的类型没有为该运算操作定义处理方法，Lua 就会测试第二个操作数。
+The function <code>getbinhandler</code> below defines how Lua chooses a handler
+for a binary operation.
+First, Lua tries the first operand.
+If its type does not define a handler for the operation,
+then Lua tries the second operand.
 
 <pre>
      function getbinhandler (op1, op2, event)
        return metatable(op1)[event] or metatable(op2)[event]
      end
 </pre><p>
-通过这个函数，<code>op1 + op2</code> 的行为就是
+By using this function,
+the behavior of the <code>op1 + op2</code> is
 
 <pre>
      function add_event (op1, op2)
        local o1, o2 = tonumber(op1), tonumber(op2)
-       if o1 and o2 then  -- 两个操作数均为数字？
-         return o1 + o2   -- 这里的 '+' 就是基本加法（ 'add'）
-       else  -- 至少有一个操作数不是数字
+       if o1 and o2 then  -- both operands are numeric?
+         return o1 + o2   -- '+' here is the primitive 'add'
+       else  -- at least one of the operands is not numeric
          local h = getbinhandler(op1, op2, "__add")
          if h then
-           -- 以两个操作数调用处理方法
+           -- call the handler with both operands
            return (h(op1, op2))
-         else  -- 没有处理方法：默认行为
+         else  -- no handler available: default behavior
            error(&middot;&middot;&middot;)
          end
        end
@@ -855,38 +1062,43 @@ Metatable 能控制的操作全列在了下面。各种操作用对应的名字区分。每种操作的键都是操
 </pre><p>
 </li>
 
-<li><b>"sub"：</b>
-<code><b>-</b></code> 操作，
+<li><b>"sub": </b>
+the <code>-</code> operation.
 
-行为类似 <a href="#add">"add"</a> 操作。
+Behavior similar to the "add" operation.
 </li>
 
-<li><b>"mul"：</b>
-<code><b>*</b></code> 操作，
+<li><b>"mul": </b>
+the <code>*</code> operation.
 
-行为类似 <a href="#add">"add"</a> 操作。
+Behavior similar to the "add" operation.
 </li>
 
-<li><b>"div"： </b>
-<code><b>/</b></code> 操作，
+<li><b>"div": </b>
+the <code>/</code> operation.
 
-行为类似 <a href="#add">"add"</a> 操作。
+Behavior similar to the "add" operation.
 </li>
 
-<li><b>"mod"：</b>
-<code><b>%</b></code> 操作，
+<li><b>"mod": </b>
+the <code>%</code> operation.
 
-行为类似 <a href="#add">"add"</a> 操作，原始操作是 <code>o1 - floor(o1/o2)*o2</code>。
+Behavior similar to the "add" operation,
+with the operation
+<code>o1 - floor(o1/o2)*o2</code> as the primitive operation.
 </li>
 
-<li><b>"pow"：</b>
-<code><b>^</b></code> （幂）操作。
+<li><b>"pow": </b>
+the <code>^</code> (exponentiation) operation.
 
-行为类似 <a href="#add">"add"</a> 操作，原始操作是 <code>pow</code>  函数（来自 C&nbsp;math 库）。
+Behavior similar to the "add" operation,
+with the function <code>pow</code> (from the C&nbsp;math library)
+as the primitive operation.
 </li>
 
-<li><b>"unm"：</b>
-一元 <code><b>-</b></code> 操作。
+<li><b>"unm": </b>
+the unary <code>-</code> operation.
+
 
 <pre>
      function unm_event (op)
@@ -907,8 +1119,8 @@ Metatable 能控制的操作全列在了下面。各种操作用对应的名字区分。每种操作的键都是操
 </pre><p>
 </li>
 
-<li><b>"concat"：</b>
-<code><b>..</b></code> （连接）操作。
+<li><b>"concat": </b>
+the <code>..</code> (concatenation) operation.
 
 
 <pre>
@@ -928,8 +1140,8 @@ Metatable 能控制的操作全列在了下面。各种操作用对应的名字区分。每种操作的键都是操
 </pre><p>
 </li>
 
-<li><b>"len"：</b>
-<code><b>#</b></code> 操作。
+<li><b>"len": </b>
+the <code>#</code> operation.
 
 
 <pre>
@@ -948,14 +1160,18 @@ Metatable 能控制的操作全列在了下面。各种操作用对应的名字区分。每种操作的键都是操
        end
      end
 </pre><p>
-关于 table 的长度请参阅 <a href="#3.4.6">&sect;3.4.6</a>。
+See <a href="#3.4.6">&sect;3.4.6</a> for a description of the length of a table.
 </li>
 
-<li><b>"eq"：</b>
-<code><b>==</b></code> 操作。
+<li><b>"eq": </b>
+the <code>==</code> operation.
 
-函数 <code>getequalhandler</code> 定义了 Lua 如何选择元方法进行相等操作。只有当两个被比较的值类型相同，而且在当前操作下拥有相同的元方法，而且不属于 table 或 full userdata 间的一种时，被选出的元方法才会有效。
-
+The function <code>getequalhandler</code> defines how Lua chooses a metamethod
+for equality.
+A metamethod is selected only when both values
+being compared have the same type
+and the same metamethod for the selected operation,
+and the values are either tables or full userdata.
 
 <pre>
      function getequalhandler (op1, op2)
@@ -968,7 +1184,7 @@ Metatable 能控制的操作全列在了下面。各种操作用对应的名字区分。每种操作的键都是操
        if mm1 == mm2 then return mm1 else return nil end
      end
 </pre><p>
-"eq" 事件定义如下：
+The "eq" event is defined as follows:
 
 <pre>
      function eq_event (op1, op2)
@@ -984,11 +1200,11 @@ Metatable 能控制的操作全列在了下面。各种操作用对应的名字区分。每种操作的键都是操
        end
      end
 </pre><p>
-注意结果常为 boolean 值。
+Note that the result is always a boolean.
 </li>
 
-<li><b>"lt"：</b>
-<code><b>&lt;</b></code> 操作。
+<li><b>"lt": </b>
+the <code>&lt;</code> operation.
 
 
 <pre>
@@ -1007,11 +1223,11 @@ Metatable 能控制的操作全列在了下面。各种操作用对应的名字区分。每种操作的键都是操
        end
      end
 </pre><p>
-注意结果常为 boolean 值。
+Note that the result is always a boolean.
 </li>
 
 <li><b>"le": </b>
-<code><b>&lt;=</b></code> 操作。
+the <code>&lt;=</code> operation.
 
 
 <pre>
@@ -1035,15 +1251,23 @@ Metatable 能控制的操作全列在了下面。各种操作用对应的名字区分。每种操作的键都是操
        end
      end
 </pre><p>
-注意，缺少 "le" 元方法时，Lua 就尝试 "lt"，并假定 <code>a &lt;= b</code> 等价于 <code>not (b &lt; a)</code>。
+Note that, in the absence of a "le" metamethod,
+Lua tries the "lt", assuming that <code>a &lt;= b</code> is
+equivalent to <code>not (b &lt; a)</code>.
 
 
 <p>
-就像其他比较运算符，其结果常为 boolean 值。
+As with the other comparison operators,
+the result is always a boolean.
 </li>
 
-<li><b>"index"：</b>
-索引操作用于访问 <code>table[key]</code>。注意仅当 <code>key</code> 不在 <code>table</code> 中时，才会尝试元方法。（当 <code>table</code> 不是表时，里面没有键，所以会一直尝试元方法。）
+<li><b>"index": </b>
+The indexing access <code>table[key]</code>.
+Note that the metamethod is tried only
+when <code>key</code> is not present in <code>table</code>.
+(When <code>table</code> is not a table,
+no key is ever present,
+so the metamethod is always tried.)
 
 
 <pre>
@@ -1069,8 +1293,10 @@ Metatable 能控制的操作全列在了下面。各种操作用对应的名字区分。每种操作的键都是操
 </pre><p>
 </li>
 
-<li><b>"newindex"：</b>
-赋值给索引 <code>table[key] = value</code>。注意仅当 <code>key</code> 不在 <code>table</code> 中时，才会尝试元方法。
+<li><b>"newindex": </b>
+The indexing assignment <code>table[key] = value</code>.
+Note that the metamethod is tried only
+when <code>key</code> is not present in <code>table</code>.
 
 
 <pre>
@@ -1096,8 +1322,8 @@ Metatable 能控制的操作全列在了下面。各种操作用对应的名字区分。每种操作的键都是操
 </pre><p>
 </li>
 
-<li><b>"call"：</b>
-当 Lua 调用一个值时调用。
+<li><b>"call": </b>
+called when Lua calls a value.
 
 
 <pre>
@@ -1121,49 +1347,119 @@ Metatable 能控制的操作全列在了下面。各种操作用对应的名字区分。每种操作的键都是操
 
 
 
-<h2>2.5 &ndash; <a name="2.5">垃圾收集</a></h2>
+<h2>2.5 &ndash; <a name="2.5">Garbage Collection</a></h2>
 
 <p>
-Lua 实行自动内存管理。意味着你不用担心创建新对象时的内存分配，也不用担心对象不再需要时的内存释放。Lua 运行一个 <em>garbage collector（垃圾收集器）</em> 来自动管理内存，收集 <em>dead objects（死亡对象）</em>（指 Lua 不再访问的对象）。Lua 中使用的所有内存（对象）均被自动管理：strings、tables、userdata、functions、threads、internal structures 等等。
-
-
-<p>
-Lua 实现了一个增量标记-清除收集器。它使用两个数字来控制垃圾收集周期： <em>garbage-collector pause</em> 和
- <em>garbage-collector step multiplier</em>。两者均使用百分点作为计数单元（比如，100在内在表示 为1个百分点）。
-
-<p>
-garbage-collector pause 控制着收集器在开始新周期前的停顿时长。数字越大收集器越不积极，停顿时间越长。小于100意味着收集器不停顿即开始新周期。200表示收集器在内存使用量达到原来的两倍时才会开启新的周期。
-
-
-<p>
-garbage-collector step multiplier 控制收集器与内存分配的相对速度。数字越大收集器越积极，增加的收集量也越大。小于100会让收集器工作的非常慢，甚至造成收集器永远无法结束当前周期。默认值为200，表示收集器以内存分配的两倍速度运行着。
+Lua performs automatic memory management.
+This means that
+you have to worry neither about allocating memory for new objects
+nor about freeing it when the objects are no longer needed.
+Lua manages memory automatically by running
+a <em>garbage collector</em> to collect all <em>dead objects</em>
+(that is, objects that are no longer accessible from Lua).
+All memory used by Lua is subject to automatic management:
+strings, tables, userdata, functions, threads, internal structures, etc.
 
 
 <p>
-如果你将 step multiplier 设置的非常大（比程序中可能使用到的最大字节数还要大10%），收集器的行为将类似 stop-the-world 收集器（即为了完成一个完整的垃圾收集周期而暂停与主程序的交互）。如果你同时又将 pause 设成200，那收集器就像老版本的Lua一样，等内存使用量达到 Lua 本身使用量的两倍才会做一次完全的垃圾回收。
+Lua implements an incremental mark-and-sweep collector.
+It uses two numbers to control its garbage-collection cycles:
+the <em>garbage-collector pause</em> and
+the <em>garbage-collector step multiplier</em>.
+Both use percentage points as units
+(e.g., a value of 100 means an internal value of 1).
 
 
 <p>
-你可以通过在 C 中调用 <a href="#lua_gc"><code>lua_gc</code></a> 或者在 Lua 中调用 <a href="#pdf-collectgarbage"><code>collectgarbage</code></a> 来改变这些数字。你也可以通过这些函数来直接控制垃圾收集器（比如关闭、重启之类）。
+The garbage-collector pause
+controls how long the collector waits before starting a new cycle.
+Larger values make the collector less aggressive.
+Values smaller than 100 mean the collector will not wait to
+start a new cycle.
+A value of 200 means that the collector waits for the total memory in use
+to double before starting a new cycle.
 
 
 <p>
-作为 Lua 5.2 中的一个实验特性，你可以改变收集器的操作模式，从 incremental 改成<em>generational</em>。<em>generational collector</em> 假设大部分对象存活时间很短，因此收集器只会检测最近创建的新对象。这种行为能降低收集器的使用时间，但会增加内存使用量（逐渐累积老死的对象）。要解决第二个问题，可以让 generational collector 时常执行完整的回收。记住，这只是处于实验阶段的特性，欢迎尝试，看看效果咋样。
-
-
-
-<h3>2.5.1 &ndash; <a name="2.5.1">垃圾收集元方法</a></h3>
-
-<p>
-你可以为 table 设置垃圾收集元方法，也可使用 C API 为 full  userdata 设置（参见 <a href="#2.4">&sect;2.4</a>）。这些元方法也叫 <em>finalizers（析构器）</em>。析构器允许外部资源管理（比如关闭文件、关闭网络、关闭数据库连接或者释放自己的内存）配合 Lua 的垃圾收集。
-
-
-<p>
-对象（table 或者 userdata）需要被析构回收时，你必须 <em>标记</em> 它为可析构。只需为对象设置一张有 "<code>__gc</code> 域的元表即可标记对象为可析构。注意一点，如果你为对象先设置了一张没有 <code>__gc</code> 域的元表，然后在元表中新建一个 <code>__gc</code> 域，这个对象是没法被标记的。而在对象被标记后，你可以随意改变元表中的 <code>__gc</code> 域 。
+The garbage-collector step multiplier
+controls the relative speed of the collector relative to
+memory allocation.
+Larger values make the collector more aggressive but also increase
+the size of each incremental step.
+Values smaller than 100 make the collector too slow and
+can result in the collector never finishing a cycle.
+The default is 200,
+which means that the collector runs at "twice"
+the speed of memory allocation.
 
 
 <p>
-当被标记对象变成垃圾时，垃圾收集器不会立马将它回收，而是由 Lua 将之放进一个列表中。收集结束后，Lua 对列表中每个对象执行下面函数的等价操作：
+If you set the step multiplier to a very large number
+(larger than 10% of the maximum number of
+bytes that the program may use),
+the collector behaves like a stop-the-world collector.
+If you then set the pause to 200,
+the collector behaves as in old Lua versions,
+doing a complete collection every time Lua doubles its
+memory usage.
+
+
+<p>
+You can change these numbers by calling <a href="#lua_gc"><code>lua_gc</code></a> in C
+or <a href="#pdf-collectgarbage"><code>collectgarbage</code></a> in Lua.
+You can also use these functions to control
+the collector directly (e.g., stop and restart it).
+
+
+<p>
+As an experimental feature in Lua 5.2,
+you can change the collector's operation mode
+from incremental to <em>generational</em>.
+A <em>generational collector</em> assumes that most objects die young,
+and therefore it traverses only young (recently created) objects.
+This behavior can reduce the time used by the collector,
+but also increases memory usage (as old dead objects may accumulate).
+To mitigate this second problem,
+from time to time the generational collector performs a full collection.
+Remember that this is an experimental feature;
+you are welcome to try it,
+but check your gains.
+
+
+
+<h3>2.5.1 &ndash; <a name="2.5.1">Garbage-Collection Metamethods</a></h3>
+
+<p>
+You can set garbage-collector metamethods for tables
+and, using the C&nbsp;API,
+for full userdata (see <a href="#2.4">&sect;2.4</a>).
+These metamethods are also called <em>finalizers</em>.
+Finalizers allow you to coordinate Lua's garbage collection
+with external resource management
+(such as closing files, network or database connections,
+or freeing your own memory).
+
+
+<p>
+For an object (table or userdata) to be finalized when collected,
+you must <em>mark</em> it for finalization.
+
+You mark an object for finalization when you set its metatable
+and the metatable has a field indexed by the string "<code>__gc</code>".
+Note that if you set a metatable without a <code>__gc</code> field
+and later create that field in the metatable,
+the object will not be marked for finalization.
+However, after an object is marked,
+you can freely change the <code>__gc</code> field of its metatable.
+
+
+<p>
+When a marked object becomes garbage,
+it is not collected immediately by the garbage collector.
+Instead, Lua puts it in a list.
+After the collection,
+Lua does the equivalent of the following function
+for each object in that list:
 
 <pre>
      function gc_event (obj)
@@ -1175,78 +1471,196 @@ garbage-collector step multiplier 控制收集器与内存分配的相对速度。数字越大收集器
 </pre>
 
 <p>
-每个垃圾收集周期的结尾，当前周期内收集到的垃圾对象会以被标记顺序的 <b>反序</b> 调用析构器。这意味着程序里最后被标记的对象最先析构。析构器的执行可能发生在普通代码执行期间的任何时候。
+At the end of each garbage-collection cycle,
+the finalizers for objects are called in
+the reverse order that they were marked for collection,
+among those collected in that cycle;
+that is, the first finalizer to be called is the one associated
+with the object marked last in the program.
+The execution of each finalizer may occur at any point during
+the execution of the regular code.
 
 
 <p>
-由于被回收了的对象还要被析构器使用，该对象会由 Lua <em>resurrected（复活）</em>。当然，这个复活是短暂的，而且对象的内存会在下一个垃圾收集周期释放掉。然而，如果析构器将对象存在某些全局位置（比如一个全局变量里面），那这就变成永久性复活了。总之，对象的内存只有在完全不可访问的情况下才能被释放；它的析构器也从不会被调用两次。
-
-<p>
-当关闭一个状态（参见 <a href="#lua_close"><code>lua_close</code></a>），Lua将对所有被标记为可析构的对象以标记的反序来调用析构器。如果刚好有新对象在这个阶段被标记，新对象是不会被析构的。
-
-
-
-<h3>2.5.2 &ndash; <a name="2.5.2">弱表</a></h3>
-
-<p>
-<em>weak table</em> 指表中元素被 <em>weak references（弱引用）</em>。而垃圾收集器会忽略弱引用，换言之，如果一个对象只有弱引用，垃圾收集器会将之回收。
-
-<p>
-弱表的键与值均可为 weak。拥有弱键的表，键会被回收而对应的值不会。而键与值都 weak 的话，收集器会将键与值都回收掉。而且，无论键与值谁被回收了，对应的键值对都会从表中移除。table 的 weak 性质受元表的 <code>__mode</code> 域控制。如果 <code>__mode</code> 域是一个含有字符&nbsp;'<code>k</code>' 的字符串，则 table 中的键就是 weak 的；相应的，如果 <code>__mode</code> 域含有字符  '<code>v</code>'，table 中的值就是 weak 的。
+Because the object being collected must still be used by the finalizer,
+it (and other objects accessible only through it)
+must be <em>resurrected</em> by Lua.
+Usually, this resurrection is transient,
+and the object memory is freed in the next garbage-collection cycle.
+However, if the finalizer stores the object in some global place
+(e.g., a global variable),
+then there is a permanent resurrection.
+In any case,
+the object memory is freed only when it becomes completely inaccessible;
+its finalizer will never be called twice.
 
 
 <p>
-拥有弱键与强值的表也叫 <em>ephemeron table（短命表）</em>。在这种表中，值的可访问性只依赖对应键的可访问性。尤其是键的唯一引用来自它的值时，这个键值对将被移除。
+When you close a state (see <a href="#lua_close"><code>lua_close</code></a>),
+Lua calls the finalizers of all objects marked for finalization,
+following the reverse order that they were marked.
+If any finalizer marks new objects for collection during that phase,
+these new objects will not be finalized.
+
+
+
+
+
+<h3>2.5.2 &ndash; <a name="2.5.2">Weak Tables</a></h3>
+
+<p>
+A <em>weak table</em> is a table whose elements are
+<em>weak references</em>.
+A weak reference is ignored by the garbage collector.
+In other words,
+if the only references to an object are weak references,
+then the garbage collector will collect that object.
 
 
 <p>
-对表的 weak 性质做任何改变只会对下一个垃圾收集周期产生影响。而且，如果你改成更 strong（强）的模式，Lua 在更改真正生效之前仍然会回收表中某些项。
-
-<p>只有那些明确说明的对象才会从弱表中移除。数字和轻量 C 函数之类不受垃圾收集管理，因此不会从弱表中移除（除非它的关联值已被回收了）。虽然字符串受垃圾收集管理，但它们没有明确说明，因此也不会从弱表中移除。
-
-
-<p>
-复活的对象（指那些即将析构且只能由析构器访问的对象）在弱表中有一种特殊行为。它们在运行自身析构器之前会从弱值中移除，但只能在下一个垃圾收集周期从弱键中移除，此时才是真正的对象释放。这种行为就允许析构器在弱表中访问与对象相关的属性。
-
-
-<p>
-如果一个弱表在当前回收周期位于一个复活对象中，那只能在下一个周期里才能正确清除掉。
-
-
-
-
-
-
-<h2>2.6 &ndash; <a name="2.6">协程</a></h2>
-
-<p>
-Lua 支持 coroutines（协程），也叫 <em>collaborative multithreading（协同多线程）</em>。Lua 中的每个协程都在各自独立的线程中执行。不像多线程系统中的线程，协程只会在显示调用 yield 函数时挂起。
+A weak table can have weak keys, weak values, or both.
+A table with weak keys allows the collection of its keys,
+but prevents the collection of its values.
+A table with both weak keys and weak values allows the collection of
+both keys and values.
+In any case, if either the key or the value is collected,
+the whole pair is removed from the table.
+The weakness of a table is controlled by the
+<code>__mode</code> field of its metatable.
+If the <code>__mode</code> field is a string containing the character&nbsp;'<code>k</code>',
+the keys in the table are weak.
+If <code>__mode</code> contains '<code>v</code>',
+the values in the table are weak.
 
 
 <p>
-调用 <a href="#pdf-coroutine.create"><code>coroutine.create</code></a> 会创建一个协程，其参数就是协程的主函数。
-这个 <code>create</code> 函数仅仅创建新的协程并返回句柄（一个类型为 <em>thread</em> 的对象），而不会启动协程。
+A table with weak keys and strong values
+is also called an <em>ephemeron table</em>.
+In an ephemeron table,
+a value is considered reachable only if its key is reachable.
+In particular,
+if the only reference to a key comes through its value,
+the pair is removed.
 
 
 <p>
-调用 <a href="#pdf-coroutine.resume"><code>coroutine.resume</code></a> 就开始执行协程。当你首次调用 <a href="#pdf-coroutine.resume"><code>coroutine.resume</code></a>，需传入的第一个参数就是<a href="#pdf-coroutine.create"><code>coroutine.create</code></a> 返回的 thread。然后协程从它的主函数第一行开始执行。接下来传入 <a href="#pdf-coroutine.resume"><code>coroutine.resume</code></a> 的其他参数均会传递给协程的主函数。协程一旦运行，直到终止或者挂起。
+Any change in the weakness of a table may take effect only
+at the next collect cycle.
+In particular, if you change the weakness to a stronger mode,
+Lua may still collect some items from that table
+before the change takes effect.
 
 
 <p>
-协程有两种方式终止执行：正常退出和异常退出，前者指由它的主函数返回退出（无论最后有没有显示 return），这时<a href="#pdf-coroutine.resume"><code>coroutine.resume</code></a> 返回 <b>true</b>，并附带协程主函数的返回值；后者指发生未预防的错误，这时 <a href="#pdf-coroutine.resume"><code>coroutine.resume</code></a> 返回 <b>false</b>，并附加一条错误消息。
+Only objects that have an explicit construction
+are removed from weak tables.
+Values, such as numbers and light C functions,
+are not subject to garbage collection,
+and therefore are not removed from weak tables
+(unless its associated value is collected).
+Although strings are subject to garbage collection,
+they do not have an explicit construction,
+and therefore are not removed from weak tables.
 
 
 <p>
-调用 <a href="#pdf-coroutine.yield"><code>coroutine.yield</code></a> 能使协程挂起。当协程发生挂起时，相应的 <a href="#pdf-coroutine.resume"><code>coroutine.resume</code></a> 会立刻返回，即使挂起发生在内层函数调用中（这意味着不限于在主函数之内，其他受主函数直接/间接调用的函数之内也能发生）。协程的挂起，使<a href="#pdf-coroutine.resume"><code>coroutine.resume</code></a> 同样返回 <b>true</b>，并附带那些传递给 <a href="#pdf-coroutine.yield"><code>coroutine.yield</code></a> 的参数值。再次调用 <a href="#pdf-coroutine.yield"><code>coroutine.yield</code></a> 将恢复该协程，并从挂起的断点处继续执行，其返回值则是传递给 <a href="#pdf-coroutine.resume"><code>coroutine.resume</code></a> 的参数值。
+Resurrected objects
+(that is, objects being finalized
+and objects accessible only through objects being finalized)
+have a special behavior in weak tables.
+They are removed from weak values before running their finalizers,
+but are removed from weak keys only in the next collection
+after running their finalizers, when such objects are actually freed.
+This behavior allows the finalizer to access properties
+associated with the object through weak tables.
 
 
 <p>
-类似 <a href="#pdf-coroutine.create"><code>coroutine.create</code></a>，<a href="#pdf-coroutine.wrap"><code>coroutine.wrap</code></a> 函数也能创建协程，但返回的不是协程本身，而是一个能重新获得协程的函数。传递给 wrap 函数的任何参数都将作为 <a href="#pdf-coroutine.resume"><code>coroutine.resume</code></a> 的额外参数。 <a href="#pdf-coroutine.wrap"><code>coroutine.wrap</code></a> 返回<a href="#pdf-coroutine.resume"><code>coroutine.resume</code></a> 返回值中除第一个（boolean型错误代码）之外其他所有值。与 <a href="#pdf-coroutine.resume"><code>coroutine.resume</code></a>不同的是， <a href="#pdf-coroutine.wrap"><code>coroutine.wrap</code></a> 不捕获错误；任何错误都得由调用者来传递。
+If a weak table is among the resurrected objects in a collection cycle,
+it may not be properly cleared until the next cycle.
+
+
+
+
+
+
+
+<h2>2.6 &ndash; <a name="2.6">Coroutines</a></h2>
+
+<p>
+Lua supports coroutines,
+also called <em>collaborative multithreading</em>.
+A coroutine in Lua represents an independent thread of execution.
+Unlike threads in multithread systems, however,
+a coroutine only suspends its execution by explicitly calling
+a yield function.
 
 
 <p>
-协程如何运作，思考下面的示例：
+You create a coroutine by calling <a href="#pdf-coroutine.create"><code>coroutine.create</code></a>.
+Its sole argument is a function
+that is the main function of the coroutine.
+The <code>create</code> function only creates a new coroutine and
+returns a handle to it (an object of type <em>thread</em>);
+it does not start the coroutine.
 
+
+<p>
+You execute a coroutine by calling <a href="#pdf-coroutine.resume"><code>coroutine.resume</code></a>.
+When you first call <a href="#pdf-coroutine.resume"><code>coroutine.resume</code></a>,
+passing as its first argument
+a thread returned by <a href="#pdf-coroutine.create"><code>coroutine.create</code></a>,
+the coroutine starts its execution,
+at the first line of its main function.
+Extra arguments passed to <a href="#pdf-coroutine.resume"><code>coroutine.resume</code></a> are passed on
+to the coroutine main function.
+After the coroutine starts running,
+it runs until it terminates or <em>yields</em>.
+
+
+<p>
+A coroutine can terminate its execution in two ways:
+normally, when its main function returns
+(explicitly or implicitly, after the last instruction);
+and abnormally, if there is an unprotected error.
+In the first case, <a href="#pdf-coroutine.resume"><code>coroutine.resume</code></a> returns <b>true</b>,
+plus any values returned by the coroutine main function.
+In case of errors, <a href="#pdf-coroutine.resume"><code>coroutine.resume</code></a> returns <b>false</b>
+plus an error message.
+
+
+<p>
+A coroutine yields by calling <a href="#pdf-coroutine.yield"><code>coroutine.yield</code></a>.
+When a coroutine yields,
+the corresponding <a href="#pdf-coroutine.resume"><code>coroutine.resume</code></a> returns immediately,
+even if the yield happens inside nested function calls
+(that is, not in the main function,
+but in a function directly or indirectly called by the main function).
+In the case of a yield, <a href="#pdf-coroutine.resume"><code>coroutine.resume</code></a> also returns <b>true</b>,
+plus any values passed to <a href="#pdf-coroutine.yield"><code>coroutine.yield</code></a>.
+The next time you resume the same coroutine,
+it continues its execution from the point where it yielded,
+with the call to <a href="#pdf-coroutine.yield"><code>coroutine.yield</code></a> returning any extra
+arguments passed to <a href="#pdf-coroutine.resume"><code>coroutine.resume</code></a>.
+
+
+<p>
+Like <a href="#pdf-coroutine.create"><code>coroutine.create</code></a>,
+the <a href="#pdf-coroutine.wrap"><code>coroutine.wrap</code></a> function also creates a coroutine,
+but instead of returning the coroutine itself,
+it returns a function that, when called, resumes the coroutine.
+Any arguments passed to this function
+go as extra arguments to <a href="#pdf-coroutine.resume"><code>coroutine.resume</code></a>.
+<a href="#pdf-coroutine.wrap"><code>coroutine.wrap</code></a> returns all the values returned by <a href="#pdf-coroutine.resume"><code>coroutine.resume</code></a>,
+except the first one (the boolean error code).
+Unlike <a href="#pdf-coroutine.resume"><code>coroutine.resume</code></a>,
+<a href="#pdf-coroutine.wrap"><code>coroutine.wrap</code></a> does not catch errors;
+any error is propagated to the caller.
+
+
+<p>
+As an example of how coroutines work,
+consider the following code:
 
 <pre>
      function foo (a)
@@ -1268,7 +1682,7 @@ Lua 支持 coroutines（协程），也叫 <em>collaborative multithreading（协同多线程）
      print("main", coroutine.resume(co, "x", "y"))
      print("main", coroutine.resume(co, "x", "y"))
 </pre><p>
-运行结果如下：
+When you run it, it produces the following output:
 
 <pre>
      co-body 1       10
@@ -1282,36 +1696,59 @@ Lua 支持 coroutines（协程），也叫 <em>collaborative multithreading（协同多线程）
 </pre>
 
 <p>
-你也可以通过 C API 来创建和操作协程：参阅 <a href="#lua_newthread"><code>lua_newthread</code></a>、<a href="#lua_resume"><code>lua_resume</code></a>、<a href="#lua_yield"><code>lua_yield</code></a> 等函数。
+You can also create and manipulate coroutines through the C API:
+see functions <a href="#lua_newthread"><code>lua_newthread</code></a>, <a href="#lua_resume"><code>lua_resume</code></a>,
+and <a href="#lua_yield"><code>lua_yield</code></a>.
 
 
 
 
 
-<h1>3 &ndash; <a name="3">语言</a></h1>
-
-<p>
-本章介绍 Lua 的词法、语法和句法。换言之，这一章介绍哪些 token（符号）是合法的，它们如何组合，以及组合后的含义。
-
+<h1>3 &ndash; <a name="3">The Language</a></h1>
 
 <p>
-语言的结构由常用的扩展BNF范式来表示，即 {<em>a</em>} 表示0或多个 a，[<em>a</em>] 表示 a 为可选项。非终结符（一般是语言里的语法成分）保持不变，关键字类似 <b>kword</b>，其余的终结符（语言字符集的基本字符）要像这样 &lsquo;<b>=</b>&rsquo; 位于引号中。完整的 Lua 语法可在本手册最末处 <a href="#9">&sect;9</a> 找到。
-
-
-
-<h2>3.1 &ndash; <a name="3.1">词法规定</a></h2>
-
-<p>
-Lua 是门 free-form 语言。除了名字与关键字间的分隔符，它将忽略词法元素（符号）之间的空白（包括换行）和注释。
-
+This section describes the lexis, the syntax, and the semantics of Lua.
+In other words,
+this section describes
+which tokens are valid,
+how they can be combined,
+and what their combinations mean.
 
 
 <p>
-Lua 中的 <em>Names（名字）</em> （也叫 <em>identifiers（标识符）</em>）可以是任何字母、数字、下划线组成的非数字开头的字符串。标识符用于命名变量、表的域和标签。
+Language constructs will be explained using the usual extended BNF notation,
+in which
+{<em>a</em>}&nbsp;means&nbsp;0 or more <em>a</em>'s, and
+[<em>a</em>]&nbsp;means an optional <em>a</em>.
+Non-terminals are shown like non-terminal,
+keywords are shown like <b>kword</b>,
+and other terminal symbols are shown like &lsquo;<b>=</b>&rsquo;.
+The complete syntax of Lua can be found in <a href="#9">&sect;9</a>
+at the end of this manual.
+
+
+
+<h2>3.1 &ndash; <a name="3.1">Lexical Conventions</a></h2>
+
+<p>
+Lua is a free-form language.
+It ignores spaces (including new lines) and comments
+between lexical elements (tokens),
+except as delimiters between names and keywords.
 
 
 <p>
-下面是 Lua 保留的 <em>keywords（关键字）</em>，不能用作名字：
+<em>Names</em>
+(also called <em>identifiers</em>)
+in Lua can be any string of letters,
+digits, and underscores,
+not beginning with a digit.
+Identifiers are used to name variables, table fields, and labels.
+
+
+<p>
+The following <em>keywords</em> are reserved
+and cannot be used as names:
 
 
 <pre>
@@ -1322,11 +1759,16 @@ Lua 中的 <em>Names（名字）</em> （也叫 <em>identifiers（标识符）</em>）可以是任�
 </pre>
 
 <p>
-Lua 区分大小写： <code>and</code> 是保留字，但 <code>And</code> 和 <code>AND</code> 则是两个不同的合法名字。一般约定，以下划线开头接大写字母的名字（比如 <a href="#pdf-_VERSION"><code>_VERSION</code></a>）被保留用于 Lua 内部变量。
+Lua is a case-sensitive language:
+<code>and</code> is a reserved word, but <code>And</code> and <code>AND</code>
+are two different, valid names.
+As a convention, names starting with an underscore followed by
+uppercase letters (such as <a href="#pdf-_VERSION"><code>_VERSION</code></a>)
+are reserved for variables used by Lua.
 
 
 <p>
-下面是其他符号：
+The following strings denote other tokens:
 
 <pre>
      +     -     *     /     %     ^     #
@@ -1336,25 +1778,62 @@ Lua 区分大小写： <code>and</code> 是保留字，但 <code>And</code> 和 <code>AND</co
 </pre>
 
 <p>
-<em>Literal strings（文字串）</em> 可以放在单双引号内，其中也可包含类似 C 中的转义序列： '<code>\a</code>' (响铃)，
-'<code>\b</code>' (退格)，
-'<code>\f</code>' (换页)，
-'<code>\n</code>' (换行)，
-'<code>\r</code>' (回车)，
-'<code>\t</code>' (横向制表)，
-'<code>\v</code>' (纵向制表)，
-'<code>\\</code>' (反斜线)，
-'<code>\"</code>' (双引号)，
-和 '<code>\'</code>' (单引号)。
-一个反斜线后跟一个换行符（\\n）会让字符串中产生一个换行符号（\n）。转义序列 '<code>\z</code>' 会跳过后面的空白字符，包括换行符；这个在将一段很长的文字串截成多行时非常有用。
+<em>Literal strings</em>
+can be delimited by matching single or double quotes,
+and can contain the following C-like escape sequences:
+'<code>\a</code>' (bell),
+'<code>\b</code>' (backspace),
+'<code>\f</code>' (form feed),
+'<code>\n</code>' (newline),
+'<code>\r</code>' (carriage return),
+'<code>\t</code>' (horizontal tab),
+'<code>\v</code>' (vertical tab),
+'<code>\\</code>' (backslash),
+'<code>\"</code>' (quotation mark [double quote]),
+and '<code>\'</code>' (apostrophe [single quote]).
+A backslash followed by a real newline
+results in a newline in the string.
+The escape sequence '<code>\z</code>' skips the following span
+of white-space characters,
+including line breaks;
+it is particularly useful to break and indent a long literal string
+into multiple lines without adding the newlines and spaces
+into the string contents.
 
 
 <p>
-文字串中的字节也可通过数字表示出来。使用转义序列 <code>\x<em>XX</em></code>即可办到， <em>XX</em> 是两个十六进制数字；或者使用转义序列 <code>\<em>ddd</em></code>，<em>ddd</em> 表示最多三个十进制数字的序列。（注意，如果要在转义之后跟一个数字，那斜线后必须写满三个数字，否则会有歧义。）Lua 中的字符串可以包含任意8-bit值，包括 '<code>\0</code>' 表示的零；
+A byte in a literal string can also be specified by its numerical value.
+This can be done with the escape sequence <code>\x<em>XX</em></code>,
+where <em>XX</em> is a sequence of exactly two hexadecimal digits,
+or with the escape sequence <code>\<em>ddd</em></code>,
+where <em>ddd</em> is a sequence of up to three decimal digits.
+(Note that if a decimal escape is to be followed by a digit,
+it must be expressed using exactly three digits.)
+Strings in Lua can contain any 8-bit value, including embedded zeros,
+which can be specified as '<code>\0</code>'.
 
 
 <p>
-文字串也可由<em>长括号</em>的形式定义。左长括号由两个左方括号（[[）表示，在两个方括号之间可以有 <em>n</em> 个等号（=），等号代表级别。于是，0级左长括号就写作 <code>[[</code>，1级就写作 <code>[=[</code>。相对应的右长括号就是 <code>]]</code> 和 <code>]=]</code>。这主要用于长文字串，在相同等级（就是等号一样多）的左右长括号之内，可输入任何文本，不处理转义符，不受分行限制，忽略所有不对等级的嵌套长括号。任何行尾符（回车、换行、回车加换行、换行加回车）统统变成简单的换行。
+Literal strings can also be defined using a long format
+enclosed by <em>long brackets</em>.
+We define an <em>opening long bracket of level <em>n</em></em> as an opening
+square bracket followed by <em>n</em> equal signs followed by another
+opening square bracket.
+So, an opening long bracket of level&nbsp;0 is written as <code>[[</code>,
+an opening long bracket of level&nbsp;1 is written as <code>[=[</code>,
+and so on.
+A <em>closing long bracket</em> is defined similarly;
+for instance, a closing long bracket of level&nbsp;4 is written as <code>]====]</code>.
+A <em>long literal</em> starts with an opening long bracket of any level and
+ends at the first closing long bracket of the same level.
+It can contain any text except a closing bracket of the proper level.
+Literals in this bracketed form can run for several lines,
+do not interpret any escape sequences,
+and ignore long brackets of any other level.
+Any kind of end-of-line sequence
+(carriage return, newline, carriage return followed by newline,
+or newline followed by carriage return)
+is converted to a simple newline.
 
 
 <p>
@@ -1369,8 +1848,13 @@ explicit escape sequences for non-text characters.
 
 
 <p>
-为了方便，左长括号后面紧跟的那个换行符将被忽略。例如，一个使用 ASCII 码的系统中（ '<code>a</code>' 编码为 97，\n 编码为 10， '<code>1</code>'  编码为 49），下面五种形式表示相同的字符串：
-
+For convenience,
+when the opening long bracket is immediately followed by a newline,
+the newline is not included in the string.
+As an example, in a system using ASCII
+(in which '<code>a</code>' is coded as&nbsp;97,
+newline is coded as&nbsp;10, and '<code>1</code>' is coded as&nbsp;49),
+the five literal strings below denote the same string:
 
 <pre>
      a = 'alo\n123"'
@@ -1384,7 +1868,15 @@ explicit escape sequences for non-text characters.
 </pre>
 
 <p>
-<em>numerical constant（数值常量）</em> 可以写成普通形式，也可以写成科学计数法（指数部分由字母  '<code>e</code>' 或 '<code>E</code>' 标记）。Lua 也支持十六进制常量，只需前面加上 <code>0x</code> 或者 <code>0X</code>。十六进制也接受二进制指数形式的小数（用字母 '<code>p</code>' 或 '<code>P</code> 标记）。以下是一些合法的数值常量写法：
+A <em>numerical constant</em> can be written with an optional fractional part
+and an optional decimal exponent,
+marked by a letter '<code>e</code>' or '<code>E</code>'.
+Lua also accepts hexadecimal constants,
+which start with <code>0x</code> or <code>0X</code>.
+Hexadecimal constants also accept an optional fractional part
+plus an optional binary exponent,
+marked by a letter '<code>p</code>' or '<code>P</code>'.
+Examples of valid numerical constants are
 
 <pre>
      3     3.0     3.1416     314.16e-2     0.31416E1
@@ -1392,177 +1884,282 @@ explicit escape sequences for non-text characters.
 </pre>
 
 <p>
-<em>comment（注释）</em> 由两横开始 (<code>--</code>)，可以出现在字符串之外的任何地方。如果跟在 <code>--</code> 后面的不是一个左长括号，这就是一个 <em>短注释</em>，作用范围直到行末。否则就是一个 <em>长注释</em>，作用范围是同等级的右长括号。长注释常用于临时屏蔽代码块。
+A <em>comment</em> starts with a double hyphen (<code>--</code>)
+anywhere outside a string.
+If the text immediately after <code>--</code> is not an opening long bracket,
+the comment is a <em>short comment</em>,
+which runs until the end of the line.
+Otherwise, it is a <em>long comment</em>,
+which runs until the corresponding closing long bracket.
+Long comments are frequently used to disable code temporarily.
 
 
 
-<h2>3.2 &ndash; <a name="3.2">变量</a></h2>
+
+
+<h2>3.2 &ndash; <a name="3.2">Variables</a></h2>
 
 <p>
-变量是存储值的地方。Lua 中有三种：全局变量、局部变量和表的域。
+Variables are places that store values.
+There are three kinds of variables in Lua:
+global variables, local variables, and table fields.
 
 
 <p>
-一个单独的名字可以表示为一个全局变量或者一个局部变量（或者一个函数参数，这也是一种局部变量）：
-
+A single name can denote a global variable or a local variable
+(or a function's formal parameter,
+which is a particular kind of local variable):
 
 <pre>
 	var ::= Name
 </pre><p>
-Name 就是 <a href="#3.1">&sect;3.1</a>所定义的标识符。
+Name denotes identifiers, as defined in <a href="#3.1">&sect;3.1</a>.
 
 
 <p>
-任何没有显示声明为 local （参见 <a href="#3.3.7">&sect;3.3.7</a>）的变量名均可假定为全局变量。局部变量的 <em>lexically scoped（作用域）</em>：定义在函数作用域（参见 <a href="#3.5">&sect;3.5</a>）的局部变量可被其自由访问。
+Any variable name is assumed to be global unless explicitly declared
+as a local (see <a href="#3.3.7">&sect;3.3.7</a>).
+Local variables are <em>lexically scoped</em>:
+local variables can be freely accessed by functions
+defined inside their scope (see <a href="#3.5">&sect;3.5</a>).
+
 
 <p>
-变量首次赋值前，默认值均为 <b>nil</b>。
+Before the first assignment to a variable, its value is <b>nil</b>.
 
 
 <p>
-方括号用于索引表：
+Square brackets are used to index a table:
 
 <pre>
 	var ::= prefixexp &lsquo;<b>[</b>&rsquo; exp &lsquo;<b>]</b>&rsquo;
 </pre><p>
-访问表的域的含义能被元表更改。而访问被索引的变量 <code>t[i]</code> 等价于调用 <code>gettable_event(t,i)</code>。（参见 <a href="#2.4">&sect;2.4</a> 获取 <code>gettable_event</code> 函数的完整描述。该函数未在 Lua 中定义，也不能调用。这里仅仅用于阐述原理。）
+The meaning of accesses to table fields can be changed via metatables.
+An access to an indexed variable <code>t[i]</code> is equivalent to
+a call <code>gettable_event(t,i)</code>.
+(See <a href="#2.4">&sect;2.4</a> for a complete description of the
+<code>gettable_event</code> function.
+This function is not defined or callable in Lua.
+We use it here only for explanatory purposes.)
 
 
 <p>
-语法 <code>var.Name</code> 也仅是
-<code>var["Name"]</code> 的语法糖：
+The syntax <code>var.Name</code> is just syntactic sugar for
+<code>var["Name"]</code>:
 
 <pre>
 	var ::= prefixexp &lsquo;<b>.</b>&rsquo; Name
 </pre>
 
 <p>
-对全局变量 <code>x</code> 的访问等价于访问 <code>_ENV.x</code>。
-由于按程序块编译所以，<code>_ENV</code> 本身并不是一个全局名称 （参见 <a href="#2.2">&sect;2.2</a>）。
+An access to a global variable <code>x</code>
+is equivalent to <code>_ENV.x</code>.
+Due to the way that chunks are compiled,
+<code>_ENV</code> is never a global name (see <a href="#2.2">&sect;2.2</a>).
 
 
 
-<h2>3.3 &ndash; <a name="3.3">语句</a></h2>
-
-<p>
-Lua 支持的常见语句类似Pascal或者C。包括赋值语句、控制语句、函数调用和变量声明。
 
 
-<h3>3.3.1 &ndash; <a name="3.3.1">语句块</a></h3>
+<h2>3.3 &ndash; <a name="3.3">Statements</a></h2>
 
 <p>
-一个语句块就是一堆按顺序执行的语句：
+Lua supports an almost conventional set of statements,
+similar to those in Pascal or C.
+This set includes
+assignments, control structures, function calls,
+and variable declarations.
+
+
+
+<h3>3.3.1 &ndash; <a name="3.3.1">Blocks</a></h3>
+
+<p>
+A block is a list of statements,
+which are executed sequentially:
 
 <pre>
 	block ::= {stat}
 </pre><p>
-Lua 允许 <em>empty statements（空语句）</em>，可以用分号隔开语句，也可用一个或者连续两个分号来作空语句块。
+Lua has <em>empty statements</em>
+that allow you to separate statements with semicolons,
+start a block with a semicolon
+or write two semicolons in sequence:
 
 <pre>
 	stat ::= &lsquo;<b>;</b>&rsquo;
 </pre>
 
 <p>
-左括号表示函数调用和赋值语句。这有时会让 Lua 的语法产生歧义。比如下面这段代码：
+Function calls and assignments
+can start with an open parenthesis.
+This possibility leads to an ambiguity in Lua's grammar.
+Consider the following fragment:
 
 <pre>
      a = b + c
      (print or io.write)('done')
 </pre><p>
-有两种语法分析方式：
+The grammar could see it in two ways:
 
 <pre>
      a = b + c(print or io.write)('done')
      
      a = b + c; (print or io.write)('done')
 </pre><p>
-现今的语法分析器经常以第一种方式解析这类写法。即把左括号解释成函数调用。要避免这种歧义，最好是在那些括号开头的语句前面写个分号：
+The current parser always sees such constructions
+in the first way,
+interpreting the open parenthesis
+as the start of the arguments to a call.
+To avoid this ambiguity,
+it is a good practice to always precede with a semicolon
+statements that start with a parenthesis:
+
 <pre>
      ;(print or io.write)('done')
 </pre>
 
 <p>
-一个语句块也可以用下面的方式写成一条语句（写在 do 和 end 之间）：
+A block can be explicitly delimited to produce a single statement:
 
 <pre>
 	stat ::= <b>do</b> block <b>end</b>
 </pre><p>
-显示的语句块对控制变量的作用域很有用。有时也用于在其他语句块中插入 <b>return</b> 语句（参见see <a href="#3.3.4">&sect;3.3.4</a>）。
+Explicit blocks are useful
+to control the scope of variable declarations.
+Explicit blocks are also sometimes used to
+add a <b>return</b> statement in the middle
+of another block (see <a href="#3.3.4">&sect;3.3.4</a>).
 
 
 
-<h3>3.3.2 &ndash; <a name="3.3.2">程序块</a></h3>
+
+
+<h3>3.3.2 &ndash; <a name="3.3.2">Chunks</a></h3>
 
 <p>
-<em>chunk（程序块）</em>就是 Lua 中的编译单元。从语法上讲，程序块就是简单的语句块。
+The unit of compilation of Lua is called a <em>chunk</em>.
+Syntactically,
+a chunk is simply a block:
 
 <pre>
 	chunk ::= block
 </pre>
 
 <p>
-Lua 将程序块当作一个拥有可变参数的匿名函数来处理（参见 <a href="#3.4.10">&sect;3.4.10</a>）。所以，程序块可以定义局部变量、接收参数并返回值。此外，这样的匿名函数被编译在一个叫 <code>_ENV</code> （参见 <a href="#2.2">&sect;2.2</a>）的外部局部变量的作用域内。产生的函数常用 <code>_ENV</code> 作为唯一的自由变量，即便根本没用它。（译者注：说白了就是程序块相当于匿名函数，这些函数默认处于 <code>_ENV</code> 的命名空间中，使用时要写成 <code>_ENV.*****</code>。）
+Lua handles a chunk as the body of an anonymous function
+with a variable number of arguments
+(see <a href="#3.4.10">&sect;3.4.10</a>).
+As such, chunks can define local variables,
+receive arguments, and return values.
+Moreover, such anonymous function is compiled as in the
+scope of an external local variable called <code>_ENV</code> (see <a href="#2.2">&sect;2.2</a>).
+The resulting function always has <code>_ENV</code> as its only upvalue,
+even if it does not use that variable.
 
 
 <p>
-程序块可以存在单独的文件中，也可直接写在宿主程序的一个字符串中。执行程序块时，Lua 现将它预编译成虚拟机指令，然后由虚拟机的解释器来执行这些指令。
+A chunk can be stored in a file or in a string inside the host program.
+To execute a chunk,
+Lua first precompiles the chunk into instructions for a virtual machine,
+and then it executes the compiled code
+with an interpreter for the virtual machine.
 
 
 <p>
-程序块也可被预编译成二进制形式；详情查阅程序 <code>luac</code>。源码形式和二进制形式的程序可以相互转换；Lua 会自动识别文件类型并做正确处理。
+Chunks can also be precompiled into binary form;
+see program <code>luac</code> for details.
+Programs in source and compiled forms are interchangeable;
+Lua automatically detects the file type and acts accordingly.
 
 
 
 
-<h3>3.3.3 &ndash; <a name="3.3.3">赋值</a></h3>
+
+
+<h3>3.3.3 &ndash; <a name="3.3.3">Assignment</a></h3>
 
 <p>
-Lua 允许多重赋值。因此，赋值的语法规定等号左边是一串变量，右边是一串表达式。串中的元素用等号隔开：
+Lua allows multiple assignments.
+Therefore, the syntax for assignment
+defines a list of variables on the left side
+and a list of expressions on the right side.
+The elements in both lists are separated by commas:
 
 <pre>
 	stat ::= varlist &lsquo;<b>=</b>&rsquo; explist
 	varlist ::= var {&lsquo;<b>,</b>&rsquo; var}
 	explist ::= exp {&lsquo;<b>,</b>&rsquo; exp}
 </pre><p>
-表达式放在 <a href="#3.4">&sect;3.4</a> 讨论。
+Expressions are discussed in <a href="#3.4">&sect;3.4</a>.
 
 
 <p>
-赋值之前，会先根据左边变量的数量对右边值的数量进行调整。值多了，多余的将被丢弃；值少了，用 <b>nil</b> 补齐。如果右边最后是一个函数调用结尾，则在数量对齐之前用该函数的全部返回值替换它（除非函数调用位于括号内：参见 <a href="#3.4">&sect;3.4</a>）。
+Before the assignment,
+the list of values is <em>adjusted</em> to the length of
+the list of variables.
+If there are more values than needed,
+the excess values are thrown away.
+If there are fewer values than needed,
+the list is extended with as many  <b>nil</b>'s as needed.
+If the list of expressions ends with a function call,
+then all values returned by that call enter the list of values,
+before the adjustment
+(except when the call is enclosed in parentheses; see <a href="#3.4">&sect;3.4</a>).
 
 
 <p>
-赋值语句会首先执行所有表达式（两边），然后做纯粹的赋值。因此，下面这段代码
+The assignment statement first evaluates all its expressions
+and only then are the assignments performed.
+Thus the code
 
 <pre>
      i = 3
      i, a[i] = i+1, 20
 </pre><p>
-把 <code>a[3]</code> 赋值为20而不是影响 <code>a[4]</code>，因为 <code>a[i]</code> 中的 <code>i</code> 在赋值为4之前已经确定（为3）。同样，这一行
-
+sets <code>a[3]</code> to 20, without affecting <code>a[4]</code>
+because the <code>i</code> in <code>a[i]</code> is evaluated (to 3)
+before it is assigned&nbsp;4.
+Similarly, the line
 
 <pre>
      x, y = y, x
 </pre><p>
-能用来交换 <code>x</code> 和 <code>y</code>的值，而且
+exchanges the values of <code>x</code> and <code>y</code>,
+and
 
 <pre>
      x, y, z = y, z, x
 </pre><p>
-能循环交换 <code>x</code>，<code>y</code>，<code>z</code> 的值。
+cyclically permutes the values of <code>x</code>, <code>y</code>, and <code>z</code>.
 
 
 <p>
-对全局变量和表的域赋值的含义能通过元表进行更改。对索引变量赋值，即 <code>t[i] = val</code> 等价于 <code>settable_event(t,i,val)</code>。（参见 <a href="#2.4">&sect;2.4</a> 获取 <code>settable_event</code> 函数的完整描述。Lua 中并没有定义该函数，也不能调用。这里仅用于阐述原理。）
+The meaning of assignments to global variables
+and table fields can be changed via metatables.
+An assignment to an indexed variable <code>t[i] = val</code> is equivalent to
+<code>settable_event(t,i,val)</code>.
+(See <a href="#2.4">&sect;2.4</a> for a complete description of the
+<code>settable_event</code> function.
+This function is not defined or callable in Lua.
+We use it here only for explanatory purposes.)
 
 
 <p>
-对全局变量赋值 <code>x = val</code> 等价于 <code>_ENV.x = val</code> （参见 <a href="#2.2">&sect;2.2</a>）。
+An assignment to a global variable <code>x = val</code>
+is equivalent to the assignment
+<code>_ENV.x = val</code> (see <a href="#2.2">&sect;2.2</a>).
 
 
 
-<h3>3.3.4 &ndash; <a name="3.3.4">控制结构</a></h3><p>
-<b>if</b>、<b>while</b> 和 <b>repeat</b> 等结构的意义和语法都很常见：
+
+
+<h3>3.3.4 &ndash; <a name="3.3.4">Control Structures</a></h3><p>
+The control structures
+<b>if</b>, <b>while</b>, and <b>repeat</b> have the usual meaning and
+familiar syntax:
+
+
 
 
 <pre>
@@ -1570,19 +2167,30 @@ Lua 允许多重赋值。因此，赋值的语法规定等号左边是一串变量，右边是一串表达式。串中
 	stat ::= <b>repeat</b> block <b>until</b> exp
 	stat ::= <b>if</b> exp <b>then</b> block {<b>elseif</b> exp <b>then</b> block} [<b>else</b> block] <b>end</b>
 </pre><p>
-Lua 也有 <b>for</b> 语句，并有两种形式（参见 <a href="#3.3.5">&sect;3.3.5</a>）。
+Lua also has a <b>for</b> statement, in two flavors (see <a href="#3.3.5">&sect;3.3.5</a>).
 
 
 <p>
-控制结构中的条件表达式可以返回任何值。只有 <b>false</b> 和 <b>nil</b> 才被当作条件假。其他任何值都被当作条件真（尤其注意数字 0 和空字符串也为真）。
+The condition expression of a
+control structure can return any value.
+Both <b>false</b> and <b>nil</b> are considered false.
+All values different from <b>nil</b> and <b>false</b> are considered true
+(in particular, the number 0 and the empty string are also true).
 
 
 <p>
-在 <b>repeat</b>&ndash;<b>until</b> 循环中，内部语句不在 <b>until</b> 关键字处结束，而是在条件后面结束。所以，条件中可以使用循环体内声明的局部变量。
+In the <b>repeat</b>&ndash;<b>until</b> loop,
+the inner block does not end at the <b>until</b> keyword,
+but only after the condition.
+So, the condition can refer to local variables
+declared inside the loop block.
 
 
 <p>
-<b>goto</b> 语句能将程序控制转移到一个标签处。从语法上讲，Lua 中的标签也被当作是语句：
+The <b>goto</b> statement transfers the program control to a label.
+For syntactical reasons,
+labels in Lua are considered statements too:
+
 
 
 <pre>
@@ -1592,60 +2200,79 @@ Lua 也有 <b>for</b> 语句，并有两种形式（参见 <a href="#3.3.5">&sect;3.3.5</a>）�
 </pre>
 
 <p>
-标签在被定义的语句块内全部可见，除非在某个嵌套语句块的嵌套函数内定义了一个同名的标签。一个 goto 只要不进入局部变量作用域，它能跳转到任意可见的标签上。
+A label is visible in the entire block where it is defined,
+except
+inside nested blocks where a label with the same name is defined and
+inside nested functions.
+A goto may jump to any visible label as long as it does not
+enter into the scope of a local variable.
 
 
 <p>
-标签可空语句叫作 <em>void statements</em>，表示它们本身没有任何行为。
+Labels and empty statements are called <em>void statements</em>,
+as they perform no actions.
 
 
 <p>
-<b>break</b> 语句用于终止
-<b>while</b>、<b>repeat</b> 或 <b>for</b> 循环，并忽略循环体中剩下的语句：
+The <b>break</b> statement terminates the execution of a
+<b>while</b>, <b>repeat</b>, or <b>for</b> loop,
+skipping to the next statement after the loop:
 
 
 <pre>
 	stat ::= <b>break</b>
 </pre><p>
-<b>break</b> 能结束内层循环。
+A <b>break</b> ends the innermost enclosing loop.
 
 
 <p>
-<b>return</b> 语句用于从函数或程序块（伪装成函数）中返回值。
+The <b>return</b> statement is used to return values
+from a function or a chunk (which is a function in disguise).
 
-函数可以返回多个值。所以 <b>return</b> 语句的语法是：
+Functions can return more than one value,
+so the syntax for the <b>return</b> statement is
 
 <pre>
 	stat ::= <b>return</b> [explist] [&lsquo;<b>;</b>&rsquo;]
 </pre>
 
 <p>
-<b>return</b> 语句只能写作语句块的最后一句。如果在语句块中间确实需要 <b>return</b>，得显示使用内部语句块。习惯写成 <code>do return end</code>，于是这个<b>return</b> 在内层语句块中成了最后一句（这完全符合前面的规定）。
+The <b>return</b> statement can only be written
+as the last statement of a block.
+If it is really necessary to <b>return</b> in the middle of a block,
+then an explicit inner block can be used,
+as in the idiom <code>do return end</code>,
+because now <b>return</b> is the last statement in its (inner) block.
 
 
 
 
 
-<h3>3.3.5 &ndash; <a name="3.3.5">For 语句</a></h3>
+<h3>3.3.5 &ndash; <a name="3.3.5">For Statement</a></h3>
 
 <p>
 
-<b>for</b> 语句有两种形式：数字形式和一般形式。
+The <b>for</b> statement has two forms:
+one numeric and one generic.
 
 
 <p>
-数字形式的 <b>for</b> 循环，控制量以等差数列变化来重复运行代码块。语法如下：
+The numeric <b>for</b> loop repeats a block of code while a
+control variable runs through an arithmetic progression.
+It has the following syntax:
 
 <pre>
 	stat ::= <b>for</b> Name &lsquo;<b>=</b>&rsquo; exp &lsquo;<b>,</b>&rsquo; exp [&lsquo;<b>,</b>&rsquo; exp] <b>do</b> block <b>end</b>
 </pre><p>
-
-<em>block</em> 从 <em>name</em> 等于第一个 <em>exp</em> 开始重复运行。不断以第三个 <em>exp</em> 作为步长直到等于第二个 <em>exp</em> 才停止循环。更准确的说，一条 <b>for</b> 语句类似于：
+The <em>block</em> is repeated for <em>name</em> starting at the value of
+the first <em>exp</em>, until it passes the second <em>exp</em> by steps of the
+third <em>exp</em>.
+More precisely, a <b>for</b> statement like
 
 <pre>
      for v = <em>e1</em>, <em>e2</em>, <em>e3</em> do <em>block</em> end
 </pre><p>
-等价于如下代码：
+is equivalent to the code:
 
 <pre>
      do
@@ -1658,45 +2285,56 @@ Lua 也有 <b>for</b> 语句，并有两种形式（参见 <a href="#3.3.5">&sect;3.3.5</a>）�
        end
      end
 </pre><p>
-注意事项：
+Note the following:
 
 <ul>
 
 <li>
-所有三个控制表达式在循环前仅被求值一次。它们的结果必须为数字。
+All three control expressions are evaluated only once,
+before the loop starts.
+They must all result in numbers.
 </li>
 
 <li>
-<code><em>var</em></code>、<code><em>limit</em></code> 和 <code><em>step</em></code> 都是不可见变量。这里的名字仅用作解释说明。
+<code><em>var</em></code>, <code><em>limit</em></code>, and <code><em>step</em></code> are invisible variables.
+The names shown here are for explanatory purposes only.
 </li>
 
 <li>
-如果省略第三个表达式（步长），则步长默认为 1.
+If the third expression (the step) is absent,
+then a step of&nbsp;1 is used.
 </li>
 
 <li>
-可以使用 <b>break</b> 来跳出 <b>for</b> 循环。
+You can use <b>break</b> to exit a <b>for</b> loop.
 </li>
 
 <li>
-循环量 <code>v</code> 是循环内部的局部变量：不能在 <b>for</b> 循环结束或跳出后继续使用它的值。如果确实需要该值，请在循环退出或跳出之前把值赋给另外的变量。
+The loop variable <code>v</code> is local to the loop;
+you cannot use its value after the <b>for</b> ends or is broken.
+If you need this value,
+assign it to another variable before breaking or exiting the loop.
 </li>
 
 </ul>
 
 <p>
-一般形式的 <b>for</b> 语句通过叫 <em>iterators（迭代器）</em> 的函数工作。每一次迭代，都会调用迭代器来产生一个新值。当新值为 <b>nil</b> 时，循环停止。一般形式的 <b>for</b> 循环语法如下：
+The generic <b>for</b> statement works over functions,
+called <em>iterators</em>.
+On each iteration, the iterator function is called to produce a new value,
+stopping when this new value is <b>nil</b>.
+The generic <b>for</b> loop has the following syntax:
 
 <pre>
 	stat ::= <b>for</b> namelist <b>in</b> explist <b>do</b> block <b>end</b>
 	namelist ::= Name {&lsquo;<b>,</b>&rsquo; Name}
 </pre><p>
-一条 <b>for</b> 语句类似于
+A <b>for</b> statement like
 
 <pre>
      for <em>var_1</em>, &middot;&middot;&middot;, <em>var_n</em> in <em>explist</em> do <em>block</em> end
 </pre><p>
-等价于如下代码：
+is equivalent to the code:
 
 <pre>
      do
@@ -1709,24 +2347,31 @@ Lua 也有 <b>for</b> 语句，并有两种形式（参见 <a href="#3.3.5">&sect;3.3.5</a>）�
        end
      end
 </pre><p>
-注意事项：
+Note the following:
 
 <ul>
 
 <li>
-<code><em>explist</em></code> 仅被求值一次。其结果有三：一个 <em>iterator（迭代器）</em> 函数，一个 <em>state（状态）</em>和首个 <em>iterator variable（迭代量）</em>的初始值。
+<code><em>explist</em></code> is evaluated only once.
+Its results are an <em>iterator</em> function,
+a <em>state</em>,
+and an initial value for the first <em>iterator variable</em>.
 </li>
 
 <li>
-<code><em>f</em></code>、<code><em>s</em></code> 和 <code><em>var</em></code> 都是不可见变量。这里的名字仅用作解释说明。
+<code><em>f</em></code>, <code><em>s</em></code>, and <code><em>var</em></code> are invisible variables.
+The names are here for explanatory purposes only.
 </li>
 
 <li>
-可以使用 <b>break</b> 来跳出 <b>for</b> 循环。
+You can use <b>break</b> to exit a <b>for</b> loop.
 </li>
 
 <li>
-循环量 <code><em>var_i</em></code> 是循环体内的局部变量：不能在 <b>for</b> 循环结束后继续使用它的值。如果确实需要该值，请在循环退出或跳出之前把值赋给另外的变量。
+The loop variables <code><em>var_i</em></code> are local to the loop;
+you cannot use their values after the <b>for</b> ends.
+If you need these values,
+then assign them to other variables before breaking or exiting the loop.
 </li>
 
 </ul>
@@ -1734,41 +2379,50 @@ Lua 也有 <b>for</b> 语句，并有两种形式（参见 <a href="#3.3.5">&sect;3.3.5</a>）�
 
 
 
-<h3>3.3.6 &ndash; <a name="3.3.6">函数调用作为语句</a></h3><p>
-为了允许使用可能的副作用，函数调用可当作语句执行：
+<h3>3.3.6 &ndash; <a name="3.3.6">Function Calls as Statements</a></h3><p>
+To allow possible side-effects,
+function calls can be executed as statements:
 
 <pre>
 	stat ::= functioncall
 </pre><p>
-这种情况下，所有的返回值均被丢弃。关于函数调用的说明在 <a href="#3.4.9">&sect;3.4.9</a>。
+In this case, all returned values are thrown away.
+Function calls are explained in <a href="#3.4.9">&sect;3.4.9</a>.
 
 
 
 
 
-<h3>3.3.7 &ndash; <a name="3.3.7">局部声明</a></h3><p>
-局部变量可在语句块内任何地方声明。声明的同时可以进行初始化赋值操作：
+<h3>3.3.7 &ndash; <a name="3.3.7">Local Declarations</a></h3><p>
+Local variables can be declared anywhere inside a block.
+The declaration can include an initial assignment:
 
 <pre>
 	stat ::= <b>local</b> namelist [&lsquo;<b>=</b>&rsquo; explist]
 </pre><p>
-如果做了，初始化赋值操作在语法上等同于多重赋值（see <a href="#3.3.3">&sect;3.3.3</a>）。否则，所有变量均被初始化为 <b>nil</b>。
+If present, an initial assignment has the same semantics
+of a multiple assignment (see <a href="#3.3.3">&sect;3.3.3</a>).
+Otherwise, all variables are initialized with <b>nil</b>.
 
 
 <p>
-程序块也是语句块（参见 <a href="#3.3.2">&sect;3.3.2</a>），因此局部变量可在任何显示语句块之外的程序块中声明。
+A chunk is also a block (see <a href="#3.3.2">&sect;3.3.2</a>),
+and so local variables can be declared in a chunk outside any explicit block.
 
 
 <p>
-局部变量的可见性规则在 <a href="#3.5">&sect;3.5</a> 说明。
+The visibility rules for local variables are explained in <a href="#3.5">&sect;3.5</a>.
 
 
 
 
-<h2>3.4 &ndash; <a name="3.4">表达式</a></h2>
+
+
+
+<h2>3.4 &ndash; <a name="3.4">Expressions</a></h2>
 
 <p>
-Lua 中的基本表达式如下：
+The basic expressions in Lua are the following:
 
 <pre>
 	exp ::= prefixexp
@@ -1784,50 +2438,85 @@ Lua 中的基本表达式如下：
 </pre>
 
 <p>
-数字和文字串的说明在 <a href="#3.1">&sect;3.1</a>；
-变量的说明在 <a href="#3.2">&sect;3.2</a>；
-函数定义的介绍在 <a href="#3.4.10">&sect;3.4.10</a>；
-函数调用的说明在 <a href="#3.4.9">&sect;3.4.9</a>；
-表的构造器在 <a href="#3.4.8">&sect;3.4.8</a>。
-由三点（'<code>...</code>'）表示的可变参数表达式只能用于有可变参数的函数中：详见 <a href="#3.4.10">&sect;3.4.10</a>。
+Numbers and literal strings are explained in <a href="#3.1">&sect;3.1</a>;
+variables are explained in <a href="#3.2">&sect;3.2</a>;
+function definitions are explained in <a href="#3.4.10">&sect;3.4.10</a>;
+function calls are explained in <a href="#3.4.9">&sect;3.4.9</a>;
+table constructors are explained in <a href="#3.4.8">&sect;3.4.8</a>.
+Vararg expressions,
+denoted by three dots ('<code>...</code>'), can only be used when
+directly inside a vararg function;
+they are explained in <a href="#3.4.10">&sect;3.4.10</a>.
 
 
 <p>
-二元运算包括算术运算（<a href="#3.4.1">&sect;3.4.1</a>）、关系运算（<a href="#3.4.3">&sect;3.4.3</a>）、逻辑运算（<a href="#3.4.4">&sect;3.4.4</a>）以及连接运算（<a href="#3.4.5">&sect;3.4.5</a>）。一元运算包括取负（<a href="#3.4.1">&sect;3.4.1</a>）、<b>not</b>（<a href="#3.4.4">&sect;3.4.4</a>）和 <em>取长度</em> （<a href="#3.4.6">&sect;3.4.6</a>）。
+Binary operators comprise arithmetic operators (see <a href="#3.4.1">&sect;3.4.1</a>),
+relational operators (see <a href="#3.4.3">&sect;3.4.3</a>), logical operators (see <a href="#3.4.4">&sect;3.4.4</a>),
+and the concatenation operator (see <a href="#3.4.5">&sect;3.4.5</a>).
+Unary operators comprise the unary minus (see <a href="#3.4.1">&sect;3.4.1</a>),
+the unary <b>not</b> (see <a href="#3.4.4">&sect;3.4.4</a>),
+and the unary <em>length operator</em> (see <a href="#3.4.6">&sect;3.4.6</a>).
 
 
 <p>
-函数调用和参数可变的表达式均可返回多个值。如果将函数调用作为一条语句使用（参见<a href="#3.3.6">&sect;3.3.6</a>），则其返回值列表与0对齐，即丢弃所有返回值。如果一个表达式是一串表达式中最后的/唯一的元素，则不会有对齐操作（除非该表达式位于括号内）。在其他情况，Lua 会将返回结果表与1对齐，即丢弃第一个返回值外的其他值；如果没有返回值，Lua 自动添加一个 <b>nil</b>。
+Both function calls and vararg expressions can result in multiple values.
+If a function call is used as a statement (see <a href="#3.3.6">&sect;3.3.6</a>),
+then its return list is adjusted to zero elements,
+thus discarding all returned values.
+If an expression is used as the last (or the only) element
+of a list of expressions,
+then no adjustment is made
+(unless the expression is enclosed in parentheses).
+In all other contexts,
+Lua adjusts the result list to one element,
+either discarding all values except the first one
+or adding a single <b>nil</b> if there are no values.
 
 
 <p>
-以下是一些示例：
+Here are some examples:
 
 <pre>
-     f()                -- 调整成 返回0 个结果
-     g(f(), x)          -- f() 被调整成返回 1 个结果
-     g(x, f())          -- g 被传入 x 和所有 f() 返回值
-     a,b,c = f(), x     -- f() 被调整成返回 1 个结果（c 就成了 nil）
-     a,b = ...          -- a 被赋值为可变参数中的第一个，
-                        -- b 为第二个（如果可变参数没有对应参数，a 和 b 都为 nil ）
+     f()                -- adjusted to 0 results
+     g(f(), x)          -- f() is adjusted to 1 result
+     g(x, f())          -- g gets x plus all results from f()
+     a,b,c = f(), x     -- f() is adjusted to 1 result (c gets nil)
+     a,b = ...          -- a gets the first vararg parameter, b gets
+                        -- the second (both a and b can get nil if there
+                        -- is no corresponding vararg parameter)
      
-     a,b,c = x, f()     -- f() 被调整成返回 2 个结果
-     a,b,c = f()        -- f() 被调整成返回 3 个结果
-     return f()         -- 返回 f() 所有结果
-     return ...         -- 返回可变参数接收到的所有参数
-     return x,y,f()     -- 返回 x、y、和所有 f() 返回值
-     {f()}              -- 为 f() 的所有返回值创建一个列表
-     {...}              -- 为可变参数接收到的所有参数创建一个列表
-     {f(), nil}         -- f() 被调整成返回 1 个结果
+     a,b,c = x, f()     -- f() is adjusted to 2 results
+     a,b,c = f()        -- f() is adjusted to 3 results
+     return f()         -- returns all results from f()
+     return ...         -- returns all received vararg parameters
+     return x,y,f()     -- returns x, y, and all results from f()
+     {f()}              -- creates a list with all results from f()
+     {...}              -- creates a list with all vararg parameters
+     {f(), nil}         -- f() is adjusted to 1 result
 </pre>
 
 <p>
-任何由括号括起来的表达式只被当成一个值。因此，<code>(f(x,y,z))</code> 永远都只能是个单值，即使 <code>f</code> 返回了多个值。（<code>(f(x,y,z))</code> 的值是 <code>f</code> 返回的第一个值；如果 <code>f</code> 没有返回值，则为 <b>nil</b>。）
+Any expression enclosed in parentheses always results in only one value.
+Thus,
+<code>(f(x,y,z))</code> is always a single value,
+even if <code>f</code> returns several values.
+(The value of <code>(f(x,y,z))</code> is the first value returned by <code>f</code>
+or <b>nil</b> if <code>f</code> does not return any values.)
 
 
 
-<h3>3.4.1 &ndash; <a name="3.4.1">算术运算符</a></h3><p>
-Lua 支持常用算术运算符： <code>+</code>（加）、<code>-</code>（减）、<code>*</code>（乘）、<code>/</code>（除）、<code>%</code>（取模）和  <code>^</code>（幂）；还有一元<code>-</code>（取负）操作。如果运算对象是数字，或是可转换为数字的字符串（参见 <a href="#3.4.2">&sect;3.4.2</a>），那就是单纯的数学运算。求幂操作可用于任何指数，比如 <code>x^(-0.5)</code> 计算出 <code>x</code> 平方根的倒数。取模操作的定义是
+<h3>3.4.1 &ndash; <a name="3.4.1">Arithmetic Operators</a></h3><p>
+Lua supports the usual arithmetic operators:
+the binary <code>+</code> (addition),
+<code>-</code> (subtraction), <code>*</code> (multiplication),
+<code>/</code> (division), <code>%</code> (modulo), and <code>^</code> (exponentiation);
+and unary <code>-</code> (mathematical negation).
+If the operands are numbers, or strings that can be converted to
+numbers (see <a href="#3.4.2">&sect;3.4.2</a>),
+then all operations have the usual meaning.
+Exponentiation works for any exponent.
+For instance, <code>x^(-0.5)</code> computes the inverse of the square root of <code>x</code>.
+Modulo is defined as
 
 <pre>
      a % b == a - math.floor(a/b)*b
@@ -1839,48 +2528,100 @@ the quotient towards minus infinity.
 
 
 
-<h3>3.4.2 &ndash; <a name="3.4.2">强制转换</a></h3>
+<h3>3.4.2 &ndash; <a name="3.4.2">Coercion</a></h3>
 
 <p>
-Lua 在运行时提供字符串与数字之见的自动转换。在 Lua 的词法分析下，任何适用字符串的算术运算都会尝试把字符串转化为数字。（字符串首尾可能有空白和标记。）反过来，任何需要字符串的时候，数字就会被转化成字符串。想要完全掌控数字转化字符串，可以使用 string 库中的 <code>format</code> 函数（参见 <a href="#pdf-string.format"><code>string.format</code></a>）。
+Lua provides automatic conversion between
+string and number values at run time.
+Any arithmetic operation applied to a string tries to convert
+this string to a number, following the rules of the Lua lexer.
+(The string may have leading and trailing spaces and a sign.)
+Conversely, whenever a number is used where a string is expected,
+the number is converted to a string, in a reasonable format.
+For complete control over how numbers are converted to strings,
+use the <code>format</code> function from the string library
+(see <a href="#pdf-string.format"><code>string.format</code></a>).
 
 
 
-<h3>3.4.3 &ndash; <a name="3.4.3">关系运算符</a></h3><p>
-Lua 中的关系运算符有
+
+
+<h3>3.4.3 &ndash; <a name="3.4.3">Relational Operators</a></h3><p>
+The relational operators in Lua are
+
 <pre>
      ==    ~=    &lt;     &gt;     &lt;=    &gt;=
 </pre><p>
-运算结果为 <b>false</b> 或者 <b>true</b>.
+These operators always result in <b>false</b> or <b>true</b>.
 
 
 <p>
-相等判断（<code>==</code>）首先比较运算对象的类型。如果类型不同，则结果为 <b>false</b>。否则才比较对象的值。数字、字符串用常规方式比较。而表、用户数据和线程得靠引用来比较：两个对象只在指向（引用）同一个对象才判为相等。每一次创建的新对象（表、用户数据或者线程）都与前面存在的对象不同。对相同引用的闭包互相相等。而任何可检测出不同（行为不同、定义不同）的闭包自然也不相等。
+Equality (<code>==</code>) first compares the type of its operands.
+If the types are different, then the result is <b>false</b>.
+Otherwise, the values of the operands are compared.
+Numbers and strings are compared in the usual way.
+Tables, userdata, and threads
+are compared by reference:
+two objects are considered equal only if they are the same object.
+Every time you create a new object
+(a table, userdata, or thread),
+this new object is different from any previously existing object.
+Closures with the same reference are always equal.
+Closures with any detectable difference
+(different behavior, different definition) are always different.
 
 
 <p>
-当然，你可以使用 "eq" 元方法（参见 <a href="#2.4">&sect;2.4</a>）来改变表与用户数据的比较操作。
+You can change the way that Lua compares tables and userdata
+by using the "eq" metamethod (see <a href="#2.4">&sect;2.4</a>).
 
 
 <p>
- <a href="#3.4.2">&sect;3.4.2</a> 的转换规则不适用于相等性判断操作。因此， <code>"0"==0</code> 值为 <b>false</b>。<code>t[0]</code> 和 <code>t["0"]</code> 代表的是表中不同的元素。
+The conversion rules of <a href="#3.4.2">&sect;3.4.2</a>
+do not apply to equality comparisons.
+Thus, <code>"0"==0</code> evaluates to <b>false</b>,
+and <code>t[0]</code> and <code>t["0"]</code> denote different
+entries in a table.
 
 
 <p>
-<code>~=</code> 操作符刚好与 <code>==</code> 意义相反。
+The operator <code>~=</code> is exactly the negation of equality (<code>==</code>).
 
 
 <p>
-大小比较的规则如下：如果比较参数都为数字，则做数字比较；如果都为字符串，则按字符串比较规则进行；否则，Lua 就尝试使用 "lt" 或 "le" 元方法（参见 <a href="#2.4">&sect;2.4</a>）。<code>a &gt; b</code> 被翻译成 <code>b &lt; a</code>，<code>a &gt;= b</code> 被翻译成 <code>b &lt;= a</code>。
+The order operators work as follows.
+If both arguments are numbers, then they are compared as such.
+Otherwise, if both arguments are strings,
+then their values are compared according to the current locale.
+Otherwise, Lua tries to call the "lt" or the "le"
+metamethod (see <a href="#2.4">&sect;2.4</a>).
+A comparison <code>a &gt; b</code> is translated to <code>b &lt; a</code>
+and <code>a &gt;= b</code> is translated to <code>b &lt;= a</code>.
 
 
 
-<h3>3.4.4 &ndash; <a name="3.4.4">逻辑运算符</a></h3><p>
-Lua 中的逻辑运算符有 <b>and</b>、<b>or</b>、和 <b>not</b>。类似控制结构（参见 <a href="#3.3.4">&sect;3.3.4</a>），所有的逻辑操作符只将 <b>false</b> 和 <b>nil</b> 当作假，其他所有情况都为真。
+
+
+<h3>3.4.4 &ndash; <a name="3.4.4">Logical Operators</a></h3><p>
+The logical operators in Lua are
+<b>and</b>, <b>or</b>, and <b>not</b>.
+Like the control structures (see <a href="#3.3.4">&sect;3.3.4</a>),
+all logical operators consider both <b>false</b> and <b>nil</b> as false
+and anything else as true.
 
 
 <p>
-取反操作 <b>not</b> 只返回 <b>false</b> 或者 <b>true</b>。与操作 <b>and</b> 在第一个参数为 <b>false</b> 或 <b>nil</b> 时返回第一个参数，否则返回第二个参数。或操作 <b>or</b> 在第一个参数不是 <b>nil</b> 和 <b>false</b> 时返回第一个参数。否则返回第二个参数。<b>and</b> 和 <b>or</b> 都使用短路求值法；意思是第二个参数只在必要时才求值。下面是些例子：
+The negation operator <b>not</b> always returns <b>false</b> or <b>true</b>.
+The conjunction operator <b>and</b> returns its first argument
+if this value is <b>false</b> or <b>nil</b>;
+otherwise, <b>and</b> returns its second argument.
+The disjunction operator <b>or</b> returns its first argument
+if this value is different from <b>nil</b> and <b>false</b>;
+otherwise, <b>or</b> returns its second argument.
+Both <b>and</b> and <b>or</b> use short-cut evaluation;
+that is,
+the second operand is evaluated only if necessary.
+Here are some examples:
 
 <pre>
      10 or 20            --&gt; 10
@@ -1892,42 +2633,65 @@ Lua 中的逻辑运算符有 <b>and</b>、<b>or</b>、和 <b>not</b>。类似控制结构（参见 <a
      false or nil        --&gt; nil
      10 and 20           --&gt; 20
 </pre><p>
-（本手册中的 <code>--&gt;</code> 符号指代前面表达式的结果。）
+(In this manual,
+<code>--&gt;</code> indicates the result of the preceding expression.)
 
 
 
 
 
-<h3>3.4.5 &ndash; <a name="3.4.5">连接操作</a></h3><p>
-Lua 使用两个点（'<code>..</code>'）表示字符串连接操作。如果操作对象是字符串和数字，则会按照 <a href="#3.4.2">&sect;3.4.2</a> 提到的规则将他们转化为字符串。不然就调用 <code>__concat</code> 元方法（参见 <a href="#2.4">&sect;2.4</a>）。
+<h3>3.4.5 &ndash; <a name="3.4.5">Concatenation</a></h3><p>
+The string concatenation operator in Lua is
+denoted by two dots ('<code>..</code>').
+If both operands are strings or numbers, then they are converted to
+strings according to the rules mentioned in <a href="#3.4.2">&sect;3.4.2</a>.
+Otherwise, the <code>__concat</code> metamethod is called (see <a href="#2.4">&sect;2.4</a>).
 
 
 
 
 
-<h3>3.4.6 &ndash; <a name="3.4.6">取长度操作符</a></h3>
-
-<p>
-取长度的操作符是一元运算符 <code>#</code>。字符串的长度是其字节数（就是一个字符表示一个字节算出的长度）。
-
-
-<p>
-程序里可通过 <code>__len</code> 元方法（参见 <a href="#2.4">&sect;2.4</a>）来修改除字符串外所有值的取长度操作行为。
-
+<h3>3.4.6 &ndash; <a name="3.4.6">The Length Operator</a></h3>
 
 <p>
-除了已知的 <code>__len</code> 元方法，表 <code>t</code> 的长度只在它是<em>顺序</em>表时有定义。而且其键值要按 <em>{1..n}</em> 递增，则整数 <em>n</em> 就是长度。注意像下面这样的表
+The length operator is denoted by the unary prefix operator <code>#</code>.
+The length of a string is its number of bytes
+(that is, the usual meaning of string length when each
+character is one byte).
+
+
+<p>
+A program can modify the behavior of the length operator for
+any value but strings through the <code>__len</code> metamethod (see <a href="#2.4">&sect;2.4</a>).
+
+
+<p>
+Unless a <code>__len</code> metamethod is given,
+the length of a table <code>t</code> is only defined if the
+table is a <em>sequence</em>,
+that is,
+the set of its positive numeric keys is equal to <em>{1..n}</em>
+for some integer <em>n</em>.
+In that case, <em>n</em> is its length.
+Note that a table like
 
 <pre>
      {10, 20, nil, 40}
 </pre><p>
-不是顺序表，因为它有第 <code>4</code> 个键，却没有第 <code>3</code> 个键。而非数字键则不影响判断表是否为顺序表。
+is not a sequence, because it has the key <code>4</code>
+but does not have the key <code>3</code>.
+(So, there is no <em>n</em> such that the set <em>{1..n}</em> is equal
+to the set of positive numeric keys of that table.)
+Note, however, that non-numeric keys do not interfere
+with whether a table is a sequence.
 
 
 
 
-<h3>3.4.7 &ndash; <a name="3.4.7">优先级</a></h3><p>
-Lua 中操作符优先级如下表所示，从低到高排列：
+
+<h3>3.4.7 &ndash; <a name="3.4.7">Precedence</a></h3><p>
+Operator precedence in Lua follows the table below,
+from lower to higher priority:
 
 <pre>
      or
@@ -1939,14 +2703,22 @@ Lua 中操作符优先级如下表所示，从低到高排列：
      not   #     - (unary)
      ^
 </pre><p>
-通常，可以在表达式中使用括号来改变优先级。连接符（'<code>..</code>'）和求幂（'<code>^</code>'）从右往左结合。其他二元运算符是从左往右的。
+As usual,
+you can use parentheses to change the precedences of an expression.
+The concatenation ('<code>..</code>') and exponentiation ('<code>^</code>')
+operators are right associative.
+All other binary operators are left associative.
 
 
 
 
 
-<h3>3.4.8 &ndash; <a name="3.4.8">表的构造器</a></h3><p>
-表的构造器是一对用于创建表的表达式。每执行一次构造器就创建一张新表。构造器可用于创建空表或者创建的同时初始化一些域。构造器的语法如下：
+<h3>3.4.8 &ndash; <a name="3.4.8">Table Constructors</a></h3><p>
+Table constructors are expressions that create tables.
+Every time a constructor is evaluated, a new table is created.
+A constructor can be used to create an empty table
+or to create a table and initialize some of its fields.
+The general syntax for constructors is
 
 <pre>
 	tableconstructor ::= &lsquo;<b>{</b>&rsquo; [fieldlist] &lsquo;<b>}</b>&rsquo;
@@ -1956,12 +2728,20 @@ Lua 中操作符优先级如下表所示，从低到高排列：
 </pre>
 
 <p>
- 每一个 <code>[exp1] = exp2</code> 形式的域都将为新表加入一个键为 <code>exp1</code> 值为 <code>exp2</code> 的元素。<code>name = exp</code> 形式的域等价于 <code>["name"] = exp</code>。而 <code>exp</code> 形式的域等价于 <code>[i] = exp</code>，其中的 <code>i</code> 为从 1 开始的连续整数。其他格式的域不影响计数。比如，
+Each field of the form <code>[exp1] = exp2</code> adds to the new table an entry
+with key <code>exp1</code> and value <code>exp2</code>.
+A field of the form <code>name = exp</code> is equivalent to
+<code>["name"] = exp</code>.
+Finally, fields of the form <code>exp</code> are equivalent to
+<code>[i] = exp</code>, where <code>i</code> are consecutive numerical integers,
+starting with 1.
+Fields in the other formats do not affect this counting.
+For example,
 
 <pre>
      a = { [f(1)] = g; "x", "y"; x = 1, f(x), [30] = 23; 45 }
 </pre><p>
-等价于
+is equivalent to
 
 <pre>
      do
@@ -1978,47 +2758,83 @@ Lua 中操作符优先级如下表所示，从低到高排列：
 </pre>
 
 <p>
-如果列表中最后一个域形式为 <code>exp</code>，而且这个表达式是个函数调用或者参数可变，那么表达式的所有返回值将按顺序插入列表（参见 <a href="#3.4.9">&sect;3.4.9</a>）。
+If the last field in the list has the form <code>exp</code>
+and the expression is a function call or a vararg expression,
+then all values returned by this expression enter the list consecutively
+(see <a href="#3.4.9">&sect;3.4.9</a>).
 
 
 <p>
-域的列表可以有一个可选的尾部分隔符，这样方便机器生成代码。
+The field list can have an optional trailing separator,
+as a convenience for machine-generated code.
 
 
 
 
-<h3>3.4.9 &ndash; <a name="3.4.9">函数调用</a></h3><p>
-Lua 中的函数调用语法如下：
+
+<h3>3.4.9 &ndash; <a name="3.4.9">Function Calls</a></h3><p>
+A function call in Lua has the following syntax:
 
 <pre>
 	functioncall ::= prefixexp args
 </pre><p>
-在函数调用中，首先对 prefixexp 和 args 求值。如果 prefixexp 的值的也是 <em>function（函数）</em>，则用相应参数调用该函数。否则，调用 prefixexp 的 "call" 元方法，并将 prefixexp 的值作第一个参数，再跟其他原始参数（参见 <a href="#2.4">&sect;2.4</a>）。
+In a function call,
+first prefixexp and args are evaluated.
+If the value of prefixexp has type <em>function</em>,
+then this function is called
+with the given arguments.
+Otherwise, the prefixexp "call" metamethod is called,
+having as first parameter the value of prefixexp,
+followed by the original call arguments
+(see <a href="#2.4">&sect;2.4</a>).
 
 
 <p>
-这种形式
+The form
 
 <pre>
 	functioncall ::= prefixexp &lsquo;<b>:</b>&rsquo; Name args
 </pre><p>
-可以用来调用“方法”。 <code>v.name(v,<em>args</em>)</code> 只在 <code>v</code> 仅被求值一次的时候可以写成 <code>v:name(<em>args</em>)</code>，这种写法只是语法糖便利。
+can be used to call "methods".
+A call <code>v:name(<em>args</em>)</code>
+is syntactic sugar for <code>v.name(v,<em>args</em>)</code>,
+except that <code>v</code> is evaluated only once.
 
 
 <p>
-参数的语法如下：
+Arguments have the following syntax:
 
 <pre>
 	args ::= &lsquo;<b>(</b>&rsquo; [explist] &lsquo;<b>)</b>&rsquo;
 	args ::= tableconstructor
 	args ::= String
 </pre><p>
-所有参数表达式都在函数调用之前被求值。<code>f{<em>fields</em>}</code> 形式的函数调用也只是 <code>f({<em>fields</em>})</code> 形式的语法糖写法；即参数列表是个新表。而 <code>f'<em>string</em>'</code>
-（或者 <code>f"<em>string</em>"</code> 或者 <code>f[[<em>string</em>]]</code>）一类的调用形式也只是 <code>f('<em>string</em>')</code> 的语法糖写法；即参数表是单一的文字串。
+All argument expressions are evaluated before the call.
+A call of the form <code>f{<em>fields</em>}</code> is
+syntactic sugar for <code>f({<em>fields</em>})</code>;
+that is, the argument list is a single new table.
+A call of the form <code>f'<em>string</em>'</code>
+(or <code>f"<em>string</em>"</code> or <code>f[[<em>string</em>]]</code>)
+is syntactic sugar for <code>f('<em>string</em>')</code>;
+that is, the argument list is a single literal string.
 
 
 <p>
-Lua 中将 <code>return <em>functioncall</em></code> 这种形式叫 <em>tail call（尾调用）</em>。Lua 实现的是<em>完全尾调用</em>（也叫完全尾递归）：在尾调用中，被调用的函数重用调用它的函数的堆栈。因此，程序可执行的嵌套尾调用没有层数限制（即无限尾调用）。而尾调用也会删除任何关于调用它的函数的调试信息。注意，尾调用只能出现在特殊的语法下：<b>return</b> 只有一个函数作为参数；这使得调用函数能明确返回被调函数的结果。所以，下面这些都不是尾调用：
+A call of the form <code>return <em>functioncall</em></code> is called
+a <em>tail call</em>.
+Lua implements <em>proper tail calls</em>
+(or <em>proper tail recursion</em>):
+in a tail call,
+the called function reuses the stack entry of the calling function.
+Therefore, there is no limit on the number of nested tail calls that
+a program can execute.
+However, a tail call erases any debug information about the
+calling function.
+Note that a tail call only happens with a particular syntax,
+where the <b>return</b> has one single function call as argument;
+this syntax makes the calling function return exactly
+the returns of the called function.
+So, none of the following examples are tail calls:
 
 <pre>
      return (f(x))        -- results adjusted to 1
@@ -2031,10 +2847,10 @@ Lua 中将 <code>return <em>functioncall</em></code> 这种形式叫 <em>tail call（尾�
 
 
 
-<h3>3.4.10 &ndash; <a name="3.4.10">函数定义</a></h3>
+<h3>3.4.10 &ndash; <a name="3.4.10">Function Definitions</a></h3>
 
 <p>
-函数定义的语法如下：
+The syntax for function definition is
 
 <pre>
 	functiondef ::= <b>function</b> funcbody
@@ -2042,72 +2858,100 @@ Lua 中将 <code>return <em>functioncall</em></code> 这种形式叫 <em>tail call（尾�
 </pre>
 
 <p>
-下面的语法糖写法可以简化函数的定义：
+The following syntactic sugar simplifies function definitions:
 
 <pre>
 	stat ::= <b>function</b> funcname funcbody
 	stat ::= <b>local</b> <b>function</b> Name funcbody
 	funcname ::= Name {&lsquo;<b>.</b>&rsquo; Name} [&lsquo;<b>:</b>&rsquo; Name]
 </pre><p>
-语句
+The statement
 
 <pre>
      function f () <em>body</em> end
 </pre><p>
-转化成
+translates to
 
 <pre>
      f = function () <em>body</em> end
 </pre><p>
-语句
+The statement
 
 <pre>
      function t.a.b.c.f () <em>body</em> end
 </pre><p>
-转化成
+translates to
 
 <pre>
      t.a.b.c.f = function () <em>body</em> end
 </pre><p>
-语句
+The statement
 
 <pre>
      local function f () <em>body</em> end
 </pre><p>
-转化成
+translates to
 
 <pre>
      local f; f = function () <em>body</em> end
 </pre><p>
-而不是转化成
+not to
 
 <pre>
      local f = function () <em>body</em> end
 </pre><p>
-（这只在函数体内需要引用 <code>f</code> 时才有点区别。）
+(This only makes a difference when the body of the function
+contains references to <code>f</code>.)
 
 
 <p>
-函数定义是一个可执行表达式，执行结果是个类型为 <em>function</em>的值。Lua 预编译 chunk（程序块）时，它的所有函数体也会被预编译。每当 Lua 执行函数定义，函数才被 <em>instantiated（实例化）</em> （也叫 <em>closed（闭合）</em>）。这个函数实例（也叫<em>closure（闭包）</em>）才是表达式最终的值。
+A function definition is an executable expression,
+whose value has type <em>function</em>.
+When Lua precompiles a chunk,
+all its function bodies are precompiled too.
+Then, whenever Lua executes the function definition,
+the function is <em>instantiated</em> (or <em>closed</em>).
+This function instance (or <em>closure</em>)
+is the final value of the expression.
 
 
 <p>
-形参（函数定义的参数）作为局部变量由实参（函数调用时传入的参数）的值初始化：
+Parameters act as local variables that are
+initialized with the argument values:
 
 <pre>
 	parlist ::= namelist [&lsquo;<b>,</b>&rsquo; &lsquo;<b>...</b>&rsquo;] | &lsquo;<b>...</b>&rsquo;
 </pre><p>
-调用函数时，实参列表会根据形参列表的长度做调整，除非遇上了形参列表以三点（'<code>...</code>'）结尾的 <em>vararg function（变参函数）</em>。变参函数不会调整实参列表，而是收集所有额外的实参然后通过 <em>vararg expression（变参表达式）</em>（也写成 '<code>...</code>'）传给函数。变参表达式的值就是包含全部额外实参的列表，这类似返回多值的函数。如果变参表达式在另一个表达式中使用，或者是位于一堆表达式的中间，那么它返回的值会被调整成单个元素。而若是该表达式是那堆表达式的最后一个，那就不用做调整了（除非最后的表达式位于括号之内）。
+When a function is called,
+the list of arguments is adjusted to
+the length of the list of parameters,
+unless the function is a <em>vararg function</em>,
+which is indicated by three dots ('<code>...</code>')
+at the end of its parameter list.
+A vararg function does not adjust its argument list;
+instead, it collects all extra arguments and supplies them
+to the function through a <em>vararg expression</em>,
+which is also written as three dots.
+The value of this expression is a list of all actual extra arguments,
+similar to a function with multiple results.
+If a vararg expression is used inside another expression
+or in the middle of a list of expressions,
+then its return list is adjusted to one element.
+If the expression is used as the last element of a list of expressions,
+then no adjustment is made
+(unless that last expression is enclosed in parentheses).
+
 
 <p>
-先看下面这个函数定义的例子：
+As an example, consider the following definitions:
 
 <pre>
      function f(a, b) end
      function g(a, b, ...) end
      function r() return 1,2,3 end
 </pre><p>
-然后有如下实参到形参和变参表达式的映射关系：
+Then, we have the following mapping from arguments to parameters and
+to the vararg expression:
 
 <pre>
      CALL            PARAMETERS
@@ -2125,21 +2969,29 @@ Lua 中将 <code>return <em>functioncall</em></code> 这种形式叫 <em>tail call（尾�
 </pre>
 
 <p>
-<b>return</b> 语句用于返回结果（参见 <a href="#3.3.4">&sect;3.3.4</a>）。如果执行到函数结尾没发现一个 <b>return</b> 语句，则函数没有结果返回。
+Results are returned using the <b>return</b> statement (see <a href="#3.3.4">&sect;3.3.4</a>).
+If control reaches the end of a function
+without encountering a <b>return</b> statement,
+then the function returns with no results.
 
 
 <p>
-一个函数能返回的结果数量因系统不同而限制不同，但肯定大于1000。
+
+There is a system-dependent limit on the number of values
+that a function may return.
+This limit is guaranteed to be larger than 1000.
 
 
 <p>
-
-<em>colon（冒号）</em> 语法用于定义 <em>methods（方法）</em>。意思是函数有一个额外的隐式参数 <code>self</code>。所以，如下语句
+The <em>colon</em> syntax
+is used for defining <em>methods</em>,
+that is, functions that have an implicit extra parameter <code>self</code>.
+Thus, the statement
 
 <pre>
      function t.a.b.c:f (<em>params</em>) <em>body</em> end
 </pre><p>
-是如下写法的语法糖（简写）形式
+is syntactic sugar for
 
 <pre>
      t.a.b.c.f = function (self, <em>params</em>) <em>body</em> end
@@ -2150,36 +3002,50 @@ Lua 中将 <code>return <em>functioncall</em></code> 这种形式叫 <em>tail call（尾�
 
 
 
-<h2>3.5 &ndash; <a name="3.5">可见性规则</a></h2>
+<h2>3.5 &ndash; <a name="3.5">Visibility Rules</a></h2>
 
 <p>
-Lua 是门有词法域的语言。一个局部变量的作用域开始于声明后的第一条语句，结束于包含该声明的最内层语句块中的最后一条非空语句。思考下面的例子：
+
+Lua is a lexically scoped language.
+The scope of a local variable begins at the first statement after
+its declaration and lasts until the last non-void statement
+of the innermost block that includes the declaration.
+Consider the following example:
 
 <pre>
-     x = 10                -- 全局变量
-     do                    -- 新语句块开始
-       local x = x         -- 新的 'x'，值为 10
+     x = 10                -- global variable
+     do                    -- new block
+       local x = x         -- new 'x', with value 10
        print(x)            --&gt; 10
        x = x+1
-       do                  -- 另一个语句块开始
-         local x = x+1     -- 另一个 'x'
+       do                  -- another block
+         local x = x+1     -- another 'x'
          print(x)          --&gt; 12
        end
        print(x)            --&gt; 11
      end
-     print(x)              --&gt; 10（此为全局的那一个）
+     print(x)              --&gt; 10  (the global one)
 </pre>
 
 <p>
-留心注意，类似 <code>local x = x</code> 的声明，新声明的 <code>x</code> 还不在作用域内（译者注：作用域开始于声明语句的下一句，不包括声明语句本身），所以后面的 <code>x</code> 还是指那个外层变量。
+Notice that, in a declaration like <code>local x = x</code>,
+the new <code>x</code> being declared is not in scope yet,
+and so the second <code>x</code> refers to the outside variable.
 
 
 <p>
-因为有词法域规则，所以函数可随意访问定义在其作用域内的局部变量。局部变量被更内层的函数使用，则称其为 <em>upvalue</em>，或者是 <em>external local variable（外层局部变量）</em>。
+Because of the lexical scoping rules,
+local variables can be freely accessed by functions
+defined inside their scope.
+A local variable used by an inner function is called
+an <em>upvalue</em>, or <em>external local variable</em>,
+inside the inner function.
 
 
 <p>
-要注意，每执行一次 <b>local</b> 语句都会定义新的局部变量。思考下面的例子：
+Notice that each execution of a <b>local</b> statement
+defines new local variables.
+Consider the following example:
 
 <pre>
      a = {}
@@ -2189,176 +3055,356 @@ Lua 是门有词法域的语言。一个局部变量的作用域开始于声明后的第一条语句，结束于包含
        a[i] = function () y=y+1; return x+y end
      end
 </pre><p>
-这个循环创建了十个 closures（闭包，这里指十个匿名函数实例）。每一个 closure 使用的都是不同的 <code>y</code> ，相同的 <code>x</code>。
+The loop creates ten closures
+(that is, ten instances of the anonymous function).
+Each of these closures uses a different <code>y</code> variable,
+while all of them share the same <code>x</code>.
 
 
 
 
 
-<h1>4 &ndash; <a name="4">应用程序接口（API）</a></h1>
-
-<p>
-本章描述 Lua 中的 C&nbsp;API，就是那些用于宿主程序和 Lua 通讯的 C 函数。所有 API 函数和相关的类型/常量定义都在 <a name="pdf-lua.h"><code>lua.h</code></a> 头文件中。
-
-
-<p>
-虽然我们说的是“函数”，但某些 API 其实是以宏的形式提供的。除非特别说明，所有这些宏对它们的参数都只使用一次（除了常为 Lua 状态机的第一个参数），所以不用担心这些宏的展开会隐藏一些副作用。
-
+<h1>4 &ndash; <a name="4">The Application Program Interface</a></h1>
 
 <p>
-在大部分 C 库中，Lua 的 API 函数都不会检查参数的有效性和一致性。但你可以在编译 Lua 时通过内置的宏 <a name="pdf-LUA_USE_APICHECK"><code>LUA_USE_APICHECK</code></a> 来改变这个设定。
 
-
-<h2>4.1 &ndash; <a name="4.1">栈</a></h2>
-
-<p>
-Lua 使用一个 <em>virtual stack（虚拟栈）</em> 来与 C 传递值。栈内每个元素都代表一个 Lua 值（<b>nil</b>、数字、字符串等等）。
+This section describes the C&nbsp;API for Lua, that is,
+the set of C&nbsp;functions available to the host program to communicate
+with Lua.
+All API functions and related types and constants
+are declared in the header file <a name="pdf-lua.h"><code>lua.h</code></a>.
 
 
 <p>
-任何时候 Lua 调用 C 函数，被调函数都会获得一个新栈。该栈独立于以前的栈，也独立于函数在 C 中的栈。这个栈初始时包含传递给 C 函数的所有参数，然后 C 函数把要返回给调用者的结果也压入其中（参见 <a href="#lua_CFunction"><code>lua_CFunction</code></a>）。
+Even when we use the term "function",
+any facility in the API may be provided as a macro instead.
+Except where stated otherwise,
+all such macros use each of their arguments exactly once
+(except for the first argument, which is always a Lua state),
+and so do not generate any hidden side-effects.
 
 
 <p>
-为方便起见，API 中大部分查询操作都不严格遵守常规栈的规则。而是可以通过一个 <em>index</em> 来索引栈中任意元素。一个正的索引值表示了栈中的绝对位置（从 1 开始）；负的索引值表示了相对栈顶的偏移量。具体来说，如果栈有 <em>n</em> 个元素，则索引 1 代表第一个元素（就是第一个压入栈的元素，在栈底），索引 <em>n</em> 代表最后一个元素；而索引 -1 也代表最后一个元素（就是栈顶元素），索引 <em>-n</em> 代表第一个元素。
+As in most C&nbsp;libraries,
+the Lua API functions do not check their arguments for validity or consistency.
+However, you can change this behavior by compiling Lua
+with the macro <a name="pdf-LUA_USE_APICHECK"><code>LUA_USE_APICHECK</code></a> defined.
 
 
 
-
-
-<h2>4.2 &ndash; <a name="4.2">栈大小</a></h2>
-
-<p>
-与 Lua 交互时，要负责确保一致性。尤其要 <em>负责控制栈的溢出情况</em>。在压栈前可以使用函数 <a href="#lua_checkstack"><code>lua_checkstack</code></a> 来检查栈中是否拥有足够的位置。
-
+<h2>4.1 &ndash; <a name="4.1">The Stack</a></h2>
 
 <p>
-Lua 无论何时调用 C，它都确保栈至少拥有 <a name="pdf-LUA_MINSTACK"><code>LUA_MINSTACK</code></a> 个位置。<code>LUA_MINSTACK</code> 被定义为 20。所以，只要不是循环压栈，通常无需担心栈空间。
-
-
-<p>
-调用一个返回结果数量不定的 Lua 函数（参见 <a href="#lua_call"><code>lua_call</code></a>）时，Lua 会确保栈空间足够容纳所有返回结果，但不确保还有更多额外空间。所以，在调用了这种函数后，继续压栈前最好使用 <a href="#lua_checkstack"><code>lua_checkstack</code></a> 检查一下栈空间。
-
-
-
-
-
-<h2>4.3 &ndash; <a name="4.3">有效索引与合格索引</a></h2>
-
-<p>
-API 中的任何能接受栈索引的函数只接受 <em>valid indices（有效索引）</em> 或 <em>acceptable indices（合格索引）</em>。
+Lua uses a <em>virtual stack</em> to pass values to and from C.
+Each element in this stack represents a Lua value
+(<b>nil</b>, number, string, etc.).
 
 
 <p>
-<em>有效索引</em> 指的是指向栈内真实位置的索引，意思是其值在 1 和栈顶之间（即<code>1 &le; abs(index) &le; top</code>）。通常，函数要修改某个索引项的值时就要求有效索引。
+Whenever Lua calls C, the called function gets a new stack,
+which is independent of previous stacks and of stacks of
+C&nbsp;functions that are still active.
+This stack initially contains any arguments to the C&nbsp;function
+and it is where the C&nbsp;function pushes its results
+to be returned to the caller (see <a href="#lua_CFunction"><code>lua_CFunction</code></a>).
 
 
 <p>
-除非另有提示，任何接受有效索引的函数同时也接受 <em>pseudo-indices（伪索引）</em>，帮助 C 代码访问一些不在栈内的 Lua 值。伪索引可用于访问注册表和 C 函数的 upvalues（参见 <a href="#4.4">&sect;4.4</a>）。
+For convenience,
+most query operations in the API do not follow a strict stack discipline.
+Instead, they can refer to any element in the stack
+by using an <em>index</em>:
+A positive index represents an absolute stack position
+(starting at&nbsp;1);
+a negative index represents an offset relative to the top of the stack.
+More specifically, if the stack has <em>n</em> elements,
+then index&nbsp;1 represents the first element
+(that is, the element that was pushed onto the stack first)
+and
+index&nbsp;<em>n</em> represents the last element;
+index&nbsp;-1 also represents the last element
+(that is, the element at the&nbsp;top)
+and index <em>-n</em> represents the first element.
+
+
+
+
+
+<h2>4.2 &ndash; <a name="4.2">Stack Size</a></h2>
+
+<p>
+When you interact with the Lua API,
+you are responsible for ensuring consistency.
+In particular,
+<em>you are responsible for controlling stack overflow</em>.
+You can use the function <a href="#lua_checkstack"><code>lua_checkstack</code></a>
+to ensure that the stack has extra slots when pushing new elements.
 
 
 <p>
-那种不需具体位置只要栈内一个值的函数（比如，查询函数）可以用合格索引进行调用。一个 <em>acceptable index（合格索引）</em> 可为任意有效索引，包括伪索引，也可为栈空间内栈顶之后的任和正索引，意味着索引值最大为栈的大小。（注意，0 从来都不是合格索引。）除非特殊说明，API 中的函数只在合格索引下有效工作。
+Whenever Lua calls C,
+it ensures that the stack has at least <a name="pdf-LUA_MINSTACK"><code>LUA_MINSTACK</code></a> extra slots.
+<code>LUA_MINSTACK</code> is defined as 20,
+so that usually you do not have to worry about stack space
+unless your code has loops pushing elements onto the stack.
 
 
 <p>
-合格索引在查询栈的时候避免了额外的栈顶判断。例如，一个 C 函数可以查询它的第三个参数而不必先检查是否存在第三个参数，意思是不必检查索引 3 是否有效。
+When you call a Lua function
+without a fixed number of results (see <a href="#lua_call"><code>lua_call</code></a>),
+Lua ensures that the stack has enough size for all results,
+but it does not ensure any extra space.
+So, before pushing anything in the stack after such a call
+you should use <a href="#lua_checkstack"><code>lua_checkstack</code></a>.
+
+
+
+
+
+<h2>4.3 &ndash; <a name="4.3">Valid and Acceptable Indices</a></h2>
+
+<p>
+Any function in the API that receives stack indices
+works only with <em>valid indices</em> or <em>acceptable indices</em>.
 
 
 <p>
-对于那些能用合格索引调用的函数，任何无效索引都被当作成包含一个虚拟类型为 <a name="pdf-LUA_TNONE"><code>LUA_TNONE</code></a> 的值，其行为类似一个 nil 值。
+A <em>valid index</em> is an index that refers to a
+real position within the stack, that is,
+its position lies between&nbsp;1 and the stack top
+(<code>1 &le; abs(index) &le; top</code>).
 
-
-
-
-
-<h2>4.4 &ndash; <a name="4.4">C Closures（闭包）</a></h2>
-
-<p>
-创建一个 C 函数时，可能会关联一些值，因此就创建了一个 <em>C&nbsp;closure</em>（参见 <a href="#lua_pushcclosure"><code>lua_pushcclosure</code></a>），那些值就叫 <em>upvalues</em>，并且可在函数被调用时访问到。
+Usually, functions that can modify the value at an index
+require valid indices.
 
 
 <p>
-每当调用 C 函数时，它的 upvalue 就被放在特定的伪索引处。这些伪索引由宏 <a href="#lua_upvalueindex"><code>lua_upvalueindex</code></a> 产生。与函数相关的第一个值在 <code>lua_upvalueindex(1)</code> 处，并依此类推。当 <em>n</em> 大于当前函数中 upvalue 的数量（小于 256）时， <code>lua_upvalueindex(<em>n</em>)</code> 将产生合格但无效的索引值。
-
-
-
-
-
-<h2>4.5 &ndash; <a name="4.5">注册表</a></h2>
-
-<p>
-Lua 提供一个 <em>registry（注册表）</em>，是一张用于 C 代码保存所需 Lua 值的预定义表。注册表位于伪索引 <a name="pdf-LUA_REGISTRYINDEX"><code>LUA_REGISTRYINDEX</code></a> 处，这是一个有效索引。任何 C 库都可以向表中保存数据，只是在选择键的时候要避免和其他库冲突。一般来说，可以用包含库名的字符串，或者用代码中一个 C 对象的地址做成的简易 userdata，或者用代码中创建的任意 Lua 对象。（译者注：键的形式很随意，不局限于字符串，可详细参考 table 类型。）与全局变量一样，以下划线开头跟大写字母的字符串键是为 Lua 保留的。
+Unless otherwise noted,
+any function that accepts valid indices also accepts <em>pseudo-indices</em>,
+which represent some Lua values that are accessible to C&nbsp;code
+but which are not in the stack.
+Pseudo-indices are used to access the registry
+and the upvalues of a C&nbsp;function (see <a href="#4.4">&sect;4.4</a>).
 
 
 <p>
-注册表内的整数键用作引用机制，在辅助库中实现时也使用一些预定义值。因此，整数键不能做他用。
+Functions that do not need a specific stack position,
+but only a value in the stack (e.g., query functions),
+can be called with acceptable indices.
+An <em>acceptable index</em> can be any valid index,
+including the pseudo-indices,
+but it also can be any positive index after the stack top
+within the space allocated for the stack,
+that is, indices up to the stack size.
+(Note that 0 is never an acceptable index.)
+Except when noted otherwise,
+functions in the API work with acceptable indices.
 
 
 <p>
-创建一个新的 Lua 状态机时，它的注册表来自于一些预定义的值。这些预定义值作为常量定义在 <code>lua.h</code>，由整数键进行索引。
-下面的常量定义：
+Acceptable indices serve to avoid extra tests
+against the stack top when querying the stack.
+For instance, a C&nbsp;function can query its third argument
+without the need to first check whether there is a third argument,
+that is, without the need to check whether 3 is a valid index.
+
+
+<p>
+For functions that can be called with acceptable indices,
+any non-valid index is treated as if it
+contains a value of a virtual type <a name="pdf-LUA_TNONE"><code>LUA_TNONE</code></a>,
+which behaves like a nil value.
+
+
+
+
+
+<h2>4.4 &ndash; <a name="4.4">C Closures</a></h2>
+
+<p>
+When a C&nbsp;function is created,
+it is possible to associate some values with it,
+thus creating a <em>C&nbsp;closure</em>
+(see <a href="#lua_pushcclosure"><code>lua_pushcclosure</code></a>);
+these values are called <em>upvalues</em> and are
+accessible to the function whenever it is called.
+
+
+<p>
+Whenever a C&nbsp;function is called,
+its upvalues are located at specific pseudo-indices.
+These pseudo-indices are produced by the macro
+<a href="#lua_upvalueindex"><code>lua_upvalueindex</code></a>.
+The first value associated with a function is at position
+<code>lua_upvalueindex(1)</code>, and so on.
+Any access to <code>lua_upvalueindex(<em>n</em>)</code>,
+where <em>n</em> is greater than the number of upvalues of the
+current function (but not greater than 256),
+produces an acceptable but invalid index.
+
+
+
+
+
+<h2>4.5 &ndash; <a name="4.5">Registry</a></h2>
+
+<p>
+Lua provides a <em>registry</em>,
+a predefined table that can be used by any C&nbsp;code to
+store whatever Lua values it needs to store.
+The registry table is always located at pseudo-index
+<a name="pdf-LUA_REGISTRYINDEX"><code>LUA_REGISTRYINDEX</code></a>,
+which is a valid index.
+Any C&nbsp;library can store data into this table,
+but it should take care to choose keys
+that are different from those used
+by other libraries, to avoid collisions.
+Typically, you should use as key a string containing your library name,
+or a light userdata with the address of a C&nbsp;object in your code,
+or any Lua object created by your code.
+As with global names,
+string keys starting with an underscore followed by
+uppercase letters are reserved for Lua.
+
+
+<p>
+The integer keys in the registry are used by the reference mechanism,
+implemented by the auxiliary library,
+and by some predefined values.
+Therefore, integer keys should not be used for other purposes.
+
+
+<p>
+When you create a new Lua state,
+its registry comes with some predefined values.
+These predefined values are indexed with integer keys
+defined as constants in <code>lua.h</code>.
+The following constants are defined:
 
 <ul>
-<li><b><a name="pdf-LUA_RIDX_MAINTHREAD"><code>LUA_RIDX_MAINTHREAD</code></a>：</b>该索引下，注册表拥有状态机的主线程（主线程与状态机同时被创建）。
+<li><b><a name="pdf-LUA_RIDX_MAINTHREAD"><code>LUA_RIDX_MAINTHREAD</code></a>: </b> At this index the registry has
+the main thread of the state.
+(The main thread is the one created together with the state.)
 </li>
 
-<li><b><a name="pdf-LUA_RIDX_GLOBALS"><code>LUA_RIDX_GLOBALS</code></a>：</b> 该索引下，注册表拥有全局环境。
+<li><b><a name="pdf-LUA_RIDX_GLOBALS"><code>LUA_RIDX_GLOBALS</code></a>: </b> At this index the registry has
+the global environment.
 </li>
 </ul>
 
 
 
 
-<h2>4.6 &ndash; <a name="4.6">C 中的错误处理</a></h2>
+<h2>4.6 &ndash; <a name="4.6">Error Handling in C</a></h2>
 
 <p>
-在内部实现中，Lua 使用 C 的 <code>longjmp</code> 机制来处理错误。（如果 Lua 和 C++ 编译，也可以选择使用异常；查阅源码内的 <code>LUAI_THROW</code>。）Lua 面对任何错误（比如内存分配错误、类型错误、语法错误和运行时错误）都会产生一个错误；就是做一个 long jump。在 <em>protected environment（保护环境）</em>下使用 <code>setjmp</code> 可以设置一个恢复点；任何错误都会跳转到最近活动的恢复点上。
-
-
-<p>
-如果错误发生在保护环境之外，Lua 会调用一个 <em>panic 函数</em>（参见 <a href="#lua_atpanic"><code>lua_atpanic</code></a>），然后调用 <code>abort</code>来退出宿主程序。panic 函数也可以不返回来避免这种退出（比如，做一个 long jump 跳转到 Lua 之外你自己的恢复点上）。
-
-
-<p>
-panic 函数运行起来就像一个消息处理器（参见 <a href="#2.3">&sect;2.3</a>）；尤其是错误消息位于栈顶时。问题在于没法保证栈的空间。向栈内压入任何东西，panic 函数都需要先检查可用空间（参见 <a href="#4.2">&sect;4.2</a>）。
-
-
-<p>
-API 中大部分函数都能抛出错误，比如内存分配错误。每个函数的文档内具体指示了它是否能抛出错误。
+Internally, Lua uses the C <code>longjmp</code> facility to handle errors.
+(You can also choose to use exceptions if you compile Lua as C++;
+search for <code>LUAI_THROW</code> in the source code.)
+When Lua faces any error
+(such as a memory allocation error, type errors, syntax errors,
+and runtime errors)
+it <em>raises</em> an error;
+that is, it does a long jump.
+A <em>protected environment</em> uses <code>setjmp</code>
+to set a recovery point;
+any error jumps to the most recent active recovery point.
 
 
 <p>
-在 C 函数内可以通过调用 <a href="#lua_error"><code>lua_error</code></a> 来抛出一个错误。
-
-
-
-
-
-<h2>4.7 &ndash; <a name="4.7">C 中的挂起处理</a></h2>
-
-<p>
-在内部实现中，Lua 使用 C的 <code>longjmp</code> 机制来挂起协程。因此，如果函数 <code>foo</code> 调用一个 API 函数，而该 API 函数挂起了（直接或间接挂起），Lua 没法给 <code>foo</code> 返回任何东西，因为 <code>longjmp</code> 已将它的 frame 从 C 栈中移除了。
+If an error happens outside any protected environment,
+Lua calls a <em>panic function</em> (see <a href="#lua_atpanic"><code>lua_atpanic</code></a>)
+and then calls <code>abort</code>,
+thus exiting the host application.
+Your panic function can avoid this exit by
+never returning
+(e.g., doing a long jump to your own recovery point outside Lua).
 
 
 <p>
-为避免这类问题，每当穿过 API 调用而挂起时 Lua 都会弹出错误，只除了这三个函数：<a href="#lua_yieldk"><code>lua_yieldk</code></a>、<a href="#lua_callk"><code>lua_callk</code></a> 和 <a href="#lua_pcallk"><code>lua_pcallk</code></a>。这三个函数接收一个 <em>continuation function（继续函数）</em>（有一个参数叫 <code>k</code>）用于挂起后继续执行。
+The panic function runs as if it were a message handler (see <a href="#2.3">&sect;2.3</a>);
+in particular, the error message is at the top of the stack.
+However, there is no guarantees about stack space.
+To push anything on the stack,
+the panic function should first check the available space (see <a href="#4.2">&sect;4.2</a>).
 
 
 <p>
-我们需要用一些术语来解释这个 continuation。首先，我们有一个由 Lua 调用的 C 函数，它叫 <em>original function（原始函数）</em>。这个原始函数随后在 C API 内调用了前面三个函数中的一个，叫 <em>callee function（被调函数）</em>，然后当前线程被挂起。（挂起可能发生在被调函数是 <a href="#lua_yieldk"><code>lua_yieldk</code></a>时，或者被调函数是 <a href="#lua_callk"><code>lua_callk</code></a> 或 <a href="#lua_pcallk"><code>lua_pcallk</code></a>二者其一而且被自己挂起。）
+Most functions in the API can throw an error,
+for instance due to a memory allocation error.
+The documentation for each function indicates whether
+it can throw errors.
 
 
 <p>
-假定是在执行被调函数时运行的线程被挂起。等线程恢复后，它最终会结束运行被调函数。然而，被调函数此时却没法返回给原始函数，因为它在 C 栈中的 frame 在挂起时给销毁了。于是，Lua 调用当作参数传递给被调函数的 <em>continuation function（继续函数）</em>。顾名思义，继续函数可以继续原始函数的工作。
+Inside a C&nbsp;function you can throw an error by calling <a href="#lua_error"><code>lua_error</code></a>.
+
+
+
+
+
+<h2>4.7 &ndash; <a name="4.7">Handling Yields in C</a></h2>
+
+<p>
+Internally, Lua uses the C <code>longjmp</code> facility to yield a coroutine.
+Therefore, if a function <code>foo</code> calls an API function
+and this API function yields
+(directly or indirectly by calling another function that yields),
+Lua cannot return to <code>foo</code> any more,
+because the <code>longjmp</code> removes its frame from the C stack.
 
 
 <p>
-Lua 将继续函数看作原始函数。继续函数接收来源于原始函数的相同 Lua 栈，在被调函数返回后也（与原始函数）处于一样的状态。（例如，<a href="#lua_callk"><code>lua_callk</code></a> 调用一个函数后，它的参数均从栈中移除并被替换成那个函数的返回结果。）继续函数也拥有相同的 upvalue。无论继续函数返回什么值，都会被 Lua 当作是由原始函数返回的一样进行处理。
+To avoid this kind of problem,
+Lua raises an error whenever it tries to yield across an API call,
+except for three functions:
+<a href="#lua_yieldk"><code>lua_yieldk</code></a>, <a href="#lua_callk"><code>lua_callk</code></a>, and <a href="#lua_pcallk"><code>lua_pcallk</code></a>.
+All those functions receive a <em>continuation function</em>
+(as a parameter called <code>k</code>) to continue execution after a yield.
 
 
 <p>
-在 Lua 状态机中，原始函数与它的继续函数唯一的不同就是 <a href="#lua_getctx"><code>lua_getctx</code></a> 返回结果的不同。
+We need to set some terminology to explain continuations.
+We have a C function called from Lua which we will call
+the <em>original function</em>.
+This original function then calls one of those three functions in the C API,
+which we will call the <em>callee function</em>,
+that then yields the current thread.
+(This can happen when the callee function is <a href="#lua_yieldk"><code>lua_yieldk</code></a>,
+or when the callee function is either <a href="#lua_callk"><code>lua_callk</code></a> or <a href="#lua_pcallk"><code>lua_pcallk</code></a>
+and the function called by them yields.)
+
+
+<p>
+Suppose the running thread yields while executing the callee function.
+After the thread resumes,
+it eventually will finish running the callee function.
+However,
+the callee function cannot return to the original function,
+because its frame in the C stack was destroyed by the yield.
+Instead, Lua calls a <em>continuation function</em>,
+which was given as an argument to the callee function.
+As the name implies,
+the continuation function should continue the task
+of the original function.
+
+
+<p>
+Lua treats the continuation function as if it were the original function.
+The continuation function receives the same Lua stack
+from the original function,
+in the same state it would be if the callee function had returned.
+(For instance,
+after a <a href="#lua_callk"><code>lua_callk</code></a> the function and its arguments are
+removed from the stack and replaced by the results from the call.)
+It also has the same upvalues.
+Whatever it returns is handled by Lua as if it were the return
+of the original function.
+
+
+<p>
+The only difference in the Lua state between the original function
+and its continuation is the result of a call to <a href="#lua_getctx"><code>lua_getctx</code></a>.
 
 
 
@@ -10024,16 +11070,17 @@ Here is the complete syntax of Lua in extended BNF.
 </pre>
 
 <p>
+
+
+
+
+
+
+
 <HR>
 <SMALL CLASS="footer">
 Last update:
 Thu Mar 21 13:01:53 BRT 2013
-</SMALL>
-<p>
-<HR>
-<SMALL CLASS="footer">
-中文版最近更新:
-2013-08-12 13:04
 </SMALL>
 <!--
 Last change: revised for Lua 5.2.2
