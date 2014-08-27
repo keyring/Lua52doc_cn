@@ -2368,7 +2368,7 @@ Lua 将继续函数看作原始函数。继续函数接收来源于原始函数�
 <pre>int lua_absindex (lua_State *L, int idx);</pre>
 
 <p>
-将合格索引 <code>idx</code> 转化为一个绝对索引（就是不依赖栈顶）。
+将可用的索引值 <code>idx</code> 转化为一个绝对索引值（不依赖栈顶）。
 
 
 
@@ -2382,57 +2382,32 @@ Lua 将继续函数看作原始函数。继续函数接收来源于原始函数�
                              size_t nsize);</pre>
 
 <p>
-The type of the memory-allocation function used by Lua states.
-The allocator function must provide a
-functionality similar to <code>realloc</code>,
-but not exactly the same.
-Its arguments are
-<code>ud</code>, an opaque pointer passed to <a href="#lua_newstate"><code>lua_newstate</code></a>;
-<code>ptr</code>, a pointer to the block being allocated/reallocated/freed;
-<code>osize</code>, the original size of the block or some code about what
-is being allocated;
-<code>nsize</code>, the new size of the block.
+Lua states 使用的内存分配函数的类型。该分配函数必须提供类似 <code>realloc</code> 的功能，但不必完全相同。其参数有 <code>ud</code>，传递给 <a href="#lua_newstate"><code>lua_newstate</code></a> 的不透明指针；<code>ptr</code>，指向一块分配/再分配/释放的内存的指针；<code>osize</code>，该内存块的原始大小或者是分配的内容；<code>nsize</code>，该内存块新的大小。
 
 
 <p>
-When <code>ptr</code> is not <code>NULL</code>,
-<code>osize</code> is the size of the block pointed by <code>ptr</code>,
-that is, the size given when it was allocated or reallocated.
+当 <code>ptr</code> 不为 <code>NULL</code> 时，<code>osize</code> 就是 <code>ptr</code> 所指内存块的大小，意味着，其大小在分配/再分配时就提供了。
 
 
 <p>
-When <code>ptr</code> is <code>NULL</code>,
-<code>osize</code> encodes the kind of object that Lua is allocating.
-<code>osize</code> is any of
-<a href="#pdf-LUA_TSTRING"><code>LUA_TSTRING</code></a>, <a href="#pdf-LUA_TTABLE"><code>LUA_TTABLE</code></a>, <a href="#pdf-LUA_TFUNCTION"><code>LUA_TFUNCTION</code></a>,
-<a href="#pdf-LUA_TUSERDATA"><code>LUA_TUSERDATA</code></a>, or <a href="#pdf-LUA_TTHREAD"><code>LUA_TTHREAD</code></a> when (and only when)
-Lua is creating a new object of that type.
-When <code>osize</code> is some other value,
-Lua is allocating memory for something else.
+当 <code>ptr</code> 为 <code>NULL</code> 时，<code>osize</code> 编码处理 Lua 分配的各类对象。<code>osize</code> 只在 Lua 创建某类新对象时，可以为 <a href="#pdf-LUA_TSTRING"><code>LUA_TSTRING</code></a>, <a href="#pdf-LUA_TTABLE"><code>LUA_TTABLE</code></a>, <a href="#pdf-LUA_TFUNCTION"><code>LUA_TFUNCTION</code></a>,
+<a href="#pdf-LUA_TUSERDATA"><code>LUA_TUSERDATA</code></a>, or <a href="#pdf-LUA_TTHREAD"><code>LUA_TTHREAD</code></a> 中的任意对象。当 <code>osize</code> 为其他值时，Lua 将为其分配内存。
 
 
 <p>
-Lua assumes the following behavior from the allocator function:
+Lua 假设下述行为由分配器的函数负责：
 
 
 <p>
-When <code>nsize</code> is zero,
-the allocator should behave like <code>free</code>
-and return <code>NULL</code>.
+当 <code>nsize</code> 为 0 时，分配器行为应该类似 <code>free</code>，且返回 <code>NULL</code>。
 
 
 <p>
-When <code>nsize</code> is not zero,
-the allocator should behave like <code>realloc</code>.
-The allocator returns <code>NULL</code>
-if and only if it cannot fulfill the request.
-Lua assumes that the allocator never fails when
-<code>osize &gt;= nsize</code>.
+当 <code>nsize</code> 不为 0 时，分配器行为应该类似 <code>realloc</code>。分配器只在无法满足请求时返回 <code>NULL</code>。Lua 假设分配器在 <code>osize &gt;= nsize</code> 时，永不失败。
 
 
 <p>
-Here is a simple implementation for the allocator function.
-It is used in the auxiliary library by <a href="#luaL_newstate"><code>luaL_newstate</code></a>.
+这有个简单的分配器函数实现。它被 <a href="#luaL_newstate"><code>luaL_newstate</code></a> 用于辅助库中。
 
 <pre>
      static void *l_alloc (void *ud, void *ptr, size_t osize,
@@ -2446,12 +2421,7 @@ It is used in the auxiliary library by <a href="#luaL_newstate"><code>luaL_newst
          return realloc(ptr, nsize);
      }
 </pre><p>
-Note that Standard&nbsp;C ensures
-that <code>free(NULL)</code> has no effect and that
-<code>realloc(NULL, size)</code> is equivalent to <code>malloc(size)</code>.
-This code assumes that <code>realloc</code> does not fail when shrinking a block.
-(Although Standard&nbsp;C does not ensure this behavior,
-it seems to be a safe assumption.)
+注意，标准&nbsp;C 保证 <code>free(NULL)</code> 无副作用而且 <code>realloc(NULL, size)</code> 等价 <code>malloc(size)</code>。该代码假设 <code>realloc</code> 缩小内存块时也不会失败。（虽然，标准&nbsp;C 并未明确此行为，但看起来是个安全的假定。）
 
 
 
