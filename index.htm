@@ -2327,7 +2327,7 @@ API 中大部分函数都能抛出错误，比如内存分配错误。每个函�
 
 
 <p>
-为避免这类问题，每当穿过 API 调用而挂起时 Lua 都会弹出错误，只除了这三个函数：<a href="#lua_yieldk"><code>lua_yieldk</code></a>、<a href="#lua_callk"><code>lua_callk</code></a> 和 <a href="#lua_pcallk"><code>lua_pcallk</code></a>。这三个函数接收一个 <em>continuation function（继续函数）</em>（有一个参数叫 <code>k</code>）用于挂起后继续执行。
+为避免这类问题，每当通过 API 调用而挂起时 Lua 都会弹出错误，只除了这三个函数：<a href="#lua_yieldk"><code>lua_yieldk</code></a>、<a href="#lua_callk"><code>lua_callk</code></a> 和 <a href="#lua_pcallk"><code>lua_pcallk</code></a>。这三个函数接收一个 <em>continuation function（继续函数）</em>（有一个参数叫 <code>k</code>）用于挂起后继续执行。
 
 
 <p>
@@ -2432,27 +2432,21 @@ Lua 假设下述行为由分配器的函数负责：
 <pre>void lua_arith (lua_State *L, int op);</pre>
 
 <p>
-Performs an arithmetic operation over the two values
-(or one, in the case of negation)
-at the top of the stack,
-with the value at the top being the second operand,
-pops these values, and pushes the result of the operation.
-The function follows the semantics of the corresponding Lua operator
-(that is, it may call metamethods).
+在栈顶执行两个值（负数的话可以是一个）的数学运算，弹出两个值然后将结果压栈。该函数遵循Lua操作符的语义一致性（就是可可以调用元方法）。
 
 
 <p>
-The value of <code>op</code> must be one of the following constants:
+<code>op</code> 只能是以下常量之一：
 
 <ul>
 
-<li><b><a name="pdf-LUA_OPADD"><code>LUA_OPADD</code></a>: </b> performs addition (<code>+</code>)</li>
-<li><b><a name="pdf-LUA_OPSUB"><code>LUA_OPSUB</code></a>: </b> performs subtraction (<code>-</code>)</li>
-<li><b><a name="pdf-LUA_OPMUL"><code>LUA_OPMUL</code></a>: </b> performs multiplication (<code>*</code>)</li>
-<li><b><a name="pdf-LUA_OPDIV"><code>LUA_OPDIV</code></a>: </b> performs division (<code>/</code>)</li>
-<li><b><a name="pdf-LUA_OPMOD"><code>LUA_OPMOD</code></a>: </b> performs modulo (<code>%</code>)</li>
-<li><b><a name="pdf-LUA_OPPOW"><code>LUA_OPPOW</code></a>: </b> performs exponentiation (<code>^</code>)</li>
-<li><b><a name="pdf-LUA_OPUNM"><code>LUA_OPUNM</code></a>: </b> performs mathematical negation (unary <code>-</code>)</li>
+<li><b><a name="pdf-LUA_OPADD"><code>LUA_OPADD</code></a>: </b> 加法 (<code>+</code>)</li>
+<li><b><a name="pdf-LUA_OPSUB"><code>LUA_OPSUB</code></a>: </b> 减法 (<code>-</code>)</li>
+<li><b><a name="pdf-LUA_OPMUL"><code>LUA_OPMUL</code></a>: </b> 乘法 (<code>*</code>)</li>
+<li><b><a name="pdf-LUA_OPDIV"><code>LUA_OPDIV</code></a>: </b> 除法 (<code>/</code>)</li>
+<li><b><a name="pdf-LUA_OPMOD"><code>LUA_OPMOD</code></a>: </b> 求模 (<code>%</code>)</li>
+<li><b><a name="pdf-LUA_OPPOW"><code>LUA_OPPOW</code></a>: </b> 乘方 (<code>^</code>)</li>
+<li><b><a name="pdf-LUA_OPUNM"><code>LUA_OPUNM</code></a>: </b> 取负 (unary <code>-</code>)</li>
 
 </ul>
 
@@ -2464,7 +2458,7 @@ The value of <code>op</code> must be one of the following constants:
 <pre>lua_CFunction lua_atpanic (lua_State *L, lua_CFunction panicf);</pre>
 
 <p>
-Sets a new panic function and returns the old one (see <a href="#4.6">&sect;4.6</a>).
+设置新的无理函数并返回旧的 (参阅 <a href="#4.6">&sect;4.6</a>).
 
 
 
@@ -2475,42 +2469,25 @@ Sets a new panic function and returns the old one (see <a href="#4.6">&sect;4.6<
 <pre>void lua_call (lua_State *L, int nargs, int nresults);</pre>
 
 <p>
-Calls a function.
+调用一个函数。
 
 
 <p>
-To call a function you must use the following protocol:
-first, the function to be called is pushed onto the stack;
-then, the arguments to the function are pushed
-in direct order;
-that is, the first argument is pushed first.
-Finally you call <a href="#lua_call"><code>lua_call</code></a>;
-<code>nargs</code> is the number of arguments that you pushed onto the stack.
-All arguments and the function value are popped from the stack
-when the function is called.
-The function results are pushed onto the stack when the function returns.
-The number of results is adjusted to <code>nresults</code>,
-unless <code>nresults</code> is <a name="pdf-LUA_MULTRET"><code>LUA_MULTRET</code></a>.
-In this case, all results from the function are pushed.
-Lua takes care that the returned values fit into the stack space.
-The function results are pushed onto the stack in direct order
-(the first result is pushed first),
-so that after the call the last result is on the top of the stack.
+调用函数必须遵循下列协议：
+首先，被调函数需已在栈中；然后，函数参数需按顺序压栈，即第一个参数最先压栈；最后，调用 <a href="#lua_call"><code>lua_call</code></a>，<code>nargs</code> 为压入栈中的参数个数。该函数被调用时，所有压栈的参数和函数本身均被弹出。而在函数返回时，其结果又被压入栈中。结果的数量自适应 <code>nresults</code>，除非 <code>nresults</code> 是 <a name="pdf-LUA_MULTRET"><code>LUA_MULTRET</code></a>，这样所有的结果均会压栈。Lua 很注意压栈的结果适应栈的大小。函数结果也是按顺序压栈的（第一个结果最先压栈），所以调用结束后，最后的结果位于栈顶。
 
 
 <p>
-Any error inside the called function is propagated upwards
-(with a <code>longjmp</code>).
+函数调用过程中，发生的任何错误均会向上传递（触发一个 <code>longjmp</code>）。
 
 
 <p>
-The following example shows how the host program can do the
-equivalent to this Lua code:
+下述示例展示了主机程序如何做到这行Lua代码等价的事情：
 
 <pre>
      a = f("how", t.x, 14)
 </pre><p>
-Here it is in&nbsp;C:
+这是主机&nbsp;C 代码：
 
 <pre>
      lua_getglobal(L, "f");                  /* function to be called */
@@ -2522,10 +2499,7 @@ Here it is in&nbsp;C:
      lua_call(L, 3, 1);     /* call 'f' with 3 arguments and 1 result */
      lua_setglobal(L, "a");                         /* set global 'a' */
 </pre><p>
-Note that the code above is "balanced":
-at its end, the stack is back to its original configuration.
-This is considered good programming practice.
-
+注意，上述代码是"平衡"的：其结尾处，栈回归原始配置。这是良好的编程实践。
 
 
 
@@ -2536,8 +2510,7 @@ This is considered good programming practice.
                 lua_CFunction k);</pre>
 
 <p>
-This function behaves exactly like <a href="#lua_call"><code>lua_call</code></a>,
-but allows the called function to yield (see <a href="#4.7">&sect;4.7</a>).
+该函数行为类似 <a href="#lua_call"><code>lua_call</code></a>，但允许被调函数挂起 (参阅 <a href="#4.7">&sect;4.7</a>)。
 
 
 
@@ -2547,32 +2520,15 @@ but allows the called function to yield (see <a href="#4.7">&sect;4.7</a>).
 <pre>typedef int (*lua_CFunction) (lua_State *L);</pre>
 
 <p>
-Type for C&nbsp;functions.
+ C&nbsp;函数类型。
 
 
 <p>
-In order to communicate properly with Lua,
-a C&nbsp;function must use the following protocol,
-which defines the way parameters and results are passed:
-a C&nbsp;function receives its arguments from Lua in its stack
-in direct order (the first argument is pushed first).
-So, when the function starts,
-<code>lua_gettop(L)</code> returns the number of arguments received by the function.
-The first argument (if any) is at index 1
-and its last argument is at index <code>lua_gettop(L)</code>.
-To return values to Lua, a C&nbsp;function just pushes them onto the stack,
-in direct order (the first result is pushed first),
-and returns the number of results.
-Any other value in the stack below the results will be properly
-discarded by Lua.
-Like a Lua function, a C&nbsp;function called by Lua can also return
-many results.
+为了和Lua妥善的交流，C 函数必须采用如下规范，其定义了参数与结果的传递方式：C函数从栈中按顺序（第一个参数最先压栈）接收参数。所以，函数开始执行时，<code>lua_gettop(L)</code> 返回的数函数接收的参数个数。第一个参数（有的话）索引为 1 ，最后一个参数索引为 <code>lua_gettop(L)</code>。向Lua返回值时，C 函数只需将其按顺序压栈，然后返回结果的数量。栈中位于结果之下的其他值将被Lua妥善丢弃。与Lua函数一样，C 函数也可以返回多个结果。
 
 
 <p>
-As an example, the following function receives a variable number
-of numerical arguments and returns their average and sum:
-
+举个例子，下述函数接收一串数值参数并返回他们的平均值与和：
 <pre>
      static int foo (lua_State *L) {
        int n = lua_gettop(L);    /* number of arguments */
@@ -2599,15 +2555,7 @@ of numerical arguments and returns their average and sum:
 <pre>int lua_checkstack (lua_State *L, int extra);</pre>
 
 <p>
-Ensures that there are at least <code>extra</code> free stack slots in the stack.
-It returns false if it cannot fulfill the request,
-because it would cause the stack to be larger than a fixed maximum size
-(typically at least a few thousand elements) or
-because it cannot allocate memory for the new stack size.
-This function never shrinks the stack;
-if the stack is already larger than the new size,
-it is left unchanged.
-
+确保栈中至少有 <code>extra</code> 大小的空间。请求失败会返回错误，原因可能是栈空间已超出固定的最大尺寸（至少几千元素），或者是无法申请新的栈空间。该函数永远不会缩小栈，如果栈比新尺寸大，它也不会变。
 
 
 
@@ -2617,16 +2565,7 @@ it is left unchanged.
 <pre>void lua_close (lua_State *L);</pre>
 
 <p>
-Destroys all objects in the given Lua state
-(calling the corresponding garbage-collection metamethods, if any)
-and frees all dynamic memory used by this state.
-On several platforms, you may not need to call this function,
-because all resources are naturally released when the host program ends.
-On the other hand, long-running programs that create multiple states,
-such as daemons or web servers,
-might need to close states as soon as they are not needed.
-
-
+销毁所给Lua state中的所有对象（如果可能，还会调用相应的垃圾收集元方法）并释放所有该state使用的动态内存。在大部分平台，你不需要调用该函数，因为所有的资源会在主机程序结束时自动释放。换句话说，在那些长时间运行并创建了多个state的程序中，比如后台程序或者网络服务器，可能需要在不需要的时候来手动关闭state。
 
 
 
@@ -2635,17 +2574,10 @@ might need to close states as soon as they are not needed.
 <pre>int lua_compare (lua_State *L, int index1, int index2, int op);</pre>
 
 <p>
-Compares two Lua values.
-Returns 1 if the value at index <code>index1</code> satisfies <code>op</code>
-when compared with the value at index <code>index2</code>,
-following the semantics of the corresponding Lua operator
-(that is, it may call metamethods).
-Otherwise returns&nbsp;0.
-Also returns&nbsp;0 if any of the indices is non valid.
-
+比较两个Lua值。如果 <code>index1</code> 的值与 <code>index2</code> 相比较满足 <code>op</code> 的条件时，返回 1。否则返回 0。如果任意索引非法也返回 0。
 
 <p>
-The value of <code>op</code> must be one of the following constants:
+<code>op</code> 的值必须是下述常量之一：
 
 <ul>
 
@@ -2663,13 +2595,7 @@ The value of <code>op</code> must be one of the following constants:
 <pre>void lua_concat (lua_State *L, int n);</pre>
 
 <p>
-Concatenates the <code>n</code> values at the top of the stack,
-pops them, and leaves the result at the top.
-If <code>n</code>&nbsp;is&nbsp;1, the result is the single value on the stack
-(that is, the function does nothing);
-if <code>n</code> is 0, the result is the empty string.
-Concatenation is performed following the usual semantics of Lua
-(see <a href="#3.4.5">&sect;3.4.5</a>).
+连接栈顶 n 个值，弹出它们并将结果压入栈顶。如果 n 为 1，结果即为栈中的单值（即该函数不做任何事）；如果 n 为 0，结果为空字符串。连接操作遵循Lua的通用语义(参阅 <a href="#3.4.5">&sect;3.4.5</a>).
 
 
 
@@ -2680,8 +2606,7 @@ Concatenation is performed following the usual semantics of Lua
 <pre>void lua_copy (lua_State *L, int fromidx, int toidx);</pre>
 
 <p>
-Moves the element at index <code>fromidx</code>
-into the valid index <code>toidx</code>
+将 <code>fromidx</code> 的元素移至 <code>toidx</code>
 without shifting any element
 (therefore replacing the value at that position).
 
